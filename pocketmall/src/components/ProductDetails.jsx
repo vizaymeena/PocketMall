@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { ShoppingCart } from "lucide-react";
 
 import product_1 from "../assets/images/unsplash.avif";
-import product_2 from "../assets/images/milada-vigerova-p8Drpg_duLw-unsplash.jpg";
-import product_3 from "../assets/images/felipe-galvan-AhfrA5VQNpM-unsplash.jpg";
+import product_2 from "../assets/images/bluedenimjacket.jpg";
+import product_3 from "../assets/images/bluetshirt.jpg";
 
 import "../assets/style/productDetails.css";
+
+import { useLocation } from "react-router-dom"
 
 export default function ProductDetails() {
   const products = [
@@ -14,17 +16,29 @@ export default function ProductDetails() {
     { id: 3, img: product_3, title: "Azure Grace Blouse", price: 1200 },
   ];
 
-  const [selectedProduct, setSelectedProduct] = useState(products[0]);
+  let [selectedProduct, setSelectedProduct] = useState(products[0]);
+  let location = useLocation()
 
-  const handleSelection = (product) => {
+  let pathParts = location.pathname.split("/").filter(Boolean)
+  let breadcrumb = pathParts.map((part)=>part.charAt(0).toUpperCase() + part.slice(1))
+
+  let handleSelection = (product) => {
     setSelectedProduct(product);
   };
 
   return (
     <div className="documentationMain">
-      {/* Top section: product images + details */}
+
+      <div className="routes">
+        <span>Home </span>
+        {breadcrumb.map((item,key)=>(
+          
+          <span key={key}> {"/"} {item}</span>
+        ))}
+
+      </div>
+     
       <div className="productKeyInsights">
-        {/* Left: product image gallery */}
         <div className="productImages">
           <div className="mainImage">
             <img src={selectedProduct.img} alt={selectedProduct.title} />

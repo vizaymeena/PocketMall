@@ -1,0 +1,92 @@
+.documentationMain {
+  width: 90%;
+  margin: auto;
+  font-family: Arial, sans-serif;
+}
+
+.productKeyInsights {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.productImages {
+  flex: 1;
+}
+
+.productImages .mainImage img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.imageThumbnails {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.imageThumbnails img {
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 4px;
+}
+
+.imageThumbnails img.active {
+  border-color: #333;
+}
+
+.productbriefing {
+  flex: 1;
+}
+
+.productbriefing h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.price {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.options label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.buyNow {
+  background-color: black;
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.addToCart {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.reviewsFeedbacks {
+  margin-top: 3rem;
+}
+
+.review {
+  border-top: 1px solid #ccc;
+  padding: 1rem 0;
+}
