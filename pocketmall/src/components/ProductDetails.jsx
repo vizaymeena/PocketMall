@@ -9,11 +9,15 @@ import "../assets/style/productDetails.css";
 
 import { useLocation } from "react-router-dom"
 
+// Comoponents
+import SimilarProducts from "../components/SimilarProduct"
+
+
 export default function ProductDetails() {
   const products = [
-    { id: 1, img: product_1, title: "Scarlet Prestige Overcoat", price: 1200 },
-    { id: 2, img: product_2, title: "Ivory Opulence Coat", price: 1200 },
-    { id: 3, img: product_3, title: "Azure Grace Blouse", price: 1200 },
+    { id: 1, img: product_1, title: "Scarlet Prestige Overcoat", price: 1200,description:"Whether you're a corporate professional, an entrepreneur, a traveler, or someone who simply appreciates premium fashion—the Scarlet Prestige Overcoat is crafted to complement your lifestyle with elegance and warmth. Own the winter season with a coat that doesn’t just keep you warm, but makes you unforgettable." },
+    { id: 2, img: product_2, title: "Ivory Opulence Coat", price: 1200,description:"" },
+    { id: 3, img: product_3, title: "Azure Grace Blouse", price: 1200,description:"" },
   ];
 
   let [selectedProduct, setSelectedProduct] = useState(products[0]);
@@ -59,27 +63,31 @@ export default function ProductDetails() {
         {/* Right: product brief / checkout */}
         <div className="productbriefing">
           <h2>{selectedProduct.title}</h2>
-          <p className="price">₹{selectedProduct.price}</p>
+           <p className="description">
+           {selectedProduct.description}
+          </p>
+          <p className="price">₹ : {selectedProduct.price}</p>
 
           <div className="options">
-            <label>
-              Size:
-              <select>
-                <option>S</option>
-                <option>M</option>
-                <option>L</option>
-                <option>XL</option>
-              </select>
-            </label>
+            <div className="optSize">
+              <label>Size:</label>
+              <div className="sizeChoice">
+                <span>S</span>
+                <span>L</span>
+                <span>M</span>
+                <span>XL</span>
+                <span>XXL</span>
+              </div>
+            </div>
 
-            <label>
-              Color:
-              <select>
-                <option>Red</option>
-                <option>Blue</option>
-                <option>Yellow</option>
-              </select>
-            </label>
+           <div className="optColors"> 
+            <label >Color:</label>
+            <div className="colorChoice">
+              <span>Blue</span>
+              <span>Red</span>
+              <span>White</span>
+            </div>
+           </div>
           </div>
 
           <div className="buttons">
@@ -88,13 +96,13 @@ export default function ProductDetails() {
               Add to Cart <ShoppingCart />
             </button>
           </div>
-
-          <p className="description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-            commodo euismod urna, sed dapibus justo.
-          </p>
         </div>
       </div>
+
+
+      {/* Similar Product */}
+      <SimilarProducts products={products}/>
+
 
       {/* Bottom section: reviews / feedback */}
       <div className="reviewsFeedbacks">
