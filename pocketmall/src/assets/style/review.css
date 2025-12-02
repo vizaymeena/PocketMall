@@ -1,0 +1,68 @@
+.reviewsSection {
+  width: fit-content;
+  padding: 2rem 0;
+  font-family: "Poppins", sans-serif;
+}
+
+.reviewsSection h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #6f2dbd;
+}
+
+/* Horizontal auto-scroll container */
+.reviewsSlider {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+  scrollbar-width: none;  /* Firefox */
+}
+
+.reviewsSlider::-webkit-scrollbar {
+  display: none;          /* Chrome/Safari */
+}
+
+/* Review Card / Ticket */
+.reviewTicket {
+  min-width: 260px;
+  max-width: 260px;
+  background: white;
+  padding: 16px;
+  border-radius: 14px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+  border-left: 4px solid #dc5397;
+  user-select: none;
+}
+
+.stars {
+  color: #ffb700;
+  font-size: 18px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.feedback {
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* gsap */
+.reviewsSlider {
+  overflow: hidden;
+}
+
+.reviewsTrack {
+  display: flex;
+  gap: 20px;
+}

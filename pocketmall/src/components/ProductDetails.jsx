@@ -4,21 +4,40 @@ import { ShoppingCart } from "lucide-react";
 import product_1 from "../assets/images/unsplash.avif";
 import product_2 from "../assets/images/bluedenimjacket.jpg";
 import product_3 from "../assets/images/bluetshirt.jpg";
+import simi_1 from "../assets/images/simi_1 (1).jpg"
+import simi_2 from "../assets/images/simi_1 (2).jpg"
+import simi_3 from "../assets/images/simi_1 (3).jpg"
 
+
+// Style
 import "../assets/style/productDetails.css";
+import { useLocation } from "react-router-dom";
 
-import { useLocation } from "react-router-dom"
+// Components
+import SimilarProducts from "./SimilarProduct";
+import CustomerReview from "./Reviews";
 
-// Comoponents
-import SimilarProducts from "../components/SimilarProduct"
-
-
-export default function ProductDetails() {
-  const products = [
-    { id: 1, img: product_1, title: "Scarlet Prestige Overcoat", price: 1200,description:"Whether you're a corporate professional, an entrepreneur, a traveler, or someone who simply appreciates premium fashion—the Scarlet Prestige Overcoat is crafted to complement your lifestyle with elegance and warmth. Own the winter season with a coat that doesn’t just keep you warm, but makes you unforgettable." },
+// Products
+const products = [
+    { id: 1, img: product_1, title: "Scarlet Prestige Overcoat", price: 1200,description:"Whether you're a corporate professional, an entrepreneur, a traveler, or someone who simply appreciates premium fashion—the Scarlet Prestige Overcoat is crafted to complement your lifestyle with elegance and warmth. Own the winter season with a coat that doesn't just keep you warm, but makes you unforgettable." },
     { id: 2, img: product_2, title: "Ivory Opulence Coat", price: 1200,description:"" },
     { id: 3, img: product_3, title: "Azure Grace Blouse", price: 1200,description:"" },
+    { id: 4, img: simi_1, title: "Scarlet Prestige Overcoat", price: 1200,description:"Whether you're a corporate professional, an entrepreneur, a traveler, or someone who simply appreciates premium fashion—the Scarlet Prestige Overcoat is crafted to complement your lifestyle with elegance and warmth. Own the winter season with a coat that doesn't just keep you warm, but makes you unforgettable." },
+    { id: 5, img: simi_2, title: "Ivory Opulence Coat", price: 1200,description: "" },
+    { id: 6, img: simi_3, title: "Azure Grace Blouse", price: 1200,description: "" },
   ];
+
+ const feedbacks = [
+    { name: "Aarav", feedback: "Amazing quality! Feels premium and worth every rupee." },
+    { name: "Riya", feedback: "Loved the fabric and fit. Fast delivery too!" },
+    { name: "Karan", feedback: "Great winter wear, very comfortable and stylish." },
+    { name: "Meera", feedback: "Perfect for gifting! My sister loved it." },
+    { name: "Aditya", feedback: "Material is excellent and truly elegant." }
+  ];
+
+export default function ProductDetails() {
+
+ 
 
   let [selectedProduct, setSelectedProduct] = useState(products[0]);
   let location = useLocation()
@@ -105,17 +124,9 @@ export default function ProductDetails() {
 
 
       {/* Bottom section: reviews / feedback */}
-      <div className="reviewsFeedbacks">
-        <h3>Customer Reviews</h3>
-        <div className="review">
-          <strong>Jane D.</strong>
-          <p>Love the fit and color! Will buy again.</p>
+       <div className="reviewsSection">
+          <CustomerReview feedbacks={feedbacks}/>
         </div>
-        <div className="review">
-          <strong>Maria S.</strong>
-          <p>Fabric quality is great and very comfortable.</p>
-        </div>
-      </div>
     </div>
   );
 }

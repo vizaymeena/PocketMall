@@ -1,0 +1,98 @@
+# ==================================================
+# PYTHON
+# ==================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# ==================================================
+# DJANGO
+# ==================================================
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Django cache
+*.pot
+*.py,cover
+*.mo
+
+# ==================================================
+# ENVIRONMENT
+# ==================================================
+.env
+*.env
+.env.*
+venv/
+VENV/
+env/
+ENV/
+.myenv
+Scripts/
+Include/
+
+# pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ==================================================
+# MIGRATIONS (ONLY MANUALLY)
+# (keep __init__.py — required!)
+# ==================================================
+**/migrations/**/!(__init__.py)
+
+# ==================================================
+# MEDIA / STATIC (user uploads)
+# ==================================================
+media/
+staticfiles/
+static/
+assets/
+uploads/
+
+# ==================================================
+# FRONTEND (React / Vue / Node)
+# ==================================================
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Build files (Vite, React)
+dist/
+build/
+
+# ==================================================
+# IDE SETTINGS
+# ==================================================
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# ==================================================
+# OS FILES
+# ==================================================
+.DS_Store
+*.swp
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# ==================================================
+# COVERAGE / TEST
+# ==================================================
+.coverage
+.tox/
+.nox/
+pytest_cache/
+htmlcov/
+
+# ==================================================
+# OTHER
+# ==================================================
+*.bak
+*.tmp

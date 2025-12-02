@@ -3,13 +3,16 @@
   justify-content: space-between;
   align-items: center;
   padding:10px 20px;
-  background: linear-gradient(90deg, #000000, #0a0d3d);
+  background-color: rgba(249, 249, 249, 0.849);
   color: white;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-bottom: 1px solid gray;
+  margin-bottom: 2px;
 }
 
 .app_name {
   font-size: 1.3rem;
+  color: black;
   font-weight: bold;
   letter-spacing: 1px;
   cursor: pointer;
@@ -28,6 +31,7 @@
   border: 1.5px solid gray;
   padding: 5px 15px;
   border-radius: 20px;
+  color: black;
   cursor: pointer;
   font-weight: 600;
   transition: 0.3s;
@@ -41,6 +45,7 @@
   display: flex;
   align-items: center;
   gap: 15px;
+  color:rgba(0, 0, 0, 0.642);
 }
 
 .icon {
@@ -52,13 +57,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .profile img {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
+
   border: 1.5px solid gray;
 }
 

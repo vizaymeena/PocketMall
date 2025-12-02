@@ -1,0 +1,168 @@
+.shoppingMall{
+  margin-top: 1rem;
+  min-height: 40vh;
+  padding: 20px;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+ 
+}
+
+.shoppingMall .mensBlock,
+.shoppingMall .womensBlock,
+.shoppingMall .kidsBlock{
+  height: 200px;
+  width: 400px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border: 2px solid rgb(159, 159, 159);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shoppingMall .mensBlock::after,
+.shoppingMall .womensBlock::after,
+.shoppingMall .kidsBlock::after{
+  content: '';
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+  background-color: rgba(14, 11, 11, 0.372);
+}
+
+
+.shoppingMall .mensBlock img,
+.shoppingMall .womensBlock img,
+.shoppingMall .kidsBlock img{
+  position: absolute;
+  z-index: -1;
+  height: 300px;
+  width: 100%;
+  inset: 0;
+  height: 100%;
+  background-size: cover;
+  width: 100%;
+}
+.shoppingMall .mensBlock div,
+.shoppingMall .womensBlock div,
+.shoppingMall .kidsBlock div{
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  align-items: center;
+  color: rgb(253, 253, 253);
+  font-weight: 500;
+  font-size: 22px;
+  height: 50px;
+  width: 200px;
+  border: 1px solid rgb(212, 212, 212);
+  letter-spacing: 2px;
+  cursor: pointer;
+
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+
+.shoppingMall .mensBlock div::before,
+.shoppingMall .womensBlock div::before,
+.shoppingMall .kidsBlock div::before{
+ content: '';
+ top: 0;
+ left: 0;
+ position: absolute;
+ z-index: -1;
+ width: 100%;
+ height: 100%;
+ background-color: rgba(255, 255, 255, 0.466);
+ transform: translate(-100%);
+ transition: transform 0.6s ease-in-out;
+}
+
+
+.shoppingMall .mensBlock div:hover::before,
+.shoppingMall .womensBlock div:hover::before,
+.shoppingMall .kidsBlock div:hover::before{
+ content: '';
+ top: 0;
+ left: 0;
+ position: absolute;
+ z-index: -1;
+ width: 100%;
+ height: 100%;
+ background-color: rgba(255, 255, 255, 0.425);
+ transform: translate(0%);
+}
+
+
+
+
+/* ================================ SALE WINDOW ================================*/
+.saleWindow{
+  margin-bottom: 0.5rem;
+  height: 50vh;
+  width: 100%;
+  padding-bottom: 20px;
+}
+.saleWindow .saleBgImg{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.saleBgImg img{
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  height: 100%;
+}
+.saleBgImg .exploreDeals{
+  position: absolute;
+  z-index: -1;
+  bottom: 80px;
+  height: fit-content;
+  width: fit-content;
+  left: 50px;
+  overflow: hidden;
+}
+.saleBgImg .exploreDeals button{
+  border: 1px solid white;
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+}
+
+
+.exploreDeals::before{
+ content: '';
+ top: 0;
+ left: 0;
+ position: absolute;
+ z-index: -1;
+ width: 100%;
+ height: 100%;
+ background-color: rgba(255, 255, 255, 0.466);
+ transform: translate(-100%);
+ transition: transform 0.6s ease-in-out;
+}
+
+
+.exploreDeals:hover::before{
+ content: '';
+ top: 0;
+ left: 0;
+ position: absolute;
+ z-index: -1;
+ width: 100%;
+ height: 100%;
+ background-color: rgba(255, 255, 255, 0.425);
+ transform: translate(0%);
+}

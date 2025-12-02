@@ -1,7 +1,7 @@
 import { PrimaryNavbar } from "./Navbar";
 import '../assets/style/base.css';
 import { Outlet } from 'react-router-dom'
-
+import { Footer } from "./Navbar";
 function Base() {
   return (
     <>
@@ -12,7 +12,7 @@ function Base() {
       <Outlet/>
     </main>
     <footer>
-
+    <Footer/>
     </footer>
     </>
   )

@@ -166,31 +166,3 @@
   color: #444;
   margin-top: 1rem;
 }
-
-/* Reviews section */
-.reviewsFeedbacks {
-  border-top: 1px solid #eaeaea;
-  padding-top: 1.5rem;
-  color: #555;
-}
-
-.reviewsFeedbacks h3 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.review {
-  margin-bottom: 1rem;
-  background: #f8f9fa;
-  padding: 0.8rem 1rem;
-  border-radius: 6px;
-  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.05);
-}
-
-.review strong {
-  display: block;
-  font-weight: 700;
-  margin-bottom: 0.3rem;
-  color: #222;
-}

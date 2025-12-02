@@ -1,0 +1,136 @@
+.billboard-container {
+    width: 100%;
+    height: 80vh;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid gray;
+    padding: 5px 0px;
+}
+.billboard-container .swiper{
+    height: 100%;
+    width: 100%;
+}
+.billboard-container .swiper-slider{
+    height: 100%;
+    width: 100%;
+}
+.billboard-slide {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* IMAGE */
+.bgImage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* Overlay */
+.billboard-slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+}
+
+/* Text */
+.billboard-content {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    color: #fff;
+    max-width: 60%;
+    z-index: 3;
+}
+
+
+.billboard-slide::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+}
+
+.billboard-content {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    color: #fff;
+    max-width: 60%;
+    z-index: 2;
+}
+
+.billboard-tag {
+    padding: 6px 14px;
+    background: #ff4747;
+    border-radius: 20px;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.billboard-content h1 {
+    font-size: 36px;
+    margin: 12px 0 6px;
+    line-height: 1.2;
+}
+
+.billboard-content p {
+    font-size: 16px;
+    margin-bottom: 14px;
+    opacity: 0.9;
+}
+
+.billboard-content button {
+    padding: 12px 26px;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    background: #fff;
+    color: #222;
+    transition: 0.3s ease;
+}
+
+.billboard-content button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+
+
+/* pagination */
+
+.billboard-pagination {
+    position: absolute;
+    bottom: 18px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 11;
+}
+
+.billboard-container .billboard-pagination .swiper-pagination-bullet {
+    width: 36px !important;
+    height: 6px !important;
+    border-radius: 0px !important;
+    border: 1px solid gray;
+    background: rgb(254, 254, 254) !important;
+    transition: 0.3s ease;
+}
+
+.billboard-container .billboard-pagination .swiper-pagination-bullet-active {
+    background: white;
+    width: 30px !important;
+}
