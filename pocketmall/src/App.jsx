@@ -6,6 +6,7 @@ import ProductDetails from "./components/ProductDetails";
 import { Routes,Route } from "react-router-dom";
 import Base from "./layout/Base";
 import BillboardSlider from "./components/Billboard";
+import ShoppingWindow from "./pages/ShoppingWindow";
 
 function App() {
   return (
@@ -14,7 +15,14 @@ function App() {
         <Route path="/" element={<div> <Base/>  </div>}>
            <Route index element={<div> <BillboardSlider/> <Overview/> </div>}/>
            <Route path="buyNow" element={<ProductDetails/>}/>
+
+             <Route path="shopping" element={<ShoppingWindow/>}/>
         </Route>
+
+         
+            
+          
+
       </Routes>
     </>
   );

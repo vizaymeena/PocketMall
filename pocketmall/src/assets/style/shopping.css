@@ -1,0 +1,141 @@
+  input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+.category{
+    min-height: 100vh;
+    width: 100%;
+}
+.searchBox{
+    margin-top: 1rem;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+.searchBox input{
+    width: 600px;
+    height: 50px;
+    padding-left:20px;
+    border: 1px solid gray;
+}
+.searchBox input:focus{
+    outline: none;
+    /* border: none; */
+}
+.searchBox button{
+    height:50px;
+    position: absolute;
+    right: 333px;
+    text-align: center;
+    border-left: 1px solid gray;
+    padding: 10px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+
+
+/* ============================================================ */
+
+.category{
+    display: flex;
+    flex-direction: column;
+    /* margin: 5px 0px; */
+}
+
+.shoppingBlock {
+  display: grid;
+  width: 100%;
+  height: 100vh;
+  max-width: 1400px;
+  gap: 30px;
+  margin: 20px auto;
+  padding: 0 10px;
+}
+
+/* PRODUCTS */
+.productItems{
+    height: 100%;
+    width: 95%;
+    padding: 5px 10px;
+    margin: 0 auto;
+    background-color: rgba(255, 223, 248, 0.603);
+    border: 1px solid rgb(200, 200, 200);
+}
+
+
+
+/* product card */
+.productCard{
+    height: 270px;
+    width: 200px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.productOverview{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.productOverview .productTop{
+    position: relative;
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+}
+
+.productOverview .productTop img{
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+    display: block;
+}
+
+/* cart icon fix */
+.addedItem{
+    position: absolute;
+    bottom: 40px;
+    right: 4px;
+    border: 2px solid rgb(255, 255, 255);
+    text-align: center;
+    border-radius: 50%;
+    background-color: black;
+    z-index: 11;
+    color: white;
+    height: 25px;
+    width: 25px;
+    font-size: 12px;
+}
+.cartIcon{
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    z-index: 10;
+    padding: 8px;
+    /* background: white; */
+    border-radius: 50%;
+    background-color: blue;
+    box-shadow: 0 0 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+    color: white;
+    border: 2px solid rgb(255, 255, 255);
+}
+.productOverview .productBottom{
+    padding: 0px 5px;
+}
+.productOverview .productBottom p{
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(64, 64, 172);
+}
+.productOverview .productBottom h1{
+    color: gray;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
