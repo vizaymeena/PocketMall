@@ -1,77 +1,141 @@
-.primary_nav {
+/* MAIN NAVBAR */
+.pm_navbar {
+  height: 70px;
+  width: 100%;
+  padding: 0 40px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding:10px 20px;
-  background-color: rgba(249, 249, 249, 0.849);
-  color: white;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border-bottom: 1px solid gray;
-  margin-bottom: 2px;
+
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.app_name {
-  font-size: 1.3rem;
-  color: black;
-  font-weight: bold;
+
+/* LOGO */
+.pm_logo {
+  cursor: pointer;
+  font-size: 22px;
+  font-weight: 700;
   letter-spacing: 1px;
+  color: #111827;
+}
+
+.pm_logo span {
+  color: #6366f1; /* Indigo accent */
+}
+
+
+/* RIGHT SECTION */
+.pm_right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+
+/* AUTH BUTTONS (Login / Register) */
+.pm_btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: 0.25s;
+}
+.pm_auth{
+  display: flex;
+  gap: 10px;
+}
+.pm_login {
+  background: white;
+  color: #4b5563;
+  border: 1px solid #d1d5db;
+}
+
+.pm_login:hover {
+  background: #f3f4f6;
+}
+
+.pm_register {
+  background: #6366f1;
+  color: white;
+}
+
+.pm_register:hover {
+  background: #4f46e5;
+}
+
+
+/* USER PANEL WHEN LOGGED IN */
+.pm_user_panel {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+
+/* ICON WRAPPER */
+.pm_icon_wrap {
+  position: relative;
   cursor: pointer;
 }
 
-.nav_right {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-.auth_buttons{
-    display: flex;
-    gap: 5px;
-}
-.auth_buttons button {
-  border: 1.5px solid gray;
-  padding: 5px 15px;
-  border-radius: 20px;
-  color: black;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s;
+.pm_icon {
+  font-size: 22px;
+  color: #374151;
+  transition: 0.2s;
 }
 
-.auth_buttons button:hover {
-  opacity: 0.8;
+.pm_icon:hover {
+  color: #6366f1;
+  transform: scale(1.1);
 }
 
-.user_info {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  color:rgba(0, 0, 0, 0.642);
-}
+/* NOTIFICATION BADGE */
+.pm_badge {
+  position: absolute;
+  top: -4px;
+  right: -8px;
 
-.icon {
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-.profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.profile img {
-  width: 30px;
-  height: 30px;
+  background: #ef4444;
+  color: white;
+  font-size: 10px;
+  padding: 3px 6px;
   border-radius: 50%;
-  object-fit: contain;
-
-  border: 1.5px solid gray;
 }
 
-.profile span {
-  font-weight: 500;
-  font-size: 12px;
-  padding-bottom: 3px;
-  border-bottom: 1.4px solid gray;
+
+/* PROFILE BOX */
+.pm_profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 6px 12px;
+  border-radius: 50px;
+
+  background: rgba(99, 102, 241, 0.1);
+  color: #111827;
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+.pm_profile:hover {
+  background: rgba(99, 102, 241, 0.2);
+}
+
+.pm_profile img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
 }

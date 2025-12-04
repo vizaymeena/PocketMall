@@ -1,43 +1,64 @@
-import React, { useState } from 'react';
-import '../assets/style/primarynav.css';
-import { FaShoppingBag, FaBell } from 'react-icons/fa';
+import React, { useState } from 'react'
+import '../assets/style/primarynav.css'
+import { FaShoppingBag, FaBell } from 'react-icons/fa'
 import { User } from "lucide-react"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 function PrimaryNavbar() {
   // State to simulate logged-in vs logged-out
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false)
   let navigate = useNavigate()
   const user = {
     name: "Vizay Meena",
     profilePic: <User/>// replace with actual profile pic URL
-  };
+  }
 
   return (
-    <header className="primary_nav">
-      <div className="nav_left">
-        <h3 className="app_name" onClick={()=>navigate("/")}>Pocket Mall</h3>
-      </div>
+    <header className="pm_navbar">
 
-      <div className="nav_right">
-        {!loggedIn ? (
-          <div className="auth_buttons">
-            <button className="login_btn">Login</button>
-            <button className="register_btn">Register</button>
-          </div>
-        ) : (
-          <div className="user_info">
-            <FaBell className="icon" />
-            <FaShoppingBag className="icon" />
-            <div className="profile">
-              <img src={user.profilePic} alt="profile" />
-              <span>{user.name}</span>
-            </div>
-          </div>
-        )}
+  {/* Left Branding */}
+  <div className="pm_left">
+    <h2 className="pm_logo" onClick={() => navigate("/")}>
+      Pocket <span>Mall</span>
+    </h2>
+  </div>
+
+  {/* Right Navigation Area */}
+  <div className="pm_right">
+
+    {!loggedIn ? (
+      <div className="pm_auth">
+        <button className="pm_btn pm_login">Login</button>
+        <button className="pm_btn pm_register">Register</button>
       </div>
-    </header>
-  );
+    ) : (
+      <div className="pm_user_panel">
+
+        {/* Notifications */}
+        <div className="pm_icon_wrap">
+          <FaBell className="pm_icon" />
+          <span className="pm_badge">3</span>
+        </div>
+
+        {/* Cart */}
+        <div className="pm_icon_wrap">
+          <FaShoppingBag className="pm_icon" />
+        </div>
+
+        {/* Profile */}
+        <div className="pm_profile">
+         {user.profilePic} 
+          <span>{user.name}</span>
+        </div>
+
+      </div>
+    )}
+
+  </div>
+
+</header>
+
+  )
 }
 
 function SecondaryNavbar() {
@@ -47,24 +68,20 @@ function SecondaryNavbar() {
 }
 
 
-import "../assets/style/footer.css";
-import { FaInstagram, FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
-
+import "../assets/style/footer.css"
+import { FaInstagram, FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa"
 function Footer() {
   return (
-    <footer className="footer">
-      <div className="footer_container">
+    <footer className="pm_footer_new">
 
-        {/* Brand + About */}
-        <div className="footer_col">
-          <h3>Pocket Mall</h3>
-          <p>
-            Your one-stop destination for premium fashion.  
-            Discover curated clothing with unmatched quality,
-            crafted for the modern lifestyle.
-          </p>
+      <div className="pm_footer_content">
 
-          <div className="footer_social">
+        {/* Brand */}
+        <div className="pm_col brand">
+          <h2>PocketMall</h2>
+          <p>Where fashion meets quality. Designed for everyday comfort and premium style.</p>
+
+          <div className="pm_socials">
             <FaInstagram />
             <FaFacebookF />
             <FaTwitter />
@@ -72,9 +89,9 @@ function Footer() {
           </div>
         </div>
 
-        {/* Quick Links */}
-        <div className="footer_col">
-          <h4>Quick Links</h4>
+        {/* Links */}
+        <div className="pm_col">
+          <h4>Shop</h4>
           <ul>
             <li>Mens Wear</li>
             <li>Womens Wear</li>
@@ -84,8 +101,7 @@ function Footer() {
           </ul>
         </div>
 
-        {/* Customer Care */}
-        <div className="footer_col">
+        <div className="pm_col">
           <h4>Customer Care</h4>
           <ul>
             <li>Track Order</li>
@@ -97,25 +113,27 @@ function Footer() {
         </div>
 
         {/* Newsletter */}
-        <div className="footer_col">
+        <div className="pm_col">
           <h4>Stay Updated</h4>
-          <p>Subscribe for exclusive deals and new collection alerts.</p>
+          <p>Join our newsletter for early access to drops and exclusive offers.</p>
 
-          <div className="newsletter">
-            <input type="email" placeholder="Enter email" />
-            <button>Subscribe</button>
+          <div className="pm_input_row">
+            <input type="email" placeholder="Email Address" />
+            <button>→</button>
           </div>
         </div>
 
       </div>
 
-      {/* Bottom Bar */}
-      <div className="footer_bottom">
-       Ecommerce project made by vijay meena
+      <div className="pm_footer_bottom">
+        E-Commerce Project Made by Vijay Meena
       </div>
     </footer>
-  );
+  )
 }
 
+export default Footer
 
-export { PrimaryNavbar, SecondaryNavbar,Footer };
+
+
+export { PrimaryNavbar, SecondaryNavbar,Footer }

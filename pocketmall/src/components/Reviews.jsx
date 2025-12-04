@@ -1,9 +1,9 @@
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import "../assets/style/review.css";
+import { useEffect, useRef } from "react"
+import gsap from "gsap"
+import "../assets/style/review.css"
 
 export default function CustomerReviews() {
-  const sliderRef = useRef(null);
+  const sliderRef = useRef(null)
 
   const feedbacks = [
     { name: "Aanya Sharma", stars: 5, feedback: "Absolutely loved the fabric quality! Worth every rupee." },
@@ -11,26 +11,26 @@ export default function CustomerReviews() {
     { name: "Ritika Das", stars: 5, feedback: "Perfect fit! The stitching feels premium." },
     { name: "Simran Kaur", stars: 4, feedback: "Looks exactly like the photos. Great purchase!" },
     { name: "Nisha Rao", stars: 5, feedback: "This is so classy! Got many compliments already." }
-  ];
+  ]
 
-  const scrollingFeedbacks = [...feedbacks, ...feedbacks]; // duplicate for infinite scroll
+  const scrollingFeedbacks = [...feedbacks, ...feedbacks] // duplicate for infinite scroll
 
   useEffect(() => {
-    const slider = sliderRef.current;
+    const slider = sliderRef.current
 
     const tween = gsap.to(slider, {
       x: `-${slider.scrollWidth / 2}px`, // scroll distance
       duration: 40, // scroll duration
       ease: "linear",
       repeat: -1
-    });
+    })
 
     // Pause on hover
-    slider.addEventListener("mouseenter", () => tween.pause());
-    slider.addEventListener("mouseleave", () => tween.resume());
+    slider.addEventListener("mouseenter", () => tween.pause())
+    slider.addEventListener("mouseleave", () => tween.resume())
 
-    return () => tween.kill();
-  }, []);
+    return () => tween.kill()
+  }, [])
 
   return (
     <div className="reviewsSection">
@@ -50,5 +50,5 @@ export default function CustomerReviews() {
         </div>
       </div>
     </div>
-  );
+  )
 }

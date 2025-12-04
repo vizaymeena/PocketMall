@@ -8,7 +8,6 @@
 .searchBox{
     margin-top: 1rem;
     display: flex;
-    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
     position: relative;
@@ -17,7 +16,7 @@
 .searchBox input{
     width: 600px;
     height: 50px;
-    padding-left:20px;
+    padding-left:10px;
     border: 1px solid gray;
 }
 .searchBox input:focus{
@@ -25,11 +24,13 @@
     /* border: none; */
 }
 .searchBox button{
-    height:50px;
+    height:45px;
+    width: 45px;
     position: absolute;
-    right: 333px;
+    right: 445px;
+    border-radius: 50%;
     text-align: center;
-    border-left: 1px solid gray;
+    background-color: rgb(94, 113, 197);
     padding: 10px;
     z-index: 1;
     cursor: pointer;
@@ -51,91 +52,144 @@
   height: 100vh;
   max-width: 1400px;
   gap: 30px;
-  margin: 20px auto;
+  margin: 5px auto;
   padding: 0 10px;
 }
 
-/* PRODUCTS */
-.productItems{
-    height: 100%;
-    width: 95%;
-    padding: 5px 10px;
-    margin: 0 auto;
-    background-color: rgba(255, 223, 248, 0.603);
-    border: 1px solid rgb(200, 200, 200);
+/* product items */
+.productItems {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 22px;
+  padding: 10px;
+}
+
+/* product card  */
+.productCard {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.productCard:hover {
+  box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+}
+
+/* Image */
+.productTop {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.productTop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .35s ease;
+}
+
+.productCard:hover .productTop img {
+  transform: scale(1.08);
+}
+
+/* cart icon */
+.buynow{
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgb(18, 5, 132);
+  color: white;
+  border: 2px solid white;
+  padding: 5px;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity .25s ease, transform .25s ease;
+}
+.cartIcon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgb(18, 5, 132);
+  color: white;
+  border: 2px solid white;
+  padding: 5px;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity .25s ease, transform .25s ease;
+}
+
+.productCard:hover .cartIcon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.productCard:hover .buynow {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+/* price and product name */
+.productBottom {
+  padding: 10px 12px;
+}
+
+.productBottom p {
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+}
+
+.productBottom h1 {
+  font-size: 14px;
+  font-weight: 500;
+  color: #4B5563;
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* bubble added item */
+.addedItem {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #10B981;
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
 }
 
 
 
-/* product card */
-.productCard{
-    height: 270px;
-    width: 200px;
-    background-color: white;
-    border-radius: 20px;
-}
-
-.productOverview{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.productOverview .productTop{
-    position: relative;
-    width: 200px;
-    height: 200px;
-    padding: 10px;
-}
-
-.productOverview .productTop img{
-    height: 100%;
-    width: 100%;
-    border-radius: 20px;
-    display: block;
-}
-
-/* cart icon fix */
-.addedItem{
-    position: absolute;
-    bottom: 40px;
-    right: 4px;
-    border: 2px solid rgb(255, 255, 255);
-    text-align: center;
-    border-radius: 50%;
-    background-color: black;
-    z-index: 11;
-    color: white;
-    height: 25px;
-    width: 25px;
-    font-size: 12px;
-}
-.cartIcon{
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    z-index: 10;
-    padding: 8px;
-    /* background: white; */
-    border-radius: 50%;
-    background-color: blue;
-    box-shadow: 0 0 6px rgba(0,0,0,0.1);
-    cursor: pointer;
-    color: white;
-    border: 2px solid rgb(255, 255, 255);
-}
-.productOverview .productBottom{
-    padding: 0px 5px;
-}
-.productOverview .productBottom p{
-    font-size: 20px;
-    font-weight: 600;
-    color: rgb(64, 64, 172);
-}
-.productOverview .productBottom h1{
-    color: gray;
-    font-size: 14px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+/* button animation */

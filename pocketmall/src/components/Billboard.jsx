@@ -1,13 +1,13 @@
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-import "../assets/style/billboard.css";
+import { Swiper, SwiperSlide } from "swiper/react"
+import { Autoplay, Pagination } from "swiper/modules"
+import "swiper/css"
+import "swiper/css/pagination"
+import "../assets/style/billboard.css"
 
 // images
-import  billboard_1  from "../assets/images/billboard1.jpg";
-import  billboard_3  from "../assets/images/billboard3.jpg";
+import  billboard_1  from "../assets/images/billboard1.jpg"
+import  billboard_3  from "../assets/images/billboard3.jpg"
 
 
 const homeImages = [
@@ -32,7 +32,7 @@ const homeImages = [
     subtitle: "Bold statements, fresh attitude.",
     buttonText: "Browse Collection"
   },
-];
+]
 
 
 const BillboardSlider = () => {
@@ -68,7 +68,7 @@ const BillboardSlider = () => {
       </Swiper>
         <div className="billboard-pagination"></div>
     </div>
-  );
-};
+  )
+}
 
-export default BillboardSlider;
+export default BillboardSlider

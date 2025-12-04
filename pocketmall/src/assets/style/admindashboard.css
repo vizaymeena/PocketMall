@@ -1,0 +1,181 @@
+/* Layout */
+.proAdminLayout {
+  display: flex;
+  height: 100vh;
+  background: #f3f4f6;
+}
+
+/* Sidebar */
+.proSidebar {
+  width: 250px;
+  backdrop-filter: blur(14px);
+  background: rgba(15, 23, 42, 0.75);
+  border-right: 1px solid rgba(255,255,255,0.08);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 14px;
+  transition: width .3s ease;
+}
+
+.proAdminLayout.collapsed .proSidebar {
+  width: 80px;
+}
+
+.proSidebarTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.proLogo {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  opacity: .8;
+}
+
+.proToggle {
+  cursor: pointer;
+}
+
+/* Navigation */
+.proNav {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.proNav a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #d1d5db;
+  font-size: 15px;
+  transition: .2s;
+}
+
+.proNav a svg {
+  width: 20px;
+  height: 20px;
+}
+
+.proNav a:hover {
+  background: rgba(255,255,255,0.08);
+  color: white;
+}
+
+.proNav a.active {
+  background: rgba(255,255,255,0.15);
+  color: white;
+}
+
+/* Hide text when collapsed */
+.proAdminLayout.collapsed .proNav a span,
+.proAdminLayout.collapsed .proLogo,
+.proAdminLayout.collapsed .logoutBtn span {
+  display: none;
+}
+
+/* Sidebar bottom */
+.proSidebarBottom {
+  margin-top: auto;
+}
+
+.logoutBtn {
+  background: rgba(255,255,255,0.08);
+  color: white;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.logoutBtn:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+/* Main */
+.proMain {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Topbar */
+.proTopbar {
+  height: 70px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 22px;
+}
+
+.searchBox input {
+  padding: 10px 16px;
+  width: 280px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  outline: none;
+  transition: .2s;
+}
+
+.searchBox input:focus {
+  border-color: #6366f1;
+}
+
+.proUser {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.proUser img {
+  border-radius: 50%;
+}
+
+.userInfo p {
+  font-size: 12px;
+  margin: 0;
+  color: gray;
+}
+
+/* Content */
+.proContent {
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* body */
+.overviewGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 22px;
+}
+
+.overviewCard {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: 0.25s;
+}
+
+.overviewCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
