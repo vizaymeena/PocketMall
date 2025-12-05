@@ -10,6 +10,7 @@ import BillboardSlider from "./components/Billboard"
 import ShoppingWindow from "./pages/ShoppingWindow"
 import AdminDashboard from './components/Admindashboard'
 import AdminOverview from './components/AdminOverview'
+import ProductCreation from './pages/ProductCreation'
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
 
         <Route path="adminDashboard" element={<AdminDashboard/>}>
           <Route index element={<AdminOverview/>} />
+          <Route path="products" element={<ProductCreation/>} />
+
         </Route>
 
          

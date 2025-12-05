@@ -44,14 +44,16 @@ export default function AdminDashboard() {
       {/* Main */}
       <main className="proMain">
         <header className="proTopbar">
-          <div className="searchBox">
-            <input type="search" placeholder="Search anything..." />
-          </div>
-          <div className="proUser">
-            <img src="https://i.pravatar.cc/40" />
-            <div className="userInfo">
-              <h4>Admin</h4>
-              <p>Superuser</p>
+          <div className="topBarChildOne">
+            <div className="search">
+              <input type="search" placeholder="Search ..." />
+            </div>
+            <div className="notification">
+
+            </div>
+            <div className="adminDetails">
+              <p>Vijay Meena</p>
+              <span>Super user</span>
             </div>
           </div>
         </header>

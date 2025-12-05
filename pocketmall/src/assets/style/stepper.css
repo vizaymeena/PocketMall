@@ -1,0 +1,176 @@
+/* WRAPPER */
+.stepper_wrapper {
+  width: 90%;
+  max-width: 900px;
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 30px 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  font-family: "Inter", sans-serif;
+}
+
+/* -------------------------
+ STEP HEADER (Top Stepper)
+-------------------------- */
+.stepper_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+/* Each step item */
+.step_item {
+  text-align: center;
+  flex: 1;
+  position: relative;
+  opacity: 0.6;
+  transition: 0.3s ease;
+}
+
+/* Circle Number */
+.step_item span {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+
+  background: #e5e7eb;
+  color: #374151;
+  font-size: 15px;
+  font-weight: 600;
+
+  transition: 0.3s ease;
+}
+
+/* Label */
+.step_item p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Active Step */
+.step_item.active {
+  opacity: 1;
+}
+
+.step_item.active span {
+  background: #4f46e5;
+  color: #fff;
+  transform: scale(1.15);
+}
+
+/* Completed Step */
+.step_item.completed {
+  opacity: 1;
+}
+
+.step_item.completed span {
+  background: #10b981;
+  color: white;
+}
+
+/* Step Content Wrapper */
+.step_content {
+  animation: stepFade 0.25s ease;
+}
+
+@keyframes stepFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* -------------------------
+ FORM FIELDS
+-------------------------- */
+.step_form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.step_form input,
+.step_form textarea,
+.step_form select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  outline: none;
+  transition: 0.25s ease;
+}
+
+.step_form input:focus,
+.step_form textarea:focus,
+.step_form select:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 6px rgba(79,70,229,0.25);
+}
+
+/* -------------------------
+ BUTTONS SECTION
+-------------------------- */
+.step_buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.step_buttons button {
+  padding: 10px 20px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.step_buttons button:hover {
+  background: #4338ca;
+}
+
+.step_buttons .back {
+  background: #9ca3af;
+}
+
+.step_buttons .back:hover {
+  background: #6b7280;
+}
+
+/* -------------------------
+ VARIANT LIST
+-------------------------- */
+.variant_item {
+  padding: 10px 12px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+}
+
+/* -------------------------
+ IMAGE PREVIEW GRID
+-------------------------- */
+.img_preview_grid {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.img_preview_grid img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 8px;
+}
