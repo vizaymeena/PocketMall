@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+﻿import React, { useState } from 'react'
 import '../assets/style/primarynav.css'
 import { FaShoppingBag, FaBell } from 'react-icons/fa'
 import { User } from "lucide-react"
@@ -119,7 +119,7 @@ function Footer() {
 
           <div className="pm_input_row">
             <input type="email" placeholder="Email Address" />
-            <button>→</button>
+            <button>â†’</button>
           </div>
         </div>
 

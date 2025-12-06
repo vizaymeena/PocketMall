@@ -1,4 +1,4 @@
-import "../assets/style/adminoverview.css"
+﻿import '../../assets/style/adminoverview.css'
 
 
 export default function AdminOverview() {

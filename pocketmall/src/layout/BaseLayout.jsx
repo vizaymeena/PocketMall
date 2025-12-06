@@ -1,7 +1,7 @@
-import { PrimaryNavbar } from "./Navbar"
+﻿import { PrimaryNavbar,Footer } from './PrimaryNavbar'
 import '../assets/style/base.css'
 import { Outlet } from 'react-router-dom'
-import { Footer } from "./Navbar"
+
 function Base() {
   return (
     <>

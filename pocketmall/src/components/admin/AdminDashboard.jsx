@@ -1,7 +1,7 @@
-import { Outlet, NavLink } from "react-router-dom"
+﻿import { Outlet, NavLink } from "react-router-dom"
 import { Menu, LogOut, Settings, LayoutGrid, Users, Package, BarChart3 } from "lucide-react"
 import { useState } from "react"
-import "../assets/style/admindashboard.css"
+import "../../assets/style/admindashboard.css"
 
 export default function AdminDashboard() {
   const [collapsed, setCollapsed] = useState(false)

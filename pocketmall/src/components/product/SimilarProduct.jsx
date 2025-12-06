@@ -1,9 +1,9 @@
-import { Swiper, SwiperSlide } from "swiper/react"
+﻿import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation } from "swiper/modules"
 import "swiper/css"
 import "swiper/css/navigation"
 
-import "../assets/style/similarproducts.css"
+import "../../assets/style/similarproducts.css"
 
 export default function SimilarProducts({ products }) {
 

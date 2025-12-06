@@ -1,13 +1,13 @@
-import  { useRef, useState } from 'react'
+﻿import  { useRef, useState } from 'react'
 
-import '../assets/style/shopping.css'
+import '../../assets/style/shopping.css'
 import { Search,ShoppingCart,IndianRupee  } from "lucide-react"
 
 // gsap
 import gsap from 'gsap'
 import { useNavigate } from 'react-router-dom'
 // images
-import p_1 from '../assets/images/creamsweatshirt.jpg'
+import p_1 from '../../assets/images/creamsweatshirt.jpg'
 
 function ShoppingWindow() {
 
@@ -19,11 +19,11 @@ function ShoppingWindow() {
   let navigate = useNavigate()
 
   let listOfProducts = [
-    {name:"Super Limited Edition Ultra Coziest…",image:p_1,price:1200},
-    {name:"Super Limited Edition Ultra Coziest…",image:p_1,price:1200},
-    {name:"Super Limited Edition Ultra Coziest…",image:p_1,price:1200},
-    {name:"Super Limited Edition Ultra Coziest…",image:p_1,price:1200},
-    {name:"Super Limited Edition Ultra Coziest…",image:p_1,price:1200},
+    {name:"Super Limited Edition Ultra Coziestâ€¦",image:p_1,price:1200},
+    {name:"Super Limited Edition Ultra Coziestâ€¦",image:p_1,price:1200},
+    {name:"Super Limited Edition Ultra Coziestâ€¦",image:p_1,price:1200},
+    {name:"Super Limited Edition Ultra Coziestâ€¦",image:p_1,price:1200},
+    {name:"Super Limited Edition Ultra Coziestâ€¦",image:p_1,price:1200},
   ]
 
   // Add to Cart Icon animation function

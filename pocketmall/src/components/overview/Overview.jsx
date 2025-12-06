@@ -1,16 +1,16 @@
-import React from 'react'
-import '../assets/style/overview.css'
+﻿import React from 'react'
+import '../../assets/style/overview.css'
 
 import { useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 // images
-import mensClothing from '../assets/images/mensClothing.jpg'
-import womensClothing from '../assets/images/womensClothing.avif'
-import kidsClothing from '../assets/images/kidsClothing.webp'
+import mensClothing from '../../assets/images/mensClothing.jpg'
+import womensClothing from '../../assets/images/womensClothing.avif'
+import kidsClothing from '../../assets/images/kidsClothing.webp'
 
 // sale
-import pocetMallSale from '../assets/images/pocketMallSale.png'
+import pocetMallSale from '../../assets/images/pocketMallSale.png'
 
 
 function Overview() {

@@ -1,22 +1,28 @@
-import './App.css'
-// Router
-import { Routes,Route } from "react-router-dom"
+﻿import { Routes, Route } from "react-router-dom";
 
-// components
-import Base from "./layout/Base"
-import Overview from "./components/Overview"
-import ProductDetails from "./components/ProductDetails"
-import BillboardSlider from "./components/Billboard"
-import ShoppingWindow from "./pages/ShoppingWindow"
-import AdminDashboard from './components/Admindashboard'
-import AdminOverview from './components/AdminOverview'
-import ProductCreation from './pages/ProductCreation'
+// layout
+import BaseLayout from "./layout/BaseLayout";
+
+// homepage blocks
+import BillboardSlider from "./components/banners/Billboard";
+import Overview from "./components/overview/Overview";
+
+// product
+import ProductDetails from "./components/product/ProductDetails";
+
+// pages
+import ShoppingWindow from "./pages/shopping/ShoppingWindow";
+
+// admin
+import AdminDashboard from "./components/admin/AdminDashboard";
+import AdminOverview from "./components/admin/AdminOverview";
+import ProductCreation from "./pages/admin/ProductCreation";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<div> <Base/>  </div>}>
+        <Route path="/" element={<div> <BaseLayout/>  </div>}>
            <Route index element={<div> <BillboardSlider/> <Overview/> </div>}/>
            <Route path="buyNow" element={<ProductDetails/>}/>
            <Route path="shopping" element={<ShoppingWindow/>}/>

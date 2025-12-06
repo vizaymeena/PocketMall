@@ -1,28 +1,28 @@
-import React, { useState } from "react"
+﻿import React, { useState } from "react"
 import { ShoppingCart } from "lucide-react"
 
-import product_1 from "../assets/images/unsplash.avif"
-import product_2 from "../assets/images/bluedenimjacket.jpg"
-import product_3 from "../assets/images/bluetshirt.jpg"
-import simi_1 from "../assets/images/simi_1 (1).jpg"
-import simi_2 from "../assets/images/simi_1 (2).jpg"
-import simi_3 from "../assets/images/simi_1 (3).jpg"
+import product_1 from "../../assets/images/unsplash.avif"
+import product_2 from "../../assets/images/bluedenimjacket.jpg"
+import product_3 from "../../assets/images/bluetshirt.jpg"
+import simi_1 from "../../assets/images/simi_1 (1).jpg"
+import simi_2 from "../../assets/images/simi_1 (2).jpg"
+import simi_3 from "../../assets/images/simi_1 (3).jpg"
 
 
 // Style
-import "../assets/style/productDetails.css"
+import "../../assets/style/productDetails.css"
 import { useLocation } from "react-router-dom"
 
 // Components
 import SimilarProducts from "./SimilarProduct"
-import CustomerReview from "./Reviews"
+import CustomerReviews from '../reviews/Reviews'
 
 // Products
 const products = [
-    { id: 1, img: product_1, title: "Scarlet Prestige Overcoat", price: 1200,description:"Whether you're a corporate professional, an entrepreneur, a traveler, or someone who simply appreciates premium fashion—the Scarlet Prestige Overcoat is crafted to complement your lifestyle with elegance and warmth. Own the winter season with a coat that doesn't just keep you warm, but makes you unforgettable." },
+    { id: 1, img: product_1, title: "Scarlet Prestige Overcoat", price: 1200,description:"Whether you're a corporate professional, an entrepreneur, a traveler, or someone who simply appreciates premium fashionâ€”the Scarlet Prestige Overcoat is crafted to complement your lifestyle with elegance and warmth. Own the winter season with a coat that doesn't just keep you warm, but makes you unforgettable." },
     { id: 2, img: product_2, title: "Ivory Opulence Coat", price: 1200,description:"" },
     { id: 3, img: product_3, title: "Azure Grace Blouse", price: 1200,description:"" },
-    { id: 4, img: simi_1, title: "Scarlet Prestige Overcoat", price: 1200,description:"Whether you're a corporate professional, an entrepreneur, a traveler, or someone who simply appreciates premium fashion—the Scarlet Prestige Overcoat is crafted to complement your lifestyle with elegance and warmth. Own the winter season with a coat that doesn't just keep you warm, but makes you unforgettable." },
+    { id: 4, img: simi_1, title: "Scarlet Prestige Overcoat", price: 1200,description:"Whether you're a corporate professional, an entrepreneur, a traveler, or someone who simply appreciates premium fashionâ€”the Scarlet Prestige Overcoat is crafted to complement your lifestyle with elegance and warmth. Own the winter season with a coat that doesn't just keep you warm, but makes you unforgettable." },
     { id: 5, img: simi_2, title: "Ivory Opulence Coat", price: 1200,description: "" },
     { id: 6, img: simi_3, title: "Azure Grace Blouse", price: 1200,description: "" },
   ]
@@ -85,7 +85,7 @@ export default function ProductDetails() {
            <p className="description">
            {selectedProduct.description}
           </p>
-          <p className="price">₹ : {selectedProduct.price}</p>
+          <p className="price">â‚¹ : {selectedProduct.price}</p>
 
           <div className="options">
             <div className="optSize">
@@ -125,7 +125,7 @@ export default function ProductDetails() {
 
       {/* Bottom section: reviews / feedback */}
        <div className="reviewsSection">
-          <CustomerReview feedbacks={feedbacks}/>
+          <CustomerReviews feedbacks={feedbacks}/>
         </div>
     </div>
   )
