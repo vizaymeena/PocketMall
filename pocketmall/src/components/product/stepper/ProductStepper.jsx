@@ -15,8 +15,6 @@ function ProductStepper({currentStep,setCurrentStep}) {
     {step:3,stepName:"Price",stepIcon:<IndianRupee/>},
   ]
 
-  console.log("total length",step.length)
-  console.log("total lenght -1",step.length-1)
 
 
   return (

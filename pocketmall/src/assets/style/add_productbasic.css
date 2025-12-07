@@ -174,6 +174,15 @@
   color: white;
 }
 
+/* Errors */
+.stepErrors{
+    font-size: 13px;
+    padding-left: 10px;
+    white-space: normal;
+    color: rgb(248, 33, 33);
+    letter-spacing: 1.2px;
+}
+
 
 /* RESPONSIVE -------------------------------- */
 @media (max-width: 900px) {
@@ -187,3 +196,346 @@
   }
 }
 
+
+/* ========================================================================================================= */
+
+/* ------- STEP 2 */
+.advanceWrapperPro {
+  width: 90%;
+  margin: 2rem auto;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2.2rem;
+  align-items: flex-start;
+}
+
+/* LEFT SIDE — Thumbnail + Quick info */
+.advanceLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.thumbCard {
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.thumbImg {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.thumbPlaceholder {
+  width: 100%;
+  height: 200px;
+  background: #f2f2f2;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+}
+
+.thumbLabel {
+  margin-top: 0.5rem;
+  font-size: 14px;
+  color: #555;
+  font-weight: 600;
+}
+
+.quickInfo {
+  background: #fff;
+  padding: 14px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  font-size: 14px;
+  color: #444;
+}
+
+.quickInfo p {
+  margin: 6px 0;
+}
+
+/* RIGHT SIDE — Form Fields */
+.advanceRight {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.formGroupPro {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.formGroupPro label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.formGroupPro input,
+.formGroupPro textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  font-size: 15px;
+  outline: none;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Pricing Side-by-Side */
+.priceRow {
+  display: flex;
+  gap: 1.5rem;
+}
+
+/* Status Toggle */
+.statusCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.statusTogglePro {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  background: #efefef;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.statusTogglePro.active {
+  background: #d7ffe0;
+  border: 1px solid #57c86f;
+  color: #1f8e34;
+}
+
+/* Buttons */
+.stepButtonsPro {
+  grid-column: span 2;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.backBtnPro,
+.nextBtnPro {
+  width: 160px;
+  padding: 12px 0;
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.backBtnPro {
+  background: #e6e6e6;
+}
+
+.nextBtnPro {
+  background: black;
+  color: white;
+}
+
+
+
+/* Product Varient */
+/* Step 3 */
+/* ============================= */
+/*          STEP 3 UI            */
+/* ============================= */
+
+.variantWrapper {
+  width: 90%;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.variantTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #222;
+}
+
+.variantSub {
+  color: #777;
+  font-size: 14px;
+  margin-top: -10px;
+}
+
+/* Input Card */
+.variantInputCard {
+  background: #fff;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.inputGroupVar {
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+}
+
+.inputGroupVar label {
+  color: #444;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.inputGroupVar input,
+.inputGroupVar select {
+  padding: 10px;
+  border-radius: 8px;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.inputGroupVar input:focus,
+.inputGroupVar select:focus {
+  border-color: #6a11cb;
+}
+
+.addVariantBtnPro {
+  background: black;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s ease;
+}
+
+.addVariantBtnPro:hover {
+  opacity: 0.85;
+}
+/* Grid container */
+.variantGridPro {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 22px;
+  padding-top: 10px;
+}
+
+/* Card container */
+.variantCardPro {
+  background: #fff;
+  padding: 18px 20px;
+  border-radius: 14px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  transition: 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.variantCardPro:hover {
+  transform: translateX(-4px);
+  box-shadow: 10px 0px 18px rgba(0,0,0,0.12);
+}
+
+/* TOP ROW */
+.topRowVar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.varientProduct{
+ color: rgb(224, 150, 70);
+ letter-spacing: 1.5px;
+ font-weight: 600;
+}
+
+.variantSize {
+  background: #eef1ff;
+  color: #3a4ad4;
+  padding: 2px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Trash icon */
+.deleteVariantBtn {
+  color: #d33;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.deleteVariantBtn:hover {
+  color: red;
+  transform: scale(1.2);
+}
+
+/* BOTTOM ROW */
+.bottomRowVar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 10px;
+}
+
+.variantInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.variantColor,
+.variantStock {
+  font-size: 14px;
+  color: #444;
+}
+
+/* Pencil icon */
+.editVariantBtn {
+  color: #555;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.editVariantBtn:hover {
+  color: #000;
+  transform: scale(1.15);
+}
+
+
+.variantColor,
+.variantStock {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
