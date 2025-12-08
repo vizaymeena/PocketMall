@@ -4,31 +4,25 @@ from django.contrib.auth.models import User
 
 # ------------------ CATEGORY ------------------
 class Category(models.Model):
-    name = models.CharField(max_length=100)  # Mens, Womens, Kids
+    name = models.CharField(max_length=100,blank=False,null=False,default="male") 
+    prefix = models.CharField(max_length=10,blank=True,null=True,default="M") 
     slug = models.SlugField(unique=True)
 
     def __str__(self):
         return self.name
 
 
-# ------------------ SUB CATEGORY ------------------
-class SubCategory(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="subcategories")
-    name = models.CharField(max_length=100)  # T-shirts, Sweaters, Jeans, Hoodies...
-    slug = models.SlugField(unique=True)
-
-    def __str__(self):
-        return f"{self.category.name} → {self.name}"
-
-
 # ------------------ PRODUCT ------------------
 class Product(models.Model):
-    subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, related_name="products")
-
+    
     name = models.CharField(max_length=200)
+    product_code = models.CharField(max_length=10,blank=True,null=False)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE)
     description = models.TextField()
+
     price = models.DecimalField(max_digits=10, decimal_places=2)
     discount_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    discount_percent = models.DecimalField(max_digits=4,decimal_places=2,null=True,blank=True)
 
     brand = models.CharField(max_length=100, null=True, blank=True)
 
@@ -39,6 +33,29 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+    def save(self,*args,**kwargs):
+        
+        # check client has sended the product_code 
+        if not self.product_code:
+
+            prefix = self.category.prefix.upper() # "M"
+            last_product = Product.objects.filter(category=self.category).order_by['-id'].first()
+
+            if last_product and last_product.product_code:
+                last_number = len(prefix) + last_product.product_code[len(prefix)+2:]
+            else:
+                last_number = 0
+
+            new_number = last_number + 1
+
+            self.product_code = f"#${prefix}{new_number:05d}"
+
+            super().save(*args,**kwargs)
+
+            
+
 
 
 # ------------------ PRODUCT IMAGE GALLERY ------------------
