@@ -1,68 +1,28 @@
-﻿import { Outlet, NavLink } from "react-router-dom"
-import { Menu, LogOut, Settings, LayoutGrid, Users, Package, BarChart3 } from "lucide-react"
-import { useState } from "react"
-import "../../assets/style/admindashboard.css"
+﻿import { Outlet } from "react-router-dom";
+import Sidebar from "./Sidebar";
+import Topbar from "./Topbar";
+import "../../assets/style/admin_layout.css";
 
-export default function AdminDashboard() {
-  const [collapsed, setCollapsed] = useState(false)
-
+export default function AdminDashboardLayout() {
   return (
-    <div className={`proAdminLayout ${collapsed ? "collapsed" : ""}`}>
+    <div className="adminLayout">
       
-      {/* Sidebar */}
-      <aside className="proSidebar">
-        <div className="proSidebarTop">
-          <div className="proLogo">A D M I N</div>
-          <Menu className="proToggle" onClick={() => setCollapsed(!collapsed)} />
-        </div>
+      {/* Left Sidebar */}
+      <Sidebar />
 
-        <nav className="proNav">
-          <NavLink to="/adminDashboard" end>
-            <LayoutGrid /> <span>Overview</span>
-          </NavLink>
-          <NavLink to="/adminDashboard/products">
-            <Package /> <span>Products</span>
-          </NavLink>
-          <NavLink to="/adminDashboard/users">
-            <Users /> <span>Users</span>
-          </NavLink>
-          <NavLink to="/adminDashboard/reports">
-            <BarChart3 /> <span>Reports</span>
-          </NavLink>
-          <NavLink to="/adminDashboard/settings">
-            <Settings /> <span>Settings</span>
-          </NavLink>
-        </nav>
+      {/* Main Area */}
+      <div className="mainArea">
+        
+        {/* Top Navigation Bar */}
+        <Topbar />
 
-        <div className="proSidebarBottom">
-          <button className="logoutBtn">
-            <LogOut /> <span>Logout</span>
-          </button>
-        </div>
-      </aside>
-
-      {/* Main */}
-      <main className="proMain">
-        <header className="proTopbar">
-          <div className="topBarChildOne">
-            <div className="search">
-              <input type="search" placeholder="Search ..." />
-            </div>
-            <div className="notification">
-
-            </div>
-            <div className="adminDetails">
-              <p>Vijay Meena</p>
-              <span>Super user</span>
-            </div>
-          </div>
-        </header>
-
-        <section className="proContent">
+        {/* Page Content */}
+        <div className="pageContent">
           <Outlet />
-        </section>
-      </main>
+        </div>
+
+      </div>
 
     </div>
-  )
+  );
 }

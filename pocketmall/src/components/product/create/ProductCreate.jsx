@@ -1,0 +1,273 @@
+﻿import { useState, useRef } from "react"
+import { Globe, Save } from "lucide-react"
+
+import "../../../assets/style/create_product.css"
+import CreateLeft from "./CreateLeft"
+import CreateRight from "./CreateRight"
+
+
+let MAX_IMAGES = 4
+let SIZE_OPTIONS = ["XS", "S", "M", "L", "XL", "XXL"]
+
+export default function ProductCreate() {
+  
+  let fileRef = useRef(null)
+
+  let [form, setForm] = useState({
+    name: "",
+    brand: "",
+    category: "mens",
+    description: "",
+    price: "",
+    discount_price: "",
+    discount_percent: "",
+    tags: [],
+    is_active: true,
+    images: [],
+    variants: [],
+  })
+
+  let [variant, setVariant] = useState({
+    size: "M",
+    color: "",
+    stock: "",
+    editIndex: null,
+  })
+
+  let [tagInput, setTagInput] = useState("")
+
+  // IMAGE UPLOAD
+
+  let handleFiles = (e) => {
+    let files = Array.from(e.target.files)
+
+    if (form.images.length + files.length > MAX_IMAGES)
+      return alert("Maximum 4 images allowed")
+
+    let mapped = files.map((file) => ({
+      file,
+      url: URL.createObjectURL(file),
+    }))
+
+    setForm((p) => ({ ...p, images: [...p.images, ...mapped] }))
+  }
+
+  let removeImage = (index) => {
+    setForm((p) => ({
+      ...p,
+      images: p.images.filter((_, i) => i !== index),
+    }))
+  }
+
+
+  // BASIC INPUT HANDLER
+
+  let handleInput = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
+
+  // PRICE & DISCOUNT AUTO CALC
+
+  let updatePriceLogic = () => {
+    let price = Number(form.price)
+    let dp = Number(form.discount_price)
+    let dpp = Number(form.discount_percent)
+
+    if (price <= 0) return
+
+    // If discount price given , calculate percent
+    if (dp > 0) {
+      if (dp >= price) return alert("Discount price must be less than price")
+
+      let percent = (((price - dp) / price) * 100).toFixed(2)
+      setForm((p) => ({ ...p, discount_percent: percent }))
+      return
+    }
+
+    // If percent given , calculate discount price
+    if (dpp > 0) {
+      if (dpp >= 100) return alert("Discount cannot be 100%")
+
+      let newDP = price - (price * dpp) / 100
+      setForm((p) => ({ ...p, discount_price: newDP.toFixed(2) }))
+    }
+  }
+
+  // TAG HANDLING
+
+  let handleAddTag = () => {
+    if (tagInput.trim() && !form.tags.includes(tagInput)) {
+      setForm({ ...form, tags: [...form.tags, tagInput.trim()] })
+      setTagInput("")
+    }
+  }
+
+  let handleRemoveTag = (index) => {
+    let newTags = form.tags.filter((_, i) => i !== index)
+    setForm({ ...form, tags: newTags })
+  }
+
+
+  // VARIANTS
+ 
+  let saveVariant = () => {
+    if (!variant.color.trim()) return alert("Color required")
+
+    if (variant.stock === "" || variant.stock < 0)
+      return alert("Stock must be positive")
+
+    // EDIT MODE
+    if (variant.editIndex !== null) {
+      let updated = [...form.variants]
+      updated[variant.editIndex] = {
+        size: variant.size,
+        color: variant.color,
+        stock: variant.stock,
+      }
+
+      setForm((p) => ({ ...p, variants: updated }))
+      setVariant({ size: "M", color: "", stock: "", editIndex: null })
+      return
+    }
+
+    // NEW VARIANT
+    let exists = form.variants.some(
+      (v) =>
+        v.size === variant.size &&
+        v.color.toLowerCase() === variant.color.toLowerCase()
+    )
+
+    if (exists) return alert("Variant already exists")
+
+    setForm((p) => ({
+      ...p,
+      variants: [...p.variants, variant],
+    }))
+
+    setVariant({ size: "M", color: "", stock: "", editIndex: null })
+  }
+
+  let removeVariant = (index) => {
+    setForm((p) => ({
+      ...p,
+      variants: p.variants.filter((_, i) => i !== index),
+    }))
+  }
+
+  let editVariant = (i) => {
+    let v = form.variants[i]
+    setVariant({
+      size: v.size,
+      color: v.color,
+      stock: v.stock,
+      editIndex: i,
+    })
+  }
+
+  // SUBMIT
+
+  let handleCreate = () => {
+    console.log("Final Product Data:", form)
+    alert("Product Submitted (Check console)")
+  }
+
+  let handleSaveDraft = () => {
+    console.log("Saved as Draft:", form)
+    alert("Product saved as draft")
+  }
+
+  return (
+    <div className="admin-product-create">
+      {/* HEADER */}
+      <div className="create-header">
+        <div className="header-title">
+          <h1>Create New Product</h1>
+          <p>Add a new product to your inventory</p>
+        </div>
+        <div className="header-actions">
+          <button className="btn-secondary" onClick={handleSaveDraft}>
+            <Save size={18} />
+            Save as Draft
+          </button>
+          <button className="btn-primary" onClick={handleCreate}>
+            Publish Product
+          </button>
+        </div>
+      </div>
+
+      <div className="create-container">
+        {/* LEFT PANEL — IMAGES & BASIC INFO */}
+        <CreateLeft 
+          form={form}
+          fileRef={fileRef}
+          MAX_IMAGES={MAX_IMAGES}
+
+          handleFiles={handleFiles}
+          removeImage={removeImage}
+         
+          handleInput={handleInput}
+
+          tagInput={tagInput}
+          setTagInput={setTagInput}
+          handleAddTag={handleAddTag}
+          handleRemoveTag={handleRemoveTag}
+        
+        />
+        
+
+        {/* RIGHT PANEL — PRICING & VARIANTS */}
+        <div className="right-panel">
+         <CreateRight 
+          form={form}
+          handleInput={handleInput} 
+          updatePriceLogic={updatePriceLogic}
+
+          SIZE_OPTIONS={SIZE_OPTIONS}
+          variant={variant}
+          saveVariant={saveVariant}
+          editVariant ={editVariant}
+          removeVariant={removeVariant}
+         />
+
+         
+         
+
+          {/* SETTINGS SECTION */}
+          <div className="card">
+            <div className="card-header">
+              <h3><Globe size={20} /> Product Status</h3>
+            </div>
+            <div className="card-body">
+              <div className="status-settings">
+                <div className="status-toggle">
+                  <div className="toggle-label">
+                    <h4>Product Status</h4>
+                    <p>Set product visibility on your store</p>
+                  </div>
+                  <div
+                    className={`toggle-switch ${form.is_active ? "active" : ""}`}
+                    onClick={() => setForm((p) => ({ ...p, is_active: !p.is_active }))}
+                  >
+                    <div className="toggle-handle"></div>
+                    <span className="toggle-label-text">
+                      {form.is_active ? "Active" : "Inactive"}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="publish-info">
+                  <p>
+                    {form.is_active 
+                      ? "This product will be visible to customers immediately."
+                      : "This product will be hidden from customers."
+                    }
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

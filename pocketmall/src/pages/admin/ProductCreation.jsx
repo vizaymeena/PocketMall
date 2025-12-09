@@ -1,11 +1,9 @@
 ﻿import { useState, useEffect } from "react"
 import localforage from "localforage"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
-import "../../assets/style/stepper.css"
-
-import ProductStepper from "../../components/product/stepper/ProductStepper"
-import { ProductBasic, ProductAdvance,ProductVariants } from "../../components/product/stepper/Steps"
+import ProductCreate from '../../components/product/create/ProductCreate'
 
 function ProductCreation() {
 
@@ -37,6 +35,7 @@ function ProductCreation() {
     is_active: true,
   })
 
+  let navigate = useNavigate()
 
   // Restore Data on page load
   useEffect(() => {
@@ -75,63 +74,56 @@ function ProductCreation() {
     setCurrentStep((prev) => prev - 1)
   }
 
+let finish = (e) => {  
+  e.preventDefault();  
 
-  let finish = () => {
+  let formToSend = new FormData();
 
+  formToSend.append("name", formData.product_name);
+  formToSend.append("category", formData.product_category);
+  formToSend.append("description", formData.description);
+  formToSend.append("price", formData.price);
+  formToSend.append("discount_percent", formData.discount_percent);
+  formToSend.append("discount_price", formData.discount_price);
+  formToSend.append("brand", formData.brand);
+  formToSend.append("is_active", formData.is_active);
+  formToSend.append("variants", JSON.stringify(formData.variants));
 
+  formData.images.forEach((img) => {
+    formToSend.append("images", img.file);
+  });
 
-  }
+  axios.post("http://127.0.0.1:8000/api/products/", formToSend)
+    .then((res) => {
+      localforage.clear()
+      console.log("%cProduct Created","color:green",res.data)
+      navigate('/adminDashboard')
+    })
+   .catch((err) => {
+     console.group("%c🔥 BACKEND ERROR", "color:red");
+     console.log("Status:", err.response?.status);
+     console.log("Data:", err.response?.data);
+     console.log("Headers:", err.response?.headers);
+     console.groupEnd();
+    })
+
+   
+
+};
+
 
 
   return (
     <div className="creationContainer">
 
       {/* Stepper */}
-      <div className="stepper">
-        <ProductStepper
-          currentStep={currentStep}
-          setCurrentStep={setCurrentStep}
-        />
-      </div>
+     
 
       {/* Step Content */}
       <div className="stepContent">
         
-        {currentStep === 0 && (
-          <ProductBasic
-            formData={formData}
-            setFormData={setFormData}
-            currentStep={currentStep}
-            setCurrentStep={setCurrentStep}
-            next={next}
-            prErrors={prErrors}
-            setErrors={setErrors}
-          />
-        )}
-
-        {currentStep === 1 && (
-          <ProductAdvance
-            formData={formData}
-            setFormData={setFormData}
-            currentStep={currentStep}
-            setCurrentStep={setCurrentStep}
-            prev={prev}
-            next={next}
-            prErrors={prErrors}
-            setErrors={setErrors}
-          />
-        )}
-
+        <ProductCreate/>
         
-        {currentStep === 2 && (
-          <ProductVariants 
-            formData={formData} 
-            setFormData={setFormData} 
-            finish={finish} 
-            prev={prev}
-           
-            />
-        )}
 
       </div>
     </div>
