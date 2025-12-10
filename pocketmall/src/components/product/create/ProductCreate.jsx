@@ -1,9 +1,12 @@
-﻿import { useState, useRef } from "react"
+﻿import { useState, useRef, useEffect } from "react"
+import axios from "axios"
+import localforage from "localforage"
 import { Globe, Save } from "lucide-react"
 
 import "../../../assets/style/create_product.css"
 import CreateLeft from "./CreateLeft"
 import CreateRight from "./CreateRight"
+import { useNavigate } from "react-router-dom"
 
 
 let MAX_IMAGES = 4
@@ -12,15 +15,15 @@ let SIZE_OPTIONS = ["XS", "S", "M", "L", "XL", "XXL"]
 export default function ProductCreate() {
   
   let fileRef = useRef(null)
-
+  let navigate = useNavigate()
   let [form, setForm] = useState({
     name: "",
     brand: "",
     category: "mens",
     description: "",
-    price: "",
-    discount_price: "",
-    discount_percent: "",
+    price: 0,
+    discount_price: 0,
+    discount_percent: 0,
     tags: [],
     is_active: true,
     images: [],
@@ -30,11 +33,31 @@ export default function ProductCreate() {
   let [variant, setVariant] = useState({
     size: "M",
     color: "",
-    stock: "",
+    stock: 0,
     editIndex: null,
   })
 
   let [tagInput, setTagInput] = useState("")
+
+
+  // EFFECTS
+  useEffect(()=>{
+    async function loadDraft () {
+       let draftForm = await localforage.getItem("draftForm")
+       if(draftForm){ 
+          setForm((prev)=>({...prev,...draftForm})) 
+       } 
+      }
+    loadDraft()
+  },[])
+
+  useEffect(()=>{
+    let t = setTimeout(()=>{
+      localforage.setItem("draftForm",form)
+    },1000)
+
+    return () => clearTimeout(t)
+  },[form])
 
   // IMAGE UPLOAD
 
@@ -73,7 +96,7 @@ export default function ProductCreate() {
     let dp = Number(form.discount_price)
     let dpp = Number(form.discount_percent)
 
-    if (price <= 0) return
+    if (price <= 0) return alert("Price cannot be zero")
 
     // If discount price given , calculate percent
     if (dp > 0) {
@@ -126,7 +149,7 @@ export default function ProductCreate() {
       }
 
       setForm((p) => ({ ...p, variants: updated }))
-      setVariant({ size: "M", color: "", stock: "", editIndex: null })
+      setVariant({ size: "M", color: "", stock: 0, editIndex: null })
       return
     }
 
@@ -144,7 +167,7 @@ export default function ProductCreate() {
       variants: [...p.variants, variant],
     }))
 
-    setVariant({ size: "M", color: "", stock: "", editIndex: null })
+    setVariant({ size: "M", color: "", stock: 0, editIndex: null })
   }
 
   let removeVariant = (index) => {
@@ -165,10 +188,32 @@ export default function ProductCreate() {
   }
 
   // SUBMIT
-
   let handleCreate = () => {
-    console.log("Final Product Data:", form)
-    alert("Product Submitted (Check console)")
+    let formToSend = new FormData()
+
+    formToSend.append("name",form.name)
+    formToSend.append("brand",form.brand)
+    formToSend.append("category",form.category)
+    formToSend.append("description",form.description)
+    formToSend.append("price",form.price)
+    formToSend.append("discount_price",form.discount_price)
+    formToSend.append("discount_percent",form.discount_percent)
+    formToSend.append("is_active",form.is_active)
+
+    formToSend.append("variants",JSON.stringify(form.variants))
+    
+    form.images.forEach((image,_)=>{
+      formToSend.append("images",image)
+    })
+
+    axios.post(`http://127.0.0.1:8000/api/products/`,formToSend)
+    .then((res)=>{
+      console.log("%cPRODUCT SUCCESSFULLY CREATED","color:green",res.data)
+      localforage.clear()
+      navigate("/adminDashboard")
+    })
+    .catch((error)=>console.log("%cPRODUCT FAILED : 'The Error is' :","color:red",error.response.data))
+
   }
 
   let handleSaveDraft = () => {
@@ -224,6 +269,7 @@ export default function ProductCreate() {
 
           SIZE_OPTIONS={SIZE_OPTIONS}
           variant={variant}
+          setVariant={setVariant}
           saveVariant={saveVariant}
           editVariant ={editVariant}
           removeVariant={removeVariant}

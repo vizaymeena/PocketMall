@@ -17,6 +17,7 @@ import ShoppingWindow from "./pages/shopping/ShoppingWindow";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import AdminOverview from "./components/admin/AdminOverview";
 import ProductCreation from "./pages/admin/ProductCreation";
+import ProductList from "./pages/admin/ProductList";
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
         <Route path="adminDashboard" element={<AdminDashboard/>}>
           <Route index element={<AdminOverview/>} />
           <Route path="products/add/" element={<ProductCreation/>} />
+          <Route path="products/list/" element={<ProductList/>} />
+
         </Route>
 
          

@@ -93,8 +93,8 @@ export default function Sidebar() {
           </div>
           <div ref={productSubNavRef} className="subNav">
             <NavLink to="/adminDashboard/products/add">Add Product</NavLink>
-            <NavLink to="/adminDashboard/products">List Products</NavLink>
-            <NavLink to="/adminDashboard/products/categories">Categories</NavLink>
+            <NavLink to="/adminDashboard/products/list">List Products</NavLink>
+            <NavLink /*to="/adminDashboard/products/categories"*/ >Categories</NavLink>
           </div>
         </div>
 

@@ -1,6 +1,15 @@
 import React from 'react'
-import {X, Plus, Pencil, Trash2, Percent,  IndianRupee} from "lucide-react"
-function CreateRight({form,handleInput,SIZE_OPTIONS,updatePriceLogic,variant,editVariant,saveVariant,removeVariant}) {
+import { Plus, Pencil, Trash2, Percent,  IndianRupee} from "lucide-react"
+function CreateRight({
+    form,
+    handleInput,
+    SIZE_OPTIONS,
+    updatePriceLogic,
+    variant,
+    setVariant,
+    editVariant,
+    saveVariant,
+    removeVariant}) {
   return (
     <>
      {/* PRICING SECTION */}
@@ -38,17 +47,18 @@ function CreateRight({form,handleInput,SIZE_OPTIONS,updatePriceLogic,variant,edi
 
                 {form.price && form.discount_price && (
                   <div className="price-summary">
-                    <div className="original-price">${form.price}</div>
-                    <div className="discount-price">${form.discount_price}</div>
+                    <div className="original-price">Rs.{form.price}</div>
+                    <div className="discount-price">Rs.{form.discount_price}</div>
                     <div className="savings">
-                      You save: ${(form.price - form.discount_price).toFixed(2)} 
-                      ({form.discount_percent}%)
+                      You save: Rs.{(form.price - form.discount_price).toFixed(2)} 
+                       ({form.discount_percent}%)
                     </div>
                   </div>
                 )}
               </div>
             </div>
           </div>
+
          {/* VARIANTS SECTION */}
            <div className="card">
             <div className="card-header">
@@ -71,22 +81,12 @@ function CreateRight({form,handleInput,SIZE_OPTIONS,updatePriceLogic,variant,edi
 
                 <div className="form-group">
                   <label>Color</label>
-                  <input
-                    placeholder="e.g., Red, Blue, Black"
-                    value={variant.color}
-                    onChange={(e) => setVariant({ ...variant, color: e.target.value })}
-                  />
+                  <input placeholder="e.g., Red, Blue, Black" value={variant.color} onChange={(e) => setVariant({ ...variant, color: e.target.value })} />
                 </div>
 
                 <div className="form-group">
                   <label>Stock</label>
-                  <input
-                    placeholder="Quantity"
-                    type="number"
-                    value={variant.stock}
-                    onChange={(e) => setVariant({ ...variant, stock: e.target.value })}
-                    min="0"
-                  />
+                  <input placeholder="Quantity" type="number" value={variant.stock} onChange={(e) => setVariant({ ...variant, stock: e.target.value })} min="0" />
                 </div>
 
                 <div className="form-group">
@@ -95,12 +95,12 @@ function CreateRight({form,handleInput,SIZE_OPTIONS,updatePriceLogic,variant,edi
                     {variant.editIndex !== null ? (
                       <>
                         <Pencil size={16} />
-                        Update Variant
+                        Update 
                       </>
                     ) : (
                       <>
                         <Plus size={16} />
-                        Add Variant
+                        Add 
                       </>
                     )}
                   </button>
@@ -115,6 +115,7 @@ function CreateRight({form,handleInput,SIZE_OPTIONS,updatePriceLogic,variant,edi
                     <span>Stock</span>
                     <span>Actions</span>
                   </div>
+
                   <div className="table-body">
                     {form.variants.map((v, i) => (
                       <div className="table-row" key={i}>

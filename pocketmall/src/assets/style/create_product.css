@@ -137,9 +137,12 @@
 }
 
 .upload-icon {
-  color: #94a3b8;
+  width: 100%;
   margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
 }
+
 
 .upload-content h4 {
   font-size: 16px;
@@ -432,6 +435,16 @@
   gap: 16px;
   margin-bottom: 24px;
 }
+
+
+.variant-inputs .form-group select, 
+.variant-inputs .form-group input{
+  height: 40px;
+  padding-left: 8px;
+  border-radius: 5px;
+  border: 1px solid rgba(212, 212, 212, 0.715);
+} 
+
 
 .variant-add-btn {
   width: 100%;

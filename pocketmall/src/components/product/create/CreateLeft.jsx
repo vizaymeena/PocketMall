@@ -1,6 +1,17 @@
 import React, { useRef } from 'react'
-import { Upload,Package,Hash,Tag } from 'lucide-react'
-function CreateLeft({handleFiles,fileRef,form,MAX_IMAGES,handleInput,tagInput,setTagInput,handleAddTag,removeImage}) {
+import {X, Upload,Package,Hash,Tag } from 'lucide-react'
+
+function CreateLeft({
+  handleFiles,
+  fileRef,
+  form,
+  MAX_IMAGES,
+  handleInput,
+  tagInput,
+  setTagInput,
+  handleAddTag,
+  handleRemoveTag,
+  removeImage}) {
    
   return (
     
@@ -89,7 +100,7 @@ function CreateLeft({handleFiles,fileRef,form,MAX_IMAGES,handleInput,tagInput,se
 
               <div className="form-group">
                 <label>Description *</label>
-                <textarea name="description" value={form.description} onChange={handleInput} placeholder="Describe your product in detail..." rows={6} />
+                <textarea name="description" value={form.description} onChange={handleInput} placeholder="Describe your product in detail..." rows={6} cols={40} />
               </div>
 
               <div className="form-group">
