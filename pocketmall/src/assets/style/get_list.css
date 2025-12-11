@@ -81,97 +81,182 @@
   font-weight: bold;
 }
 
-/* ==== DIALOG OVERLAY ==== */
-.overlay {
+
+
+
+
+
+/* EDIT BOX */
+/* .dialogParent{
+  backdrop-filter: blur(2px);
+  background-color: rgba(100, 100, 100, 0.648);
+  position: absolute;
+  inset: 0;
+}
+.editDialogBox {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80vh;
+  background: rgb(154, 156, 177);
+  z-index: 1000;
+  border-radius: 10px;
+}
+
+ */
+
+
+
+/* BACKDROP */
+.dialogParent.bgParent {
+ 
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(2px);
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: fadeIn 0.3s ease;
+  padding: 20px;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-.editDialog {
-  width: 420px;
+/* MODAL BOX */
+.editDialogBox {
+  width: 80%;
+  height: 85vh;
   background: #fff;
-  padding: 25px;
-  border-radius: 18px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.25);
-  animation: popIn 0.25s ease;
+  border-radius: 14px;
+  overflow-y: auto;
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-.editDialog h3 {
-  margin-bottom: 20px;
-  font-size: 22px;
+/* GRID LAYOUT */
+.editGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-rows: auto auto;
+  grid-gap: 30px;
 }
 
-.editDialog label {
-  font-size: 14px;
-  margin-top: 12px;
-  display: block;
+/* FULL WIDTH BOTTOM SECTION */
+.imagesSection {
+  grid-column: 1 / 3;
+}
+
+/* SECTION CARD STYLE */
+.section {
+  background: #fafafa;
+  padding: 18px 20px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+}
+
+.section h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
   font-weight: 600;
-  color: #333;
 }
 
-.editDialog input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  margin-top: 6px;
-  font-size: 14px;
-}
-
-.variantBox {
-  margin-top: 20px;
-}.sectionTitle {
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-size: 15px;
-  font-weight: 700;
-  color: #444;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 5px;
-}
-
-.variantRow {
+/* INPUT FIELDS */
+.field {
   display: flex;
-  gap: 10px;
-  background: #f2f2f2;
-  padding: 10px;
+  flex-direction: column;
+  margin-bottom: 5px;
+}
+
+.field label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+}
+
+.field input {
+  padding: 5px;
   border-radius: 8px;
-  margin-bottom: 8px;
-  align-items: center;
-}
-
-.variantRow select,
-.variantRow input {
-  flex: 1;
-  padding: 8px;
-  border-radius: 6px;
   border: 1px solid #ccc;
+  margin-top: 4px;
+  outline: none;
+  transition: border 0.2s;
 }
 
-.removeVariant {
-  background: #dc2626;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
+.field input:focus {
+  border-color: #4f46e5; /* Purple highlight */
+}
+
+/* VARIANTS */
+.variantList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.variantItem {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(100px,3fr));
+  gap: 10px;
+}
+
+.variantList .variantItem input{
+  padding: 8px;
 }
 
 .addVariantBtn {
-  background: #2563eb;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 6px;
+  padding: 10px;
+  background: #4f46e5;
   border: none;
+  color: white;
+  border-radius: 8px;
   cursor: pointer;
-  margin-bottom: 10px;
+}
+
+/* IMAGES SECTION */
+.imagesGrid {
+  display: grid;
+  grid-template-columns: 1.5fr 2fr;
+  gap: 20px;
+}
+
+.leftImages, 
+.rightImages {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.leftImages .imageBox{
+  height: 250px;
+  background: #eaeaea;
+  border-radius: 8px;
+  color: #000000;
+  font-size: 24px;
+  border: 2px dashed #bbb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.rightImages .imageBox {
+  height: 120px;
+  background: #eaeaea;
+  border-radius: 8px;
+  border: 2px dashed #bbb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 800px) {
+  .editGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .imagesSection {
+    grid-column: 1;
+  }
 }

@@ -102,7 +102,7 @@ export default function ProductCreate() {
     if (dp > 0) {
       if (dp >= price) return alert("Discount price must be less than price")
 
-      let percent = (((price - dp) / price) * 100).toFixed(2)
+      let percent = (((price - dp) / price) * 100)
       setForm((p) => ({ ...p, discount_percent: percent }))
       return
     }
@@ -197,7 +197,7 @@ export default function ProductCreate() {
     formToSend.append("description",form.description)
     formToSend.append("price",form.price)
     formToSend.append("discount_price",form.discount_price)
-    formToSend.append("discount_percent",form.discount_percent)
+    formToSend.append("discount_percent",form.discount_percent.toFixed(2))
     formToSend.append("is_active",form.is_active)
 
     formToSend.append("variants",JSON.stringify(form.variants))

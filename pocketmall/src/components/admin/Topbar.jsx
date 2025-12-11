@@ -9,10 +9,10 @@ export default function Topbar() {
     <header className="topbar">
 
       {/* Search Box */}
-      <div className="searchBox">
+      {/* <div className="searchBox">
         <Search size={18} />
         <input placeholder="Search products, users, reports..." />
-      </div>
+      </div> */}
 
       <div className="topbarActions">
 
