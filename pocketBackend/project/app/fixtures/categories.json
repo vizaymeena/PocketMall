@@ -1,0 +1,38 @@
+[
+  {
+    "model": "app.category",
+    "pk": 1,
+    "fields": {
+      "name": "Men",
+      "prefix": "M",
+      "slug": "mens"
+    }
+  },
+  {
+    "model": "app.category",
+    "pk": 2,
+    "fields": {
+      "name": "Women",
+      "prefix": "W",
+      "slug": "womens"
+    }
+  },
+  {
+    "model": "app.category",
+    "pk": 3,
+    "fields": {
+      "name": "Kids",
+      "prefix": "K",
+      "slug": "kids"
+    }
+  },
+  {
+    "model": "app.category",
+    "pk": 4,
+    "fields": {
+      "name": "Electronics",
+      "prefix": "E",
+      "slug": "electronics"
+    }
+  }
+]

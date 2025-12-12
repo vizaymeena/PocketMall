@@ -41,31 +41,77 @@ class Product(models.Model):
         if not self.product_code:
 
             prefix = self.category.prefix.upper() # "M"
-            last_product = Product.objects.filter(category=self.category).order_by['-id'].first()
+            last_product = Product.objects.filter(category=self.category).order_by('-id').first()
 
             if last_product and last_product.product_code:
-                last_number = len(prefix) + last_product.product_code[len(prefix)+2:]
+                last_number = len(prefix) + int(last_product.product_code[len(prefix)+2:])
             else:
                 last_number = 0
 
             new_number = last_number + 1
 
-            self.product_code = f"#${prefix}{new_number:05d}"
+            self.product_code = f"#{prefix}{new_number:05d}"
 
             super().save(*args,**kwargs)
 
             
-
-
-
 # ------------------ PRODUCT IMAGE GALLERY ------------------
+from PIL import Image
+from io import BytesIO
+from django.core.files.base import ContentFile
+
 class ProductImage(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
+    product = models.ForeignKey("Product", on_delete=models.CASCADE, related_name="images")
     image = models.ImageField(upload_to='products/')
+    thumbnail = models.ImageField(upload_to='products/thumbs/', blank=True, null=True)
     is_thumbnail = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Image of {self.product.name}"
+
+    def make_thumbnail(self, image_field, size=(300, 300)):
+        img = Image.open(image_field)
+
+        img = img.convert("RGB")
+        img.thumbnail(size)
+
+        buffer = BytesIO()
+        img.save(buffer, "JPEG", quality=70, optimize=True)
+        buffer.seek(0)
+
+        return ContentFile(buffer.read(), name=f"thumb_{image_field.name}")
+
+    def compress_image(self, image_field):
+        img = Image.open(image_field)
+
+        # Resize full-size image if too large
+        max_size = (1200, 1200)
+        img.thumbnail(max_size)
+
+        img = img.convert("RGB")
+
+        buffer = BytesIO()
+        img.save(buffer, "JPEG", quality=75, optimize=True)
+        buffer.seek(0)
+
+        return ContentFile(buffer.read(), name=image_field.name)
+
+    def save(self, *args, **kwargs):
+
+        # Step 1: Save original first (to get self.image reference)
+        super().save(*args, **kwargs)
+
+        # ----- Compress original -----
+        compressed = self.compress_image(self.image)
+        self.image.save(self.image.name, compressed, save=False)
+
+        # ----- Generate thumbnail -----
+        if not self.thumbnail:
+            thumb = self.make_thumbnail(self.image)
+            self.thumbnail.save(f"thumb_{self.image.name}", thumb, save=False)
+
+        # Save again after modification
+        super().save(*args, **kwargs)
 
 
 # ------------------ PRODUCT VARIANTS ------------------

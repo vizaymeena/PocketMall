@@ -1,21 +1,42 @@
 import re
 
 from rest_framework import serializers
-from .models import Product
+from .models import Product , Category , ProductImage , ProductVariant
+
+
+class ProductImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImage
+        fields = ["image","thumbnail" ,"is_thumbnail"]
+
+class ProductVariantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductVariant
+        fields = ["size", "color", "stock"]
 
 class ProductSerializer(serializers.ModelSerializer):
+
+    variants = ProductVariantSerializer(many=True,read_only=True)
+    images = ProductImageSerializer(many=True, read_only=True)
+    category = serializers.SlugRelatedField(slug_field="slug",queryset=Category.objects.all())
+    product_code = serializers.CharField(read_only=True)
+
 
     class Meta:
         model = Product
         fields = [
+            "id",
             'name',
+            "product_code",
             'brand',
             'category',
             'description',
             'price',
             'discount_price',
             'discount_percent',
-            'is_active'
+            'is_active',
+            "variants",
+            "images",
         ]
         read_only_fields = ['id', 'product_code', 'created_at', 'updated_at']
 
@@ -72,4 +93,5 @@ class ProductSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
+
         return super().create(validated_data)
