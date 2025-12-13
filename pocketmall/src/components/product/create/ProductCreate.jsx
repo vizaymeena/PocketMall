@@ -7,6 +7,7 @@ import "../../../assets/style/create_product.css"
 import CreateLeft from "./CreateLeft"
 import CreateRight from "./CreateRight"
 import { useNavigate } from "react-router-dom"
+import ProductList from "../../../pages/admin/ProductList"
 
 
 let MAX_IMAGES = 4
@@ -22,7 +23,7 @@ export default function ProductCreate() {
     category: "mens",
     description: "",
     price: 0,
-    discount_price: 0,
+    discount_price: Number(0).toFixed(2),
     discount_percent: 0,
     tags: [],
     is_active: true,
@@ -67,9 +68,9 @@ export default function ProductCreate() {
     if (form.images.length + files.length > MAX_IMAGES)
       return alert("Maximum 4 images allowed")
 
-    let mapped = files.map((file) => ({
-      file,
-      url: URL.createObjectURL(file),
+    let mapped = files.map((image) => ({
+      image,
+      url: URL.createObjectURL(image),
     }))
 
     setForm((p) => ({ ...p, images: [...p.images, ...mapped] }))
@@ -197,27 +198,29 @@ export default function ProductCreate() {
     formToSend.append("description",form.description)
     formToSend.append("price",form.price)
     formToSend.append("discount_price",form.discount_price)
-    formToSend.append("discount_percent",form.discount_percent.toFixed(2))
+    formToSend.append("discount_percent",Number(form.discount_percent).toFixed(2))
     formToSend.append("is_active",form.is_active)
 
     formToSend.append("variants",JSON.stringify(form.variants))
     
-    form.images.forEach((image,_)=>{
-      formToSend.append("images",image)
+    form.images.forEach((file,_)=>{
+      formToSend.append("images",file.image)
+      console.log("Images appending to FormToSend",file.image)
     })
 
     axios.post(`http://127.0.0.1:8000/api/products/`,formToSend)
     .then((res)=>{
-      console.log("%cPRODUCT SUCCESSFULLY CREATED","color:green",res.data)
-      localforage.clear()
+      console.log("%cPRODUCT SUCCESSFULLY CREATED","color:green",res.data)    
+      // console.log(`Product created at database ${formToSend}`)
       navigate("/adminDashboard")
+      localforage.clear()
     })
     .catch((error)=>console.log("%cPRODUCT FAILED : 'The Error is' :","color:red",error.response.data))
+
 
   }
 
   let handleSaveDraft = () => {
-    console.log("Saved as Draft:", form)
     alert("Product saved as draft")
   }
 

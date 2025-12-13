@@ -61,7 +61,7 @@ from io import BytesIO
 from django.core.files.base import ContentFile
 
 class ProductImage(models.Model):
-    product = models.ForeignKey("Product", on_delete=models.CASCADE, related_name="images")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
     image = models.ImageField(upload_to='products/')
     thumbnail = models.ImageField(upload_to='products/thumbs/', blank=True, null=True)
     is_thumbnail = models.BooleanField(default=False)
@@ -95,23 +95,34 @@ class ProductImage(models.Model):
         buffer.seek(0)
 
         return ContentFile(buffer.read(), name=image_field.name)
-
     def save(self, *args, **kwargs):
+        is_new = self.pk is None
 
-        # Step 1: Save original first (to get self.image reference)
+        # FIRST save -> create DB row and PK
         super().save(*args, **kwargs)
 
-        # ----- Compress original -----
-        compressed = self.compress_image(self.image)
-        self.image.save(self.image.name, compressed, save=False)
+        if is_new:
+            updated_fields = []
 
-        # ----- Generate thumbnail -----
-        if not self.thumbnail:
-            thumb = self.make_thumbnail(self.image)
-            self.thumbnail.save(f"thumb_{self.image.name}", thumb, save=False)
+            # Compress original
+            compressed = self.compress_image(self.image)
+            self.image.save(self.image.name, compressed, save=False)
+            updated_fields.append("image")
 
-        # Save again after modification
-        super().save(*args, **kwargs)
+            # Generate thumbnail
+            if not self.thumbnail:
+                thumb = self.make_thumbnail(self.image)
+                self.thumbnail.save(
+                    f"thumb_{self.image.name}",
+                    thumb,
+                    save=False
+                )
+                updated_fields.append("thumbnail")
+
+            # SECOND save -> UPDATE ONLY (no INSERT)
+            if updated_fields:
+                super().save(update_fields=updated_fields)
+
 
 
 # ------------------ PRODUCT VARIANTS ------------------

@@ -19,8 +19,12 @@ class ProductViewSet(ModelViewSet):
 
     def create(self, request, *args, **kwargs):
 
+        images = self.request.data.getlist("images")
+
         print("=========================")
         print("=========================")
+
+        print("Number of images:", len(images))
         print(request.data.get("category"))
         
         print(request.data.get("discount_price"))

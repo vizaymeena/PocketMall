@@ -87,176 +87,323 @@
 
 
 /* EDIT BOX */
-/* .dialogParent{
-  backdrop-filter: blur(2px);
-  background-color: rgba(100, 100, 100, 0.648);
-  position: absolute;
-  inset: 0;
-}
-.editDialogBox {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80%;
-  height: 80vh;
-  background: rgb(154, 156, 177);
-  z-index: 1000;
-  border-radius: 10px;
-}
 
- */
-
-
-
-/* BACKDROP */
-.dialogParent.bgParent {
- 
+/* Overlay */
+.editOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.45);
-  backdrop-filter: blur(2px);
+  background: rgba(0,0,0,0.5);
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
+  z-index: 50;
 }
 
-/* MODAL BOX */
-.editDialogBox {
-  width: 80%;
-  height: 85vh;
+/* Modal Container */
+.editContainer {
   background: #fff;
-  border-radius: 14px;
-  overflow-y: auto;
-  padding: 30px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 1100px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.2);
 }
 
-/* GRID LAYOUT */
+/* Header */
+.editHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.editTitle {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #777;
+}
+
+/* Content */
+.editContent {
+  padding: 20px;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
 .editGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-template-rows: auto auto;
-  grid-gap: 30px;
-}
-
-/* FULL WIDTH BOTTOM SECTION */
-.imagesSection {
-  grid-column: 1 / 3;
-}
-
-/* SECTION CARD STYLE */
-.section {
-  background: #fafafa;
-  padding: 18px 20px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-}
-
-.section h3 {
-  font-size: 20px;
-  margin-bottom: 15px;
-  font-weight: 600;
-}
-
-/* INPUT FIELDS */
-.field {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 5px;
-}
-
-.field label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #444;
-}
-
-.field input {
-  padding: 5px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-top: 4px;
-  outline: none;
-  transition: border 0.2s;
-}
-
-.field input:focus {
-  border-color: #4f46e5; /* Purple highlight */
-}
-
-/* VARIANTS */
-.variantList {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.variantItem {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(100px,3fr));
-  gap: 10px;
-}
-
-.variantList .variantItem input{
-  padding: 8px;
-}
-
-.addVariantBtn {
-  padding: 10px;
-  background: #4f46e5;
-  border: none;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-/* IMAGES SECTION */
-.imagesGrid {
-  display: grid;
-  grid-template-columns: 1.5fr 2fr;
+  grid-template-columns: 1.6fr 1fr;
   gap: 20px;
 }
 
-.leftImages, 
-.rightImages {
+/* Section Titles */
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #444;
+}
+
+/* Form */
+.formGroup {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  margin-bottom: 12px;
 }
 
-.leftImages .imageBox{
-  height: 250px;
-  background: #eaeaea;
+.formGroup label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.inputField {
+  padding: 10px;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  color: #000000;
-  font-size: 24px;
-  border: 2px dashed #bbb;
+  outline: none;
+}
+
+.formTwoCols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.formThreeCols {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+/* Variants Box */
+.variantAddBox {
+  background: #f4f4f4;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.fullBtn {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Variant List */
+.variantListBox {
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.variantItem {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+}
+
+/* Variant Info Chips */
+.variantSize {
+  background: #e3eaff;
+  color: #1d4ed8;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+.variantColor {
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.variantStock {
+  font-size: 12px;
+  color: #666;
+}
+
+.deleteVariantBtn {
+  background: none;
+  border: none;
+  color: #d33;
   cursor: pointer;
 }
 
-.rightImages .imageBox {
-  height: 120px;
-  background: #eaeaea;
-  border-radius: 8px;
-  border: 2px dashed #bbb;
+/* Images Section */
+.imagesSection {
+  margin-top: 20px;
+}
+
+.imagesGrid {
+  display: grid;
+  grid-template-columns: 20% 70%;
+  grid-template-rows: 200px;
+  gap: 12px;
+}
+
+/* Upload Box */
+.uploadBox {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.fileInput {
+  display: none;
+}
+
+.uploadIcon {
+  color: #777;
+  margin-bottom: 6px;
+}
+
+/* Preview Images */
+ .imageItem {
   display: flex;
-  justify-content: center;
+  width: 100%;
+  gap: 20px;
   align-items: center;
+  
+  flex-wrap: no-wrap;   
+  padding: 6px;
+  border: 1px solid rgb(212, 212, 212);
+}
+.keepImage{
+  position: relative;
+}
+.previewImg {
+  padding: 10px;
+  opacity: 0.8;
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.deleteImageBtn {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%,-50%);
+  background: rgb(0, 0, 0);
+  border: 1.5px solid rgb(255, 255, 255);
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+/* Footer */
+.editFooter {
+  padding: 15px;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  background: #f7f7f7;
+}
+
+.cancelBtn {
+  padding: 10px 16px;
+  background: #eee;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.primaryBtn {
+  padding: 10px 16px;
+  background: #2563eb;
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   cursor: pointer;
 }
 
-/* RESPONSIVE */
-@media (max-width: 800px) {
-  .editGrid {
-    grid-template-columns: 1fr;
+
+
+/* New variants css */
+/* Wrapper for all editable variants */
+.variantListEdit {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+/* Each variant row */
+.variantEditRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 12px;
+  padding: 12px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  align-items: center;
+}
+
+/* Inputs and selects for each variant */
+.variantEditRow select,
+.variantEditRow input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #c7c7c7;
+  background: #f9f9f9;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+/* Focus effect */
+.variantEditRow select:focus,
+.variantEditRow input:focus {
+  outline: none;
+  border-color: #007bff;
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.15);
+}
+
+/* Delete button */
+.variantEditRow button {
+  background: #ff3b30;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.variantEditRow button:hover {
+  background: #e13229;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .variantEditRow {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
   }
 
-  .imagesSection {
-    grid-column: 1;
+  .variantEditRow button {
+    grid-column: span 2;
+    width: 100%;
   }
 }
