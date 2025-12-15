@@ -44,16 +44,17 @@ function ProductList() {
 
 
 
-  let handleEdit = (item) => {
+  let handleEdit = (item,code) => {
     if (!item.id) return
     try {
       setShowEdit(true)
       setEditData((pv) => ({
         ...pv,
+        productCode:code,
         name: item.name,
         price: item.price,
         category: item.category,
-        variants: item.variants,
+        variants: item.variants.filter(v=>({...v})),
         images: item.images
       }))
     } catch (error) {
@@ -123,7 +124,7 @@ function ProductList() {
 
                 {/* RIGHT - Buttons */}
                 <div className="right">
-                  <p className="editBtn" onClick={() => handleEdit(item)}>EDIT </p>
+                  <p className="editBtn" onClick={() => handleEdit(item,item.product_code)}>EDIT </p>
 
                   <p className="delBtn" onClick={() => RemoveProduct(item.id)}>DEL</p>
                 </div>
@@ -158,16 +159,18 @@ function EditProduct({ setShowEdit, editData, setEditData, close }) {
 
   let fileRef = useRef(null)
 
-  let [isBtnActive, setBtnActive] = ({
+  let [isBtnActive, setBtnActive] = useState({
     addBtn: false,
   })
 
   let [images, setImages] = useState([{ image: " ", }])
 
-  let [extraVariant, setExtraVariant] = useState({ size: "m", color: "", stock: 0 }) // extra variant object
+  let [extraVariant, setExtraVariant] = useState({ size: "s", color: "", stock: 0 }) // extra variant object
 
 
   console.log("Data coming for editing :", editData)
+
+
 
   // UPDATING PRODUCTS TOP MOST FIELDS
   let handleEditChange = (e) => {
@@ -182,20 +185,37 @@ function EditProduct({ setShowEdit, editData, setEditData, close }) {
   }
   // ADD DRAFTED VARIANTS INTO THE VARIANTS 
 
-  let addExtraVariant = () => {
-    setBtnActive((prev) => !prev);
+   let addExtraVariant = () => {
+    setEditData(prev => {
+      let exists = prev.variants.some(v =>
+        v.size === extraVariant.size &&
+        v.color.trim().toLowerCase() === extraVariant.color.trim().toLowerCase() &&
+        Number(v.stock) === Number(extraVariant.stock)
+      )
 
+      if (exists) {
+        return alert("Variant already exists in current product")
+      }
+
+      return {
+        ...prev,
+        variants: [...prev.variants, { ...extraVariant }]
+      }
+    })
+
+    setExtraVariant({ size: "s", color: "", stock: 0 })
   }
+
 
   // DRAFT EXTRA VARIANTS 
   let DraftExtraVariant = (e) => {
     let { name, value } = e.target
 
-    setExtraVariant((prev) => ({
+     setExtraVariant((prev) => ({
       ...prev,
       [name]: value
     }))
-
+   
   }
 
   // UPDATING VARIANTS 
@@ -243,14 +263,13 @@ function EditProduct({ setShowEdit, editData, setEditData, close }) {
 
 
   // PATCH REQUEST FOR VARIANTS
-  let updateVariants = (productId) => {
-    let id = productId
+  let updateVariants = (productCode) => {
     let updateVariants = editData?.variants
 
     try {
       if (!id) return alert("product id for variants not applied")
 
-      axios.patch(`http://127.0.0.1:8000/api/variants/${id}`, updateVariants)
+      axios.patch(`http://127.0.0.1:8000/api/variants/${productCode}`, updateVariants)
         .then((res) => console.log(res.data))
         .catch((error) => console.log(error.response.data))
 
@@ -324,7 +343,7 @@ function EditProduct({ setShowEdit, editData, setEditData, close }) {
               {/* Add Variant */}
               <div className="variantAddBox">
                 <div className="variantListEdit">
-                  {editData.variants.map((variant, index) => (
+                  {editData?.variants?.map((variant, index) => (
                     <div className="variantEditRow" key={index}>
 
                       {/* SIZE */}
@@ -362,13 +381,18 @@ function EditProduct({ setShowEdit, editData, setEditData, close }) {
                     <input value={extraVariant.color} name="color" onChange={DraftExtraVariant} type="text" placeholder="eg:Black,Green,Red" />
                   </div>
                   <div className="variantAddRow">
-                    <input value={extraVariant.stock} name="stock" onChange={DraftExtraVariant} type="text" placeholder="eg:Quantity(200,300,1200)" />
+                    <input value={extraVariant.stock} name="stock" onChange={DraftExtraVariant} type="number" placeholder="eg:Quantity(200,300,1200)" />
                   </div>
 
-                  <div className="variantAddRow extraAddVariantBtn" style={isBtnActive.addBtn ? { pointerEvents: "none", opacity: 0.5 } : {}} onClick={addExtraVariant} >Add</div>
+                  <div className="variantAddRow extraAddVariantBtn" 
+                        style = {{ 
+                          pointerEvents: isBtnActive.addBtn ? "none":"auto", 
+                          opacity:isBtnActive.addBtn ? 0.5 : 1 
+                        }} 
+                        onClick={addExtraVariant} >Add</div>
                 </div>
 
-                <button onClick={() => updateVariants(editData.id)} className="primaryBtn fullBtn">
+                <button onClick={() => updateVariants(editData.id,editData.productCode)} className="primaryBtn fullBtn">
                   <Plus size={16} /> Update Variants
                 </button>
               </div>
