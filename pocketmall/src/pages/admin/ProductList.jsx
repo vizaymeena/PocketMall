@@ -1,5 +1,4 @@
 import axios from "axios"
-import { Plus } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 import "../../assets/style/get_list.css"
 import SkeletonCard from "../../utils/Skeleton"
@@ -8,18 +7,24 @@ function ProductList() {
   let [productList, setProductList] = useState([])
   let [showEdit, setShowEdit] = useState(false)
   let [editData, setEditData] = useState({
+    id: "",
+    product_code: "",
     name: "",
-    price: "",
+    price: Number(0).toFixed(2),
+    discount_price: Number(0).toFixed(2),
+    discount_percent: Number(0).toFixed(2),
     category: "",
     variants: [],
-    images: []
+    images: [],
+    deleted_images:[]
   })
 
-
-  let [editProduct, setEditProduct] = useState(null)
   let [loading, setLoading] = useState(true)
   const dialogRef = useRef(null)
 
+  useEffect(() => {
+    console.log(productList?.[0])
+  }, [productList])
 
   const skeleton = () => {
     return Array.from({ length: productList.length }, (_, i) => (
@@ -27,34 +32,39 @@ function ProductList() {
     ))
   }
 
-  console.log(productList)
+
 
   useEffect(() => {
     let t
     axios.get(`http://127.0.0.1:8000/api/products/`)
       .then((res) => {
         setProductList(res.data)
+        console.log("Get Res :",res.data[0])
+
         t = setTimeout(() => {
           setLoading(false)
         }, 500)
       })
       .catch((err) => console.log(err.response?.data || err.message))
     return () => clearTimeout(t)
-  }, [])
+  }, [showEdit])
 
 
 
-  let handleEdit = (item,code) => {
+
+  let handleEdit = (item, code) => {
     if (!item.id) return
     try {
       setShowEdit(true)
       setEditData((pv) => ({
         ...pv,
-        productCode:code,
+        id: item.id,
+        product_code: code,
         name: item.name,
         price: item.price,
+        discount_price: item.price,
         category: item.category,
-        variants: item.variants.filter(v=>({...v})),
+        variants: item.variants.filter(v => ({ ...v })),
         images: item.images
       }))
     } catch (error) {
@@ -124,7 +134,7 @@ function ProductList() {
 
                 {/* RIGHT - Buttons */}
                 <div className="right">
-                  <p className="editBtn" onClick={() => handleEdit(item,item.product_code)}>EDIT </p>
+                  <p className="editBtn" onClick={() => handleEdit(item, item.product_code)}>EDIT </p>
 
                   <p className="delBtn" onClick={() => RemoveProduct(item.id)}>DEL</p>
                 </div>
@@ -154,131 +164,148 @@ export default ProductList
 /* ============================  */
 
 import { Save, Upload, X } from 'lucide-react'
+import { useNavigate } from 'react-router-dom' 
 
-function EditProduct({ setShowEdit, editData, setEditData, close }) {
+function EditProduct({ setShowEdit,editData, setEditData, close }) {
 
+  let navigate = useNavigate();
   let fileRef = useRef(null)
-
-  let [isBtnActive, setBtnActive] = useState({
-    addBtn: false,
-  })
-
-  let [images, setImages] = useState([{ image: " ", }])
-
-  let [extraVariant, setExtraVariant] = useState({ size: "s", color: "", stock: 0 }) // extra variant object
-
-
-  console.log("Data coming for editing :", editData)
 
 
 
   // UPDATING PRODUCTS TOP MOST FIELDS
-  let handleEditChange = (e) => {
-
+  const handleEditChange = (e) => {
     let { name, value } = e.target
-
-    setEditData((prev) => ({
-      ...prev,
-      [name]: value
-    }))
-
-  }
-  // ADD DRAFTED VARIANTS INTO THE VARIANTS 
-
-   let addExtraVariant = () => {
-    setEditData(prev => {
-      let exists = prev.variants.some(v =>
-        v.size === extraVariant.size &&
-        v.color.trim().toLowerCase() === extraVariant.color.trim().toLowerCase() &&
-        Number(v.stock) === Number(extraVariant.stock)
-      )
-
-      if (exists) {
-        return alert("Variant already exists in current product")
-      }
-
-      return {
-        ...prev,
-        variants: [...prev.variants, { ...extraVariant }]
-      }
-    })
-
-    setExtraVariant({ size: "s", color: "", stock: 0 })
-  }
-
-
-  // DRAFT EXTRA VARIANTS 
-  let DraftExtraVariant = (e) => {
-    let { name, value } = e.target
-
-     setExtraVariant((prev) => ({
-      ...prev,
-      [name]: value
-    }))
-   
-  }
-
-  // UPDATING VARIANTS 
-  function editVariantsChange(index, e) {
-    let { name, value } = e.target // name and their respective values
 
     setEditData((prev) => {
-      let updated = [...prev.variants]  // copy existing variants array 
 
-      // update the specific variant
-      updated[index] = {
-        ...updated[index],
+      let updated = {
+        ...prev,
         [name]: value
       }
-      // returns updated array variant
+
+      let dp;
+      let price = name == "price" ? value : updated.price;
+      let discount_price = name == "discount_price" ? value : updated.discount_price;
+
+
+      if (Number(price) > 0 && discount_price > 0 && discount_price < price) {
+        updated.discount_percent = (discount_price / price) * 100
+      }
+      else {
+        updated.discount_price = "";
+      }
+
+      return updated
+    })
+
+  }
+
+  // HANDLING IMAGES INPUT FROM FILELIST
+  const handleFiles = (e) => {
+
+    let files = Array.from(e.target.files);
+
+    setEditData(prev => {
+      let existing = prev.images || [];
+      console.log("INSIDE SETTER, prev:", prev.images.length);
+      if (existing.length + files.length > 4) {
+        alert("Maximum 4 images allowed");
+        return prev;
+      }
+
+      let mapped = files.map(file => ({
+        file, // for upload later
+        image: URL.createObjectURL(file), // for preview
+        is_new:true
+      }));
+
       return {
         ...prev,
-        variants: updated
+        images: [...existing, ...mapped]
+      };
+    });
+    console.log("OUTSIDE, editData:", editData.images.length);
+
+    e.target.value = ""
+    fileRef.current = null;
+  };
+
+  // REMOVE IMAGE// REMOVE IMAGE
+  const removeImage = (rmIndex) => {
+      setEditData(prev => {
+        const images = [...prev.images];
+        const img = images[rmIndex];
+      
+        // Revoke blob URL ONLY for newly added images
+        if (img?.is_new && img.image?.startsWith("blob:")) {
+          URL.revokeObjectURL(img.image);
+        }
+      
+        // Prepare delete_images array safely
+        const delete_images = [...(prev.delete_images || [])];
+      
+        // If image already exists in backend, mark it for deletion
+        if (!img?.is_new && img?.id) {
+          delete_images.push(img.id);
+        }
+      
+        // Remove image from UI list
+        images.splice(rmIndex, 1);
+      
+        // Return updated state
+        return {
+          ...prev,
+          images,
+          delete_images
+        };
+      });
+    };
+
+  // let calcDiscount=(price,dp)=>{
+  //   return ((dp/price)*100)
+  // }
+
+  useEffect(()=>{
+    console.log("EDIT DATA",editData?.images)
+    console.log("IMAGES in editform :",editData?.images?.[0]?.id)
+   
+  },[editData])
+  
+  // API PATCH REQ FOR PRODUCT UPDATE
+  const productUpdate = (id) => {
+    console.log("Disocunt :",calcDiscount(editData.price,editData.discount_price))
+    const sendToForm = new FormData;
+
+    sendToForm.append("name", editData.name)
+    sendToForm.append("price", editData.price)
+    sendToForm.append("discount_percent", editData.discount_percent || '0.00')
+    sendToForm.append("discount_price", editData.discount_price || '0.00') 
+    sendToForm.append("category", editData.category)
+
+    editData?.images.forEach(image => {
+      if(image.is_new){
+        sendToForm.append("images", image.file)
       }
-    })
-  }
-  // HANDLING IMAGES INPUT FROM FILELIST
-  let handleFiles = (e) => {
-    let files = Array.from(e.target.files)
+      else{
 
-    if (images.length + files.length > 4) return alert("maximum 4 images can be allowed")
-
-    let mapped = files.map((file) => ({
-      file,
-      thumbnail: URL.createObjectURL(file)
-    }))
-    setImages(prev => [...prev, ...mapped])
-  }
-
-  // DELETE EXISTING VARIANT 
-  let handleRemoveVariant = (delIndex) => {
-    let updatedVariants;
-    updatedVariants = editData.variants.filter((_, targetIndex) => (targetIndex !== delIndex))
-
-    setEditData(prev => ({
-      ...prev,
-      variants: updatedVariants
-    }))
-  }
-
-
-  // PATCH REQUEST FOR VARIANTS
-  let updateVariants = (productCode) => {
-    let updateVariants = editData?.variants
+      }
+    });
 
     try {
-      if (!id) return alert("product id for variants not applied")
+      axios.patch(`http://127.0.0.1:8000/api/products/${id}/`, sendToForm)
+        .then(res =>{
+           console.log("Created:",res.data) 
 
-      axios.patch(`http://127.0.0.1:8000/api/variants/${productCode}`, updateVariants)
-        .then((res) => console.log(res.data))
-        .catch((error) => console.log(error.response.data))
+           setEditData(prev => ({ ...prev }));
+           setShowEdit(false)
+           navigate("/adminDashboard/products/list");  
+       }).catch(error => (console.log("Failed:",error.response.data)))
 
     } catch (error) {
       console.log(error.message)
     }
   }
-
-
 
 
 
@@ -303,20 +330,21 @@ function EditProduct({ setShowEdit, editData, setEditData, close }) {
             {/* ✓ Product Details */}
             <div className="productDetails">
               <h3 className="sectionTitle">Product Details</h3>
+              <h2 className="productCode"><span>Product Code : </span> <span>{editData?.product_code?.slice(0, editData?.product_code.length)}</span></h2>
 
               <div className="formGroup">
-                <label>Product Name *</label>
+                <label>Product Name <span>*</span></label>
                 <input type="text" value={editData?.name} name="name" className="inputField" placeholder="Enter product name" onChange={handleEditChange} />
               </div>
 
               <div className="formTwoCols">
                 <div className="formGroup">
-                  <label>Price *</label>
+                  <label>Price <span>*</span></label>
                   <input type="number" value={editData?.price} name="price" className="inputField" placeholder="0.00" onChange={handleEditChange} />
                 </div>
 
                 <div className="formGroup">
-                  <label>Discount Price</label>
+                  <label>Discount Price (optional)</label>
                   <input type="number" value={editData?.discountPrice} name="discount_price" className="inputField" placeholder="0.00" onChange={handleEditChange} />
                 </div>
               </div>
@@ -327,8 +355,9 @@ function EditProduct({ setShowEdit, editData, setEditData, close }) {
               </div>
 
               <div className="formGroup">
-                <label>Category *</label>
-                <select value={editData.category} name="category" onChange={handleEditChange} className="inputField">
+                <label>Category <span>*</span></label>
+                <select value={editData.category} name="category" onChange={handleEditChange}   
+                  className="inputField">
                   <option value="mens">Mens</option>
                   <option value="womens">Womens</option>
                   <option value="kids">Kids</option>
@@ -336,85 +365,24 @@ function EditProduct({ setShowEdit, editData, setEditData, close }) {
               </div>
             </div>
 
-            {/* ✓ Variants */}
-            <div className="variantsBox">
-              <h3 className="sectionTitle">Variants *</h3>
-
-              {/* Add Variant */}
-              <div className="variantAddBox">
-                <div className="variantListEdit">
-                  {editData?.variants?.map((variant, index) => (
-                    <div className="variantEditRow" key={index}>
-
-                      {/* SIZE */}
-                      <select name="size" value={variant.size} onChange={(e) => editVariantsChange(index, e)} >
-                        <option value="s">S</option>
-                        <option value="m">M</option>
-                        <option value="l">L</option>
-                        <option value="xl">XL</option>
-                        <option value="xxl">XXL</option>
-                      </select>
-
-                      {/* COLOR */}
-                      <input type="text" name="color" value={variant.color} onChange={(e) => editVariantsChange(index, e)} />
-
-                      {/* STOCK */}
-                      <input type="number" name="stock" value={variant.stock} onChange={(e) => editVariantsChange(index, e)} />
-
-                      {/* DELETE BUTTON */}
-                      <button onClick={() => handleRemoveVariant(index)}>Remove</button>
-                    </div>
-                  ))}
-                </div>
-                {/* ADD MORE VARIANTS */}
-                <div className="variantListBox">
-                  <div className="variantAddRow">
-                    <select value={extraVariant.size} name="size" onChange={DraftExtraVariant}>
-                      <option value="s">S</option>
-                      <option value="l">L</option>
-                      <option value="m">M</option>
-                      <option value="xl">XL</option>
-                      <option value="xxl">XXL</option>
-                    </select>
-                  </div>
-                  <div className="variantAddRow">
-                    <input value={extraVariant.color} name="color" onChange={DraftExtraVariant} type="text" placeholder="eg:Black,Green,Red" />
-                  </div>
-                  <div className="variantAddRow">
-                    <input value={extraVariant.stock} name="stock" onChange={DraftExtraVariant} type="number" placeholder="eg:Quantity(200,300,1200)" />
-                  </div>
-
-                  <div className="variantAddRow extraAddVariantBtn" 
-                        style = {{ 
-                          pointerEvents: isBtnActive.addBtn ? "none":"auto", 
-                          opacity:isBtnActive.addBtn ? 0.5 : 1 
-                        }} 
-                        onClick={addExtraVariant} >Add</div>
-                </div>
-
-                <button onClick={() => updateVariants(editData.id,editData.productCode)} className="primaryBtn fullBtn">
-                  <Plus size={16} /> Update Variants
-                </button>
-              </div>
-
-            </div>
           </div>
 
           {/* ✓ Images Section (Full Width) */}
           <div className="imagesSection">
-            <h3 className="sectionTitle">Product Images *</h3>
+            <h3 className="sectionTitle">Product Images <span>*</span></h3>
 
             <div className="imagesGrid">
 
               {/* Upload */}
               <label onClick={() => fileRef.current.click()} className="uploadBox">
-                <input ref={fileRef} multiple accept="image/*" type="file" onChange={handleFiles} className="fileInput" style={{
+                <input ref={fileRef.current} multiple accept="image/*" type="file" onChange={handleFiles} className="fileInput" style={{
                   display: "none",
-                  opacity: images.length >= 4 ? 0.5 : 1,
-                  pointerEvents: images.length >= 4 ? "none" : "auto"
+                  opacity: editData?.images?.length >= 4 ? 0.5 : 1,
+                  pointerEvents: editData?.images?.length >= 4 ? "none" : "auto"
                 }} />
                 <Upload size={32} className="uploadIcon" />
                 <span>Upload Image</span>
+                
               </label>
 
               {/* Preview Item */}
@@ -422,7 +390,7 @@ function EditProduct({ setShowEdit, editData, setEditData, close }) {
                 {editData?.images.length > 0 ? editData?.images?.map((el, i) => (
                   <div className="keepImage" key={i}>
                     <img src={el?.image} alt="product_img" className="previewImg" />
-                    <button className="deleteImageBtn">
+                    <button onClick={() => removeImage(i)} className="deleteImageBtn">
                       <X size={16} />
                     </button>
                   </div>
@@ -436,7 +404,7 @@ function EditProduct({ setShowEdit, editData, setEditData, close }) {
         {/* Footer */}
         <div className="editFooter">
           <button className="cancelBtn">Cancel</button>
-          <button className="primaryBtn">
+          <button onClick={() => productUpdate(editData.id)} className="primaryBtn">
             <Save size={18} /> Save Changes
           </button>
         </div>
