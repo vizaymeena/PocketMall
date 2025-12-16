@@ -37,7 +37,7 @@ class Product(models.Model):
 
     def save(self,*args,**kwargs):
         
-        # check client has sended the product_code 
+        # create product code for the incoming data 
         if not self.product_code:
 
             prefix = self.category.prefix.upper() # "M"
@@ -51,8 +51,8 @@ class Product(models.Model):
             new_number = last_number + 1
 
             self.product_code = f"#{prefix}{new_number:05d}"
-
-            super().save(*args,**kwargs)
+    # always save if incoming data have product code or not
+        super().save(*args,**kwargs)
 
             
 # ------------------ PRODUCT IMAGE GALLERY ------------------
@@ -95,6 +95,7 @@ class ProductImage(models.Model):
         buffer.seek(0)
 
         return ContentFile(buffer.read(), name=image_field.name)
+    
     def save(self, *args, **kwargs):
         is_new = self.pk is None
 
@@ -122,6 +123,8 @@ class ProductImage(models.Model):
             # SECOND save -> UPDATE ONLY (no INSERT)
             if updated_fields:
                 super().save(update_fields=updated_fields)
+
+    
 
 
 
