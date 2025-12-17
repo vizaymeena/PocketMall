@@ -1,3 +1,7 @@
+/* ============================= 
+LIST VIEW (PRODUCT LIST) 
+============================= */
+
 .listBox {
   width: 100%;
   display: flex;
@@ -6,7 +10,6 @@
   margin-top: 20px;
 }
 
-/* ==== PRODUCT CARD ==== */
 .listItem {
   display: grid;
   grid-template-columns: 120px 1fr 120px;
@@ -24,49 +27,43 @@
   box-shadow: 0 5px 12px rgba(0,0,0,0.1);
 }
 
-/* LEFT IMAGE */
+/* Left Image */
 .left img {
-    position: absolute;
-    inset: 0 0 0 0;
-    z-index: -1;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   width: 110px;
   height: 110px;
-  border-radius: 0px 20px 20px 0px;
-  filter:blur(0.3px) ;
-  
   object-fit: cover;
+  border-radius: 0 20px 20px 0;
+  filter: blur(0.3px);
 }
 
-/* CENTER CONTENT */
+/* Center Content */
 .center h2 {
   font-size: 20px;
-  color: #c88bff;
   font-weight: 600;
+  color: #c88bff;
 }
 
-.center .sizes {
-  color: #444;
+.center .sizes,
+.center .cat {
   font-size: 14px;
+  color: #444;
 }
 
 .center .stock {
-  color: #23c55e;
-  font-weight: 500;
   margin-top: 5px;
+  font-weight: 500;
+  color: #23c55e;
 }
 
-.center .cat {
-  color: #777;
-  font-size: 14px;
-}
-
-/* RIGHT BUTTONS */
+/* Right Buttons */
 .right {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 12px;
   align-items: flex-end;
+  gap: 12px;
 }
 
 .editBtn {
@@ -78,332 +75,307 @@
 .delBtn {
   color: #dc2626;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 
+/* =========================
+   EDIT PRODUCT OVERLAY
+   ========================= */
 
-
-
-
-/* EDIT BOX */
-
-/* Overlay */
 .editOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 20px;
-  z-index: 50;
+  justify-content: center;
+  z-index: 999;
 }
 
-/* Modal Container */
+/* =========================
+   MAIN CONTAINER
+   ========================= */
+
 .editContainer {
-  background: #fff;
   width: 100%;
   max-width: 1100px;
-  border-radius: 12px;
+  max-height: 90vh;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.2);
 }
 
-/* Header */
+/* =========================
+   HEADER
+   ========================= */
+
 .editHeader {
+  padding: 18px 24px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fafafa;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding: 20px;
-  border-bottom: 1px solid #ddd;
 }
 
 .editTitle {
-  font-size: 22px;
-  font-weight: bold;
-  color: #333;
+  font-size: 20px;
+  font-weight: 600;
+  color: #111827;
 }
 
 .closeBtn {
-  background: none;
+  background: transparent;
   border: none;
   cursor: pointer;
-  color: #777;
+  padding: 6px;
+  border-radius: 6px;
+  color: #6b7280;
 }
 
-/* Content */
+.closeBtn:hover {
+  background: #e5e7eb;
+}
+
+/* =========================
+   CONTENT AREA
+   ========================= */
+
 .editContent {
-  padding: 20px;
-  max-height: calc(100vh - 200px);
+  padding: 24px;
   overflow-y: auto;
 }
 
+/* =========================
+   GRID & SECTIONS
+   ========================= */
+
 .editGrid {
   display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 20px;
+  grid-template-columns: 1fr;
+  gap: 32px;
 }
-
-/* Section Titles */
-.sectionTitle {
-  font-size: 18px;
+.productDetails{
+  position: relative;
+}
+.productDetails .productCode{
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 50px;
+}
+.productDetails .productCode :nth-child(1){
+  font-size: 13.2px;
+  color: gray;
+  letter-spacing: 1.2px;
+}
+.productDetails .productCode :nth-child(2){
+  font-size: 16px;
+  color: rgb(239, 23, 163);
+  letter-spacing: 1.5px;
   font-weight: 600;
-  margin-bottom: 12px;
-  color: #444;
+  user-select: text;
+  border-bottom: 1.5px solid rgb(239, 23, 163);
+}
+.sectionTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 16px;
 }
 
-/* Form */
+/* =========================
+   FORM STYLES
+   ========================= */
+
 .formGroup {
   display: flex;
   flex-direction: column;
-  margin-bottom: 12px;
+  gap: 6px;
+  margin-bottom: 16px;
 }
 
 .formGroup label {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
-  margin-bottom: 4px;
+  color: #4b5563;
+}
+.formGroup label :nth-child(1){
+  color: red;
 }
 
 .inputField {
-  padding: 10px;
-  border: 1px solid #ccc;
+  padding: 10px 12px;
   border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  background: #ffffff;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.inputField:focus {
   outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
 }
 
 .formTwoCols {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 16px;
 }
 
-.formThreeCols {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 12px;
-}
+/* =========================
+   IMAGES SECTION
+   ========================= */
 
-/* Variants Box */
-.variantAddBox {
-  background: #f4f4f4;
-  padding: 12px;
-  border-radius: 10px;
-  margin-bottom: 12px;
-}
-
-.fullBtn {
-  width: 100%;
-  margin-top: 10px;
-}
-
-/* Variant List */
-.variantListBox {
-  max-height: 160px;
-  overflow-y: auto;
-}
-
-.variantItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: #fff;
-}
-
-/* Variant Info Chips */
-.variantSize {
-  background: #e3eaff;
-  color: #1d4ed8;
-  padding: 4px 10px;
-  border-radius: 50px;
-  font-size: 12px;
-  margin-right: 10px;
-}
-
-.variantColor {
-  font-weight: 500;
-  margin-right: 10px;
-}
-
-.variantStock {
-  font-size: 12px;
-  color: #666;
-}
-
-.deleteVariantBtn {
-  background: none;
-  border: none;
-  color: #d33;
-  cursor: pointer;
-}
-
-/* Images Section */
 .imagesSection {
-  margin-top: 20px;
+  margin-top: 32px;
+}
+.imagesSection .sectionTitle :nth-child(1){
+  color: red;
 }
 
 .imagesGrid {
   display: grid;
-  grid-template-columns: 20% 70%;
+  grid-template-columns:200px 600px;
   grid-template-rows: 200px;
-  gap: 12px;
+  gap: 20px;
 }
+.imageItem{
+  display: flex;
+  gap: 20px;
+}
+/* =========================
+   IMAGE UPLOAD BOX
+   ========================= */
 
-/* Upload Box */
 .uploadBox {
-  border: 2px dashed #ccc;
-  padding: 20px;
+  border: 2px dashed #d1d5db;
   border-radius: 10px;
-  cursor: pointer;
+  padding: 18px;
   text-align: center;
+  cursor: pointer;
+  color: #6b7280;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: border-color 0.2s, background 0.2s;
 }
 
-.fileInput {
-  display: none;
+.uploadBox:hover {
+  border-color: #4f46e5;
+  background: #f5f6ff;
 }
 
 .uploadIcon {
-  color: #777;
-  margin-bottom: 6px;
+  color: #4f46e5;
 }
 
-/* Preview Images */
- .imageItem {
-  display: flex;
-  width: 100%;
-  gap: 20px;
-  align-items: center;
-  
-  flex-wrap: no-wrap;   
-  padding: 6px;
-  border: 1px solid rgb(212, 212, 212);
-}
-.keepImage{
+/* =========================
+   IMAGE PREVIEW
+   ========================= */
+
+.keepImage {
   position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f3f4f6;
+  border: 1.3px solid gray;
 }
+
 .previewImg {
-  padding: 10px;
-  opacity: 0.8;
-  width: 300px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  display: block;
 }
+
+/* =========================
+   DELETE IMAGE BUTTON
+   ========================= */
 
 .deleteImageBtn {
   position: absolute;
-  z-index: 1;
-  top: 50%;
-  right: 50%;
-  transform: translate(50%,-50%);
-  background: rgb(0, 0, 0);
-  border: 1.5px solid rgb(255, 255, 255);
-  padding: 6px;
+  top: 6px;
+  right: 6px;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
   border-radius: 50%;
+  padding: 4px;
   cursor: pointer;
   color: #ffffff;
 }
 
-/* Footer */
+.deleteImageBtn:hover {
+  background: rgba(220, 38, 38, 0.85);
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+
 .editFooter {
-  padding: 15px;
-  border-top: 1px solid #ddd;
+  padding: 16px 24px;
+  border-top: 1px solid #e5e7eb;
+  background: #fafafa;
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  background: #f7f7f7;
 }
+
+/* =========================
+   BUTTONS
+   ========================= */
 
 .cancelBtn {
   padding: 10px 16px;
-  background: #eee;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.cancelBtn:hover {
+  background: #f3f4f6;
 }
 
 .primaryBtn {
-  padding: 10px 16px;
-  background: #2563eb;
-  border: none;
-  color: #fff;
+  padding: 10px 18px;
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-}
-
-
-
-/* New variants css */
-/* Wrapper for all editable variants */
-.variantListEdit {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 10px;
-}
-
-/* Each variant row */
-.variantEditRow {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr auto;
-  gap: 12px;
-  padding: 12px;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  align-items: center;
-}
-
-/* Inputs and selects for each variant */
-.variantEditRow select,
-.variantEditRow input {
-  width: 100%;
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1px solid #c7c7c7;
-  background: #f9f9f9;
-  font-size: 14px;
-  transition: 0.2s ease;
-}
-
-/* Focus effect */
-.variantEditRow select:focus,
-.variantEditRow input:focus {
-  outline: none;
-  border-color: #007bff;
-  background: #fff;
-  box-shadow: 0 0 0 2px rgba(0,123,255,0.15);
-}
-
-/* Delete button */
-.variantEditRow button {
-  background: #ff3b30;
   border: none;
-  color: white;
-  padding: 8px 12px;
-  font-size: 13px;
-  border-radius: 6px;
+  background: #4f46e5;
+  color: #ffffff;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   cursor: pointer;
-  transition: 0.2s ease;
 }
 
-.variantEditRow button:hover {
-  background: #e13229;
+.primaryBtn:hover {
+  background: #4338ca;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  .variantEditRow {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 768px) {
+  .editContainer {
+    max-width: 95%;
+    max-height: 95vh;
   }
 
-  .variantEditRow button {
-    grid-column: span 2;
-    width: 100%;
+  .formTwoCols {
+    grid-template-columns: 1fr;
   }
 }
