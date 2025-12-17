@@ -22,10 +22,6 @@ function ProductList() {
   let [loading, setLoading] = useState(true)
   const dialogRef = useRef(null)
 
-  useEffect(() => {
-    console.log(productList?.[0])
-  }, [productList])
-
   const skeleton = () => {
     return Array.from({ length: productList.length }, (_, i) => (
       <SkeletonCard key={i} />
@@ -39,8 +35,7 @@ function ProductList() {
     axios.get(`http://127.0.0.1:8000/api/products/`)
       .then((res) => {
         setProductList(res.data)
-        console.log("Get Res :",res.data[0])
-
+      
         t = setTimeout(() => {
           setLoading(false)
         }, 500)
@@ -74,7 +69,6 @@ function ProductList() {
 
 
   let RemoveProduct = (id) => {
-    console.log("ID", id)
     if (!id) return alert("Value of id is :", id)
     axios.delete(`http://127.0.0.1:8000/api/products/${id}/`)
       .then((res) => {
@@ -173,6 +167,13 @@ function EditProduct({ setShowEdit,editData, setEditData, close }) {
 
 
 
+
+
+  useEffect(() => {
+  console.log("delete_images changed:", editData.delete_images);
+}, [editData.delete_images]);
+
+
   // UPDATING PRODUCTS TOP MOST FIELDS
   const handleEditChange = (e) => {
     let { name, value } = e.target
@@ -208,7 +209,6 @@ function EditProduct({ setShowEdit,editData, setEditData, close }) {
 
     setEditData(prev => {
       let existing = prev.images || [];
-      console.log("INSIDE SETTER, prev:", prev.images.length);
       if (existing.length + files.length > 4) {
         alert("Maximum 4 images allowed");
         return prev;
@@ -225,14 +225,13 @@ function EditProduct({ setShowEdit,editData, setEditData, close }) {
         images: [...existing, ...mapped]
       };
     });
-    console.log("OUTSIDE, editData:", editData.images.length);
-
     e.target.value = ""
     fileRef.current = null;
   };
 
   // REMOVE IMAGE// REMOVE IMAGE
-  const removeImage = (rmIndex) => {
+  const removeImage = (remove_id,rmIndex) => {
+
       setEditData(prev => {
         const images = [...prev.images];
         const img = images[rmIndex];
@@ -246,13 +245,15 @@ function EditProduct({ setShowEdit,editData, setEditData, close }) {
         const delete_images = [...(prev.delete_images || [])];
       
         // If image already exists in backend, mark it for deletion
-        if (!img?.is_new && img?.id) {
-          delete_images.push(img.id);
+        if (!img?.is_new && img?.id && !delete_images.includes(remove_id)) {
+          delete_images.push(remove_id);
         }
-      
+        
+        console.log("Push Delete Id:", remove_id)
+
         // Remove image from UI list
         images.splice(rmIndex, 1);
-      
+       
         // Return updated state
         return {
           ...prev,
@@ -261,17 +262,15 @@ function EditProduct({ setShowEdit,editData, setEditData, close }) {
         };
       });
     };
-
-  // let calcDiscount=(price,dp)=>{
-  //   return ((dp/price)*100)
-  // }
-
-  useEffect(()=>{
-    console.log("EDIT DATA",editData?.images)
-    console.log("IMAGES in editform :",editData?.images?.[0]?.id)
-   
-  },[editData])
   
+    
+   
+ 
+
+   let calcDiscount=(price,dp)=>{
+    return ((dp/price)*100)
+  }
+
   // API PATCH REQ FOR PRODUCT UPDATE
   const productUpdate = (id) => {
     console.log("Disocunt :",calcDiscount(editData.price,editData.discount_price))
@@ -390,11 +389,11 @@ function EditProduct({ setShowEdit,editData, setEditData, close }) {
                 {editData?.images.length > 0 ? editData?.images?.map((el, i) => (
                   <div className="keepImage" key={i}>
                     <img src={el?.image} alt="product_img" className="previewImg" />
-                    <button onClick={() => removeImage(i)} className="deleteImageBtn">
+                    <button onClick={() => removeImage(el.id,i)} className="deleteImageBtn">
                       <X size={16} />
                     </button>
                   </div>
-                )) : ""}
+                )) : "No images for this product to show"}
               </div>
 
             </div>
