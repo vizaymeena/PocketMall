@@ -36,3 +36,41 @@
   50% { background-color: #8d8d8d; }
   100% { background-color: #747272; }
 }
+
+
+
+/*  
+Product Skeleton
+*//* Skeletons */
+.skeleton {
+  pointer-events: none;
+  height: fit-content;
+}
+
+.skeleton-img {
+  height: 200px;
+  background: linear-gradient(
+    90deg,
+    #e0e0e0 25%,
+    #f5f5f5 37%,
+    #e0e0e0 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeleton-line {
+  height: 14px;
+  background: #e0e0e0;
+  margin: 8px 0;
+  border-radius: 6px;
+}
+
+.skeleton-line.short {
+  width: 50%;
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 0 }
+  100% { background-position: -100% 0 }
+}

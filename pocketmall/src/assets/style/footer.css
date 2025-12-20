@@ -1,120 +1,67 @@
-/* FOOTER WRAPPER */
-.pm_footer_new {
-  background: #0d0d0d;
-  color: #d1d5db;
-  padding: 60px 0 20px;
-  border-top: 1px solid #1f1f1f;
-  font-family: "Inter", sans-serif;
+.pm_footer {
+  background: #111;
+  color: #ddd;
+  padding: 40px 28px 20px;
+  margin-top: 80px;
 }
 
-/* GRID LAYOUT */
-.pm_footer_content {
-  width: 90%;
-  max-width: 1300px;
-  margin: auto;
+.pm_footer_top {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 50px;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px;
 }
 
-/* BRAND COLUMN */
-.pm_col.brand h2 {
-  color: white;
-  font-size: 26px;
-  font-weight: 700;
+.pm_footer_brand h3 {
+  color: #fff;
+  margin-bottom: 8px;
 }
 
-.pm_col.brand p {
-  color: #9ca3af;
-  margin: 12px 0 18px;
+.pm_footer_brand p {
+  font-size: 14px;
   line-height: 1.6;
+  color: #aaa;
 }
 
-/* SOCIAL ICONS */
 .pm_socials {
+  margin-top: 12px;
   display: flex;
-  gap: 16px;
+  gap: 14px;
 }
 
 .pm_socials svg {
-  font-size: 20px;
-  color: #e5e7eb;
   cursor: pointer;
-  transition: 0.25s;
+  font-size: 16px;
+  color: #ccc;
+  transition: color 0.2s ease;
 }
 
 .pm_socials svg:hover {
-  color: #6366f1;
-  transform: translateY(-2px);
+  color: #ff6b6b;
 }
 
-/* HEADINGS */
-.pm_col h4 {
-  font-size: 16px;
-  color: white;
-  margin-bottom: 14px;
-}
-
-/* LINKS */
-.pm_col ul {
-  list-style: none;
-  padding: 0;
-}
-
-.pm_col ul li {
-  color: #9ca3af;
+.pm_footer_links h4 {
+  color: #fff;
   margin-bottom: 10px;
-  cursor: pointer;
-  transition: 0.25s ease;
+  font-size: 15px;
 }
 
-.pm_col ul li:hover {
-  color: white;
-  transform: translateX(4px);
-}
-
-/* NEWSLETTER INPUT */
-.pm_input_row {
-  display: flex;
-  gap: 12px;
-  margin-top: 10px;
-}
-
-.pm_input_row input {
-  flex: 1;
-  padding: 12px;
-  background: #1a1a1a;
-  border: 1px solid #2d2d2d;
-  color: white;
+.pm_footer_links span {
+  display: block;
   font-size: 14px;
-  outline: none;
-}
-
-.pm_input_row input::placeholder {
-  color: #6b7280;
-}
-
-.pm_input_row button {
-  padding: 0 18px;
-  font-size: 22px;
-  background: #ffffff;
-  color: #111;
-  border: none;
+  margin-bottom: 6px;
+  color: #aaa;
   cursor: pointer;
-  transition: 0.25s ease;
 }
 
-.pm_input_row button:hover {
-  background: #6366f1;
-  color: white;
+.pm_footer_links span:hover {
+  color: #fff;
 }
 
-/* BOTTOM FOOTER */
 .pm_footer_bottom {
-  margin-top: 50px;
   text-align: center;
-  color: #6b7280;
-  font-size: 14px;
-  border-top: 1px solid #1a1a1a;
-  padding-top: 16px;
+  font-size: 13px;
+  color: #777;
+  margin-top: 30px;
+  border-top: 1px solid #222;
+  padding-top: 14px;
 }

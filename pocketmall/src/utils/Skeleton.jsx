@@ -1,7 +1,7 @@
 import '../assets/style/skeleton.css'
-export default function SkeletonCard() {
+export function SkeletonCard() {
   return (
-    <div className="listItem skeleton">
+    <div className="listItem skeletonProduct">
       <div className="left">
         <div className="imgSkeleton"></div>
       </div>
@@ -16,4 +16,19 @@ export default function SkeletonCard() {
       </div>
     </div>
   );
+}
+
+
+export function ProductSkeleton() {
+  return (
+    <div className="productCard skeleton">
+      <div className="productOverview">
+        <div className="productTop skeleton-img" />
+        <div className="productBottom">
+          <div className="skeleton-line short" />
+          <div className="skeleton-line" />
+        </div>
+      </div>
+    </div>
+  )
 }

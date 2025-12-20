@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useRef, useState } from "react"
 import "../../assets/style/get_list.css"
-import SkeletonCard from "../../utils/Skeleton"
+import { SkeletonCard }from "../../utils/Skeleton"
 
 function ProductList() {
   let [productList, setProductList] = useState([])

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,8 +27,10 @@ SECRET_KEY = 'django-insecure-m2c%x)8bfl@14s0fg!qx=mqv@y4(ev#6$6e+0b64pbobl=$8@j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+]
 
 # Application definition
 
@@ -38,12 +41,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',
+
     'rest_framework',
     'corsheaders',
+
+    'apps.catalog.app',
+    'apps.accounts.users',
+    'apps.common',
 ]
 
-ALLOWED_HOSTS = ["*"]
+
+
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173"
@@ -72,7 +80,7 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
-
+AUTH_USER_MODEL = 'users.User'
 ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [
@@ -166,3 +174,17 @@ LOGGING = {
         },
     },
 }
+
+from dotenv import load_dotenv
+load_dotenv()
+
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+
+
+
+from django.conf import settings
+import os
+
+FIXTURES_DIR = os.path.join(BASE_DIR, "apps.catalog", "fixtures")
+
+FIXTURE_IMAGE_DIR = os.path.join(BASE_DIR,"apps.catalog" , "fixtures" , "image")
