@@ -190,6 +190,46 @@
   opacity: 0;
 }
 
+/* skeleton slot */
+/* Reserve space so layout never jumps */
+.loaderSlot {
+  min-height: 300px; 
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+/* Observer must not affect layout */
+.observerSentinel {
+  height: 1px;
+}
+
+/* Skeleton must equal card height */
+.productCard.skeleton,
+.skeleton-img {
+  height: 280px; 
+}
 
 
-/* button animation */
+.productRail {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 16px;
+  cursor: grab;
+  scroll-behavior: smooth;
+}
+
+.productRail:active {
+  cursor: grabbing;
+}
+
+.productRail::-webkit-scrollbar {
+  display: none;
+}
+
+.productCardWrapper {
+  min-width: 240px;   /* card width */
+  flex-shrink: 0;
+}

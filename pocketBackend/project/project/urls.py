@@ -19,8 +19,15 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from apps.catalog.app.googleAuth.views import google_auth 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/',include('app.urls'))
+
+    path('api/auth/google/',google_auth,name='google-auth'),  # login api
+   
+    path('api/',include('apps.catalog.app.urls'))             # products api
+    
     
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

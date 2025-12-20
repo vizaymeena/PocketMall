@@ -1,86 +1,81 @@
-﻿import React, { useState } from 'react'
+﻿
 import '../assets/style/primarynav.css'
 import { FaShoppingBag, FaBell } from 'react-icons/fa'
-import { User } from "lucide-react"
 import { useNavigate } from 'react-router-dom'
+import GoogleLoginButton from '../components/google-login-button/GoogleLoginButton'
 
-function PrimaryNavbar() {
-  // State to simulate logged-in vs logged-out
-  const [loggedIn, setLoggedIn] = useState(false)
-  let navigate = useNavigate()
-  const user = {
-    name: "Vizay Meena",
-    profilePic: <User/>// replace with actual profile pic URL
-  }
+import { useAuth } from '../contexts/userContext/LoginContext'
 
+import { FaSignOutAlt } from "react-icons/fa"
+
+import { useCart } from '../contexts/userContext/CartContext'
+
+export function PrimaryNavbar() {
+  const { user, isAuthenticated, loggedOut } = useAuth()
+  const { cartItems } = useCart()
+
+  const navigate = useNavigate()
+  
   return (
     <header className="pm_navbar">
-
-  {/* Left Branding */}
-  <div className="pm_left">
-    <h2 className="pm_logo" onClick={() => navigate("/")}>
-      Pocket <span>Mall</span>
-    </h2>
-  </div>
-
-  {/* Right Navigation Area */}
-  <div className="pm_right">
-
-    {!loggedIn ? (
-      <div className="pm_auth">
-        <button className="pm_btn pm_login">Login</button>
-        <button className="pm_btn pm_register">Register</button>
+      {/* Logo */}
+      <div className="pm_logo" onClick={() => navigate("/")}>
+        Pocket<span>Mall</span>
       </div>
-    ) : (
-      <div className="pm_user_panel">
 
-        {/* Notifications */}
-        <div className="pm_icon_wrap">
-          <FaBell className="pm_icon" />
-          <span className="pm_badge">3</span>
-        </div>
+      {/* Right Section */}
+      <div className="pm_right">
+        {!isAuthenticated ? (
+          <GoogleLoginButton />
+        ) : (
+          <div className="pm_user_panel">
+            {/* Notification */}
+            <div className="pm_icon_wrap">
+              <FaBell />
+              <span className="pm_badge">{cartItems.length}</span>
+            </div>
 
-        {/* Cart */}
-        <div className="pm_icon_wrap">
-          <FaShoppingBag className="pm_icon" />
-        </div>
+            {/* Cart */}
+            <div className="pm_icon_wrap">
+              <FaShoppingBag />
+            </div>
 
-        {/* Profile */}
-        <div className="pm_profile">
-         {user.profilePic} 
-          <span>{user.name}</span>
-        </div>
+            {/* User Info */}
+            <div className="pm_profile">
+              <div className="pm_avatar">
+                {/* {user.toUpperCase()} */}
+              </div>
+              <span className="pm_username">
+                {user.split("@")[0]}
+              </span>
+            </div>
 
+            {/* Logout */}
+            <button className="pm_logout" onClick={loggedOut} >
+              <FaSignOutAlt />
+              Logout
+            </button>
+          </div>
+        )}
       </div>
-    )}
-
-  </div>
-
-</header>
-
+    </header>
   )
 }
 
-function SecondaryNavbar() {
-  return (
-    <div >Secondary Primary</div>
-  )
-}
+
 
 
 import "../assets/style/footer.css"
 import { FaInstagram, FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa"
-function Footer() {
+
+
+export function Footer() {
   return (
-    <footer className="pm_footer_new">
-
-      <div className="pm_footer_content">
-
-        {/* Brand */}
-        <div className="pm_col brand">
-          <h2>PocketMall</h2>
-          <p>Where fashion meets quality. Designed for everyday comfort and premium style.</p>
-
+    <footer className="pm_footer">
+      <div className="pm_footer_top">
+        <div className="pm_footer_brand">
+          <h3>PocketMall</h3>
+          <p>Premium fashion for everyday comfort.</p>
           <div className="pm_socials">
             <FaInstagram />
             <FaFacebookF />
@@ -89,51 +84,27 @@ function Footer() {
           </div>
         </div>
 
-        {/* Links */}
-        <div className="pm_col">
+        <div className="pm_footer_links">
           <h4>Shop</h4>
-          <ul>
-            <li>Mens Wear</li>
-            <li>Womens Wear</li>
-            <li>Kids Collection</li>
-            <li>Winter Essentials</li>
-            <li>New Arrivals</li>
-          </ul>
+          <span>Mens</span>
+          <span>Womens</span>
+          <span>Kids</span>
+          <span>New Arrivals</span>
         </div>
 
-        <div className="pm_col">
-          <h4>Customer Care</h4>
-          <ul>
-            <li>Track Order</li>
-            <li>Shipping Policy</li>
-            <li>Return & Refunds</li>
-            <li>Help Center</li>
-            <li>Terms & Conditions</li>
-          </ul>
+        <div className="pm_footer_links">
+          <h4>Support</h4>
+          <span>Track Order</span>
+          <span>Returns</span>
+          <span>Help Center</span>
         </div>
-
-        {/* Newsletter */}
-        <div className="pm_col">
-          <h4>Stay Updated</h4>
-          <p>Join our newsletter for early access to drops and exclusive offers.</p>
-
-          <div className="pm_input_row">
-            <input type="email" placeholder="Email Address" />
-            <button>â†’</button>
-          </div>
-        </div>
-
       </div>
 
       <div className="pm_footer_bottom">
-        E-Commerce Project Made by Vijay Meena
+        © 2025 PocketMall — Built by Vijay Meena
       </div>
     </footer>
   )
 }
 
 export default Footer
-
-
-
-export { PrimaryNavbar, SecondaryNavbar,Footer }

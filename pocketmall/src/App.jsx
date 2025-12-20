@@ -19,28 +19,44 @@ import AdminOverview from "./components/admin/AdminOverview";
 import ProductCreation from "./pages/admin/ProductCreation";
 import ProductList from "./pages/admin/ProductList";
 
+
+
 function App() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<div> <BaseLayout/>  </div>}>
-           <Route index element={<div> <BillboardSlider/> <Overview/> </div>}/>
-           <Route path="buyNow" element={<ProductDetails/>}/>
-           <Route path="shopping" element={<ShoppingWindow/>}/>
-        </Route>
+        {/* MAIN ROUTING OF THIS WEB APP */}
+        <Routes>
 
-        <Route path="adminDashboard" element={<AdminDashboard/>}>
-          <Route index element={<AdminOverview/>} />
-          <Route path="products/add/" element={<ProductCreation/>} />
-          <Route path="products/list/" element={<ProductList/>} />
+          {/* AUDIENCE ROUTES */}
+            <Route path="/" element={
+              <div> 
+                
+                  <BaseLayout/>      
+              
+              </div>}>
 
-        </Route>
 
-         
-            
-          
+               <Route index element={<div> <BillboardSlider/> <Overview/> </div>}/>
+               <Route path="buyNow" element={<ProductDetails/>}/>
+               <Route path="shopping" element={<ShoppingWindow/>}/>
+            </Route>
 
-      </Routes>
+        
+
+          {/* ADMIN ROUTES */}
+          <Route path="adminDashboard" element={
+
+             <AdminDashboard/>
+      
+            }>
+
+            <Route index element={<AdminOverview/>} />
+            <Route path="products/add/" element={<ProductCreation/>} />
+            <Route path="products/list/" element={<ProductList/>} />
+
+          </Route>
+
+        </Routes>
     </>
   )
 }

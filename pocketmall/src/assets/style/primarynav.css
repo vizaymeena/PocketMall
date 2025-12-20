@@ -1,141 +1,109 @@
-/* MAIN NAVBAR */
 .pm_navbar {
-  height: 70px;
-  width: 100%;
-  padding: 0 40px;
-
+  height: 64px;
+  background: #0f172a; /* slate-900 */
+  color: #fff;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-
-  background: rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-
-  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  justify-content: space-between;
+  padding: 0 32px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
 }
 
-
-/* LOGO */
+/* Logo */
 .pm_logo {
-  cursor: pointer;
   font-size: 22px;
   font-weight: 700;
-  letter-spacing: 1px;
-  color: #111827;
+  cursor: pointer;
 }
 
 .pm_logo span {
-  color: #6366f1; /* Indigo accent */
+  color: #38bdf8;
 }
 
-
-/* RIGHT SECTION */
+/* Right section */
 .pm_right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
 }
 
-
-/* AUTH BUTTONS (Login / Register) */
-.pm_btn {
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: pointer;
-  border: none;
-  transition: 0.25s;
-}
-.pm_auth{
-  display: flex;
-  gap: 10px;
-}
-.pm_login {
-  background: white;
-  color: #4b5563;
-  border: 1px solid #d1d5db;
-}
-
-.pm_login:hover {
-  background: #f3f4f6;
-}
-
-.pm_register {
-  background: #6366f1;
-  color: white;
-}
-
-.pm_register:hover {
-  background: #4f46e5;
-}
-
-
-/* USER PANEL WHEN LOGGED IN */
+/* User Panel */
 .pm_user_panel {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 18px;
 }
 
-
-/* ICON WRAPPER */
+/* Icons */
 .pm_icon_wrap {
   position: relative;
+  font-size: 18px;
   cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.2s ease;
 }
 
-.pm_icon {
-  font-size: 22px;
-  color: #374151;
-  transition: 0.2s;
+.pm_icon_wrap:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
-.pm_icon:hover {
-  color: #6366f1;
-  transform: scale(1.1);
-}
-
-/* NOTIFICATION BADGE */
+/* Badge */
 .pm_badge {
   position: absolute;
-  top: -4px;
-  right: -8px;
-
+  top: 4px;
+  right: 4px;
   background: #ef4444;
   color: white;
   font-size: 10px;
-  padding: 3px 6px;
-  border-radius: 50%;
+  padding: 2px 6px;
+  border-radius: 999px;
 }
 
-
-/* PROFILE BOX */
+/* Profile */
 .pm_profile {
   display: flex;
   align-items: center;
-  gap: 10px;
-
-  padding: 6px 12px;
-  border-radius: 50px;
-
-  background: rgba(99, 102, 241, 0.1);
-  color: #111827;
+  gap: 8px;
   cursor: pointer;
-
-  transition: 0.25s;
 }
 
-.pm_profile:hover {
-  background: rgba(99, 102, 241, 0.2);
-}
-
-.pm_profile img {
-  width: 34px;
-  height: 34px;
+/* Avatar */
+.pm_avatar {
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  object-fit: cover;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Username */
+.pm_username {
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* Logout */
+.pm_logout {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.pm_logout:hover {
+  background: #ef4444;
+  border-color: #ef4444;
 }

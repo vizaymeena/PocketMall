@@ -1,131 +1,102 @@
-﻿import  { useRef, useState } from 'react'
+﻿import { useEffect, useRef, useState } from "react"
+import axios from "axios"
+import "../../assets/style/shopping.css"
+import { Search } from "lucide-react"
+import ProductCard from "./ProductCard"
+import { ProductSkeleton } from "../../utils/Skeleton"
 
-import '../../assets/style/shopping.css'
-import { Search,ShoppingCart,IndianRupee  } from "lucide-react"
-
-// gsap
-import gsap from 'gsap'
-import { useNavigate } from 'react-router-dom'
-// images
-import p_1 from '../../assets/images/creamsweatshirt.jpg'
+const PAGE_SIZE = 10
+const MAX_RENDERED_ITEMS = 30
 
 function ShoppingWindow() {
+  const [products, setProducts] = useState([])
+  const [nextUrl, setNextUrl] = useState("http://127.0.0.1:8000/api/products/")
+  const [loading, setLoading] = useState(false)
 
-  let [isBarOpen,setBarOpen] = useState(false)
-  let [loading,setLoading]=useState(false)
+  const loadingRef = useRef(false)
+  const observerRef = useRef(null)
+  const bottomRef = useRef(null)
 
-  let buyIconRefs = useRef([])
-  let addedItemRef = useRef([])
-  let navigate = useNavigate()
-
-  let listOfProducts = [
-    {name:"Super Limited Edition Ultra Coziestâ€¦",image:p_1,price:1200},
-    {name:"Super Limited Edition Ultra Coziestâ€¦",image:p_1,price:1200},
-    {name:"Super Limited Edition Ultra Coziestâ€¦",image:p_1,price:1200},
-    {name:"Super Limited Edition Ultra Coziestâ€¦",image:p_1,price:1200},
-    {name:"Super Limited Edition Ultra Coziestâ€¦",image:p_1,price:1200},
-  ]
-
-  // Add to Cart Icon animation function
- let animateAddItem = (index) => {
-      gsap.fromTo(addedItemRef.current[index],
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.45, ease: "power2.out" }
-      )
-      gsap.to(addedItemRef.current[index],{
-        y:0,
-        opacity:0,
-        duration:.3,
-        delay:1
-      })
+  const mergeUnique = (prev, next) => {
+    const map = new Map()
+    prev.forEach(p => map.set(p.id, p))
+    next.forEach(p => map.set(p.id, p))
+    return Array.from(map.values())
   }
 
-  // Buy Now button Logic 
-  let buyNow=(product,idx)=>{
+  const loadMore = async () => {
+    if (!nextUrl || loadingRef.current) return
+
+    loadingRef.current = true
     setLoading(true)
 
-    // animation on ruppe icon 
-    let icon = buyIconRefs.current[idx]
-    gsap.fromTo(icon,
-      { y: 0, rotation: 0, scale: 1 },
-      { 
-        y: -10,
-        duration: 0.12,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: 6 
-      }
-    )
+    try {
+      const res = await axios.get(nextUrl)
+      const data = res.data
 
-    // Go to product detail page
-    setTimeout(() => {
-     if(loading){
-       navigate('/buyNow',{
-        state:{
-          item:product
+      setProducts(prev => {
+        const merged = mergeUnique(prev, data.results)
+
+        if (merged.length > MAX_RENDERED_ITEMS) {
+          return merged.slice(merged.length - MAX_RENDERED_ITEMS)
         }
-      })
-      setLoading(false)
-     }
-     else{
-      console.log("buy now icon not working as intended")
-     }
-    }, 1500)
 
+        return merged
+      })
+
+      setNextUrl(data.next)
+    } finally {
+      loadingRef.current = false
+      setLoading(false)
+    }
   }
 
+  // initial load
+  useEffect(() => {
+    loadMore()
+  }, [])
 
+  // observer setup (ONLY ONCE)
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        loadMore()
+      }
+    })
+
+    if (bottomRef.current) {
+      observerRef.current.observe(bottomRef.current)
+    }
+
+    return () => observerRef.current?.disconnect()
+  }, [])
 
   return (
-    <div className='category'>
-      <div>
-        <div className='searchBox'>
-          <input type="search" placeholder='Search Items' />
-          <button><Search color='white'/></button>
+    <div className="category">
+      <div className="searchBox">
+        <input type="search" placeholder="Search Items" />
+        <button><Search color="white" /></button>
+      </div>
+
+     <main className="productItems">
+        <div className="productsGrid">
+          {products.map(el => (
+            <ProductCard key={el.id} product={el} />
+          ))}
         </div>
-      </div>
+        
+        {/* FIXED loader slot */}
+        <div className="loaderSlot">
+          {loading &&
+            Array.from({ length: PAGE_SIZE }).map((_, i) => (
+              <ProductSkeleton key={i} />
+            ))}
+        </div>
+          
+        {/* Observer OUTSIDE layout flow */}
+        <div ref={bottomRef} className="observerSentinel" />
+      </main>
 
-      <div className="shoppingBlock">
-      
-        {/* LEFT FILTER PANEL */}
-       
-        {/* RIGHT PRODUCT DISPLAY */}
-        <main className="productItems">
-          <div className="productsGrid">
-            {/* product card */}
-             {listOfProducts.length > 0 ? (
-              listOfProducts.map((el,index)=>{ return(
-                 <div key={index} className='productCard'>
-                   <div className='productOverview'>
-                  <div className='productTop'>
-                    <img src={el.image} alt="" />
-
-                    <div ref={el=>addedItemRef.current[index]=el} className="addedItem">1</div>
-                     {/* <span> IN STOCK</span> */}
-
-                    <div 
-                      ref={el => buyIconRefs.current[index] = el}
-                      onClick={()=>buyNow(el,index)} 
-                      className='buynow'>
-                      <IndianRupee/>
-                    </div>
-                    <div onClick={() => animateAddItem(index)} className='cartIcon'>
-                      <ShoppingCart/>
-                    </div>
-                  </div>
-                  <div className='productBottom'>
-                      <p>Rs {el.price}</p>
-                      <h1>{el.name}</h1>
-                  </div>
-                  
-                </div>
-              </div>
-            )})
-           ):("No Available Products")}
-          </div>
-        </main>
-
-      </div>
     </div>
   )
 }

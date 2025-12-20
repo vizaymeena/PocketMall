@@ -1,6 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 # ------------------ CATEGORY ------------------
 class Category(models.Model):
@@ -30,6 +31,9 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["-id"]
 
     def __str__(self):
         return self.name

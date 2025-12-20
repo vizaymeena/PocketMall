@@ -1,0 +1,99 @@
+{
+  "categories": [
+    { "id": 1, "name": "Men", "prefix": "M", "slug": "men" },
+    { "id": 2, "name": "Women", "prefix": "W", "slug": "women" },
+    { "id": 3, "name": "Kids", "prefix": "K", "slug": "kids" }
+  ],
+  "products": [
+    {
+      "name": "Men Cotton T-Shirt",
+      "category": 1,
+      "description": "Soft cotton t-shirt for men",
+      "price": 799,
+      "discount_price": 599,
+      "discount_percent": 25,
+      "brand": "UrbanX"
+    },
+    {
+      "name": "Men Slim Fit Jeans",
+      "category": 1,
+      "description": "Slim fit blue denim jeans",
+      "price": 1999,
+      "discount_price": 1599,
+      "discount_percent": 20,
+      "brand": "DenimPro"
+    },
+    {
+      "name": "Men Hooded Jacket",
+      "category": 1,
+      "description": "Winter hooded jacket",
+      "price": 3499,
+      "discount_price": 2799,
+      "discount_percent": 20,
+      "brand": "NorthWear"
+    },
+    {
+      "name": "Women Floral Dress",
+      "category": 2,
+      "description": "Floral printed summer dress",
+      "price": 2499,
+      "discount_price": 1999,
+      "discount_percent": 20,
+      "brand": "Zivara"
+    },
+    {
+      "name": "Women High Waist Jeans",
+      "category": 2,
+      "description": "High waist stretchable jeans",
+      "price": 2199,
+      "discount_price": 1799,
+      "discount_percent": 18,
+      "brand": "StyleMuse"
+    },
+    {
+      "name": "Women Casual Top",
+      "category": 2,
+      "description": "Casual daily wear top",
+      "price": 1199,
+      "discount_price": 899,
+      "discount_percent": 25,
+      "brand": "UrbanCharm"
+    },
+    {
+      "name": "Kids Cartoon T-Shirt",
+      "category": 3,
+      "description": "Cartoon printed t-shirt for kids",
+      "price": 499,
+      "discount_price": 399,
+      "discount_percent": 20,
+      "brand": "TinyJoy"
+    },
+    {
+      "name": "Kids Denim Shorts",
+      "category": 3,
+      "description": "Comfortable denim shorts",
+      "price": 699,
+      "discount_price": 549,
+      "discount_percent": 21,
+      "brand": "MiniWear"
+    },
+    {
+      "name": "Kids Winter Hoodie",
+      "category": 3,
+      "description": "Warm hoodie for kids",
+      "price": 1299,
+      "discount_price": 999,
+      "discount_percent": 23,
+      "brand": "LittleWarm"
+    },
+    {
+      "name": "Kids Sports Shoes",
+      "category": 3,
+      "description": "Lightweight sports shoes for kids",
+      "price": 1599,
+      "discount_price": 1299,
+      "discount_percent": 19,
+      "brand": "RunKid"
+    }
+  ]
+}

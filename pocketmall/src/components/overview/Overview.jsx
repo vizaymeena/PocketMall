@@ -1,7 +1,7 @@
-﻿import React from 'react'
+﻿
 import '../../assets/style/overview.css'
 
-import { useState,useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 // images
