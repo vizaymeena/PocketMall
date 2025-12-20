@@ -5,19 +5,31 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import status
-import json
+from rest_framework.decorators import api_view
 
-from .models import Product, ProductImage, ProductVariant, Category
+from .models import Product
 from .serializers import ProductSerializer  # We'll modify this too
+
+from apps.common.pagination import InfiniteScrollPagination
+
 import logging
 logger = logging.getLogger(__name__)
 
 
 
 class ProductViewSet(ModelViewSet):
-    queryset = Product.objects.all()
+    queryset = Product.objects.none()
     serializer_class = ProductSerializer
+    pagination_class = InfiniteScrollPagination
 
+    def get_queryset(self):
+        qs = Product.objects.filter(is_active=True).order_by("-id")
+        category = self.request.query_params.get("category")
+
+        if category:
+            qs = qs.filter(category__slug = category)
+
+        return qs
     
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(
@@ -44,3 +56,4 @@ class ProductViewSet(ModelViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+
