@@ -1,0 +1,229 @@
+/* =========================
+   ROOT VARIABLES
+========================= */
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.25);
+  --glass-shadow: rgba(0, 0, 0, 0.25);
+
+  --primary: #6c63ff;
+  --secondary: #22c55e;
+  --danger: #ef4444;
+
+  --text-main: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.65);
+}
+
+/* =========================
+   GLOBAL RESET
+========================= */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: radial-gradient(circle at top, #1e1e2f, #0f0f18);
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+.ud_layoutWrapper {
+  display: flex;
+  min-height: 100vh;
+  color: var(--text-main);
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+.ud_sidebar {
+  width: 260px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-right: 1px solid var(--glass-border);
+  box-shadow: 6px 0 30px var(--glass-shadow);
+}
+
+/* Sidebar Header */
+.ud_sidebar_header {
+  margin-bottom: 30px;
+}
+
+.ud_brand {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.ud_brand > :nth-child(1){
+  color: rgb(255, 247, 0);
+  
+}
+
+.ud_user {
+  font-size: 13px;
+  color: #e16868;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+.ud_nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ud_nav_item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 14px;
+  border-radius: 12px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+
+  transition: all 0.25s ease;
+}
+
+.ud_nav_item:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  transform: translateX(6px);
+}
+
+.ud_nav_item.active {
+  background: linear-gradient(
+    135deg,
+    rgba(108, 99, 255, 0.4),
+    rgba(34, 197, 94, 0.3)
+  );
+  color: #fff;
+  box-shadow: inset 0 0 0 1px var(--glass-border);
+}
+
+/* =========================
+   SIDEBAR FOOTER
+========================= */
+.ud_sidebar_footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ud_logout_btn {
+  all: unset;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 14px;
+  border-radius: 12px;
+  color: #fca5a5;
+
+  transition: all 0.25s ease;
+}
+
+.ud_logout_btn:hover {
+  background: rgba(239, 68, 68, 0.25);
+  color: #fff;
+}
+
+/* =========================
+   MAIN BODY
+========================= */
+.ud_body {
+  flex: 1;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+.ud_topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.ud_page_title {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.ud_balance_card {
+  padding: 3px 15px;
+  width: fit-content;
+  border-radius: 14px;
+  text-align: right;
+  color: green;
+  background-color: rgba(46, 48, 183, 0.468);
+  border: 1px solid rgb(255, 255, 255);
+}
+
+.ud_balance_card span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.ud_balance_card strong {
+  display: block;
+  font-size: 16px;
+}
+
+/* =========================
+   OUTLET
+========================= */
+.ud_outlet {
+  flex: 1;
+  padding: 10px;
+  width: 100%;
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px);
+  border-radius: 22px;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 15px 45px var(--glass-shadow);
+  overflow-y: auto;
+}
+
+/* =========================
+   SCROLLBAR (PREMIUM)
+========================= */
+.ud_outlet::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ud_outlet::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+  .ud_sidebar {
+    width: 80px;
+  }
+
+  .ud_nav_item span,
+  .ud_logout_btn span,
+  .ud_user,
+  .ud_brand {
+    display: none;
+  }
+}
