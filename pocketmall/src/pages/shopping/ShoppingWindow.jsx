@@ -1,103 +1,84 @@
-﻿import { useEffect, useRef, useState } from "react"
+﻿import { useEffect, useState } from "react"
 import axios from "axios"
-import "../../assets/style/shopping.css"
-import { Search } from "lucide-react"
+import InfiniteScroll from "react-infinite-scroll-component"
 import ProductCard from "./ProductCard"
 import { ProductSkeleton } from "../../utils/Skeleton"
-
-const PAGE_SIZE = 10
-const MAX_RENDERED_ITEMS = 30
+import "../../assets/style/shopping.css"
 
 function ShoppingWindow() {
   const [products, setProducts] = useState([])
   const [nextUrl, setNextUrl] = useState("http://127.0.0.1:8000/api/products/")
+  const [hasMore, setHasMore] = useState(true)
   const [loading, setLoading] = useState(false)
 
-  const loadingRef = useRef(false)
-  const observerRef = useRef(null)
-  const bottomRef = useRef(null)
-
-  const mergeUnique = (prev, next) => {
-    const map = new Map()
-    prev.forEach(p => map.set(p.id, p))
-    next.forEach(p => map.set(p.id, p))
-    return Array.from(map.values())
-  }
-
-  const loadMore = async () => {
-    if (!nextUrl || loadingRef.current) return
-
-    loadingRef.current = true
-    setLoading(true)
+  const fetchMoreData = async () => {
+    if (!nextUrl || loading) {
+      setHasMore(false)
+      return
+    }
 
     try {
+      setLoading(true)
       const res = await axios.get(nextUrl)
-      const data = res.data
 
-      setProducts(prev => {
-        const merged = mergeUnique(prev, data.results)
-
-        if (merged.length > MAX_RENDERED_ITEMS) {
-          return merged.slice(merged.length - MAX_RENDERED_ITEMS)
-        }
-
-        return merged
-      })
-
-      setNextUrl(data.next)
+      setProducts(prev => [...prev, ...res.data.results])
+      setNextUrl(res.data.next)
+      setHasMore(Boolean(res.data.next))
+    } catch (err) {
+      console.error("Product fetch failed", err)
     } finally {
-      loadingRef.current = false
       setLoading(false)
     }
   }
 
-  // initial load
+  // Initial load
   useEffect(() => {
-    loadMore()
-  }, [])
-
-  // observer setup (ONLY ONCE)
-  useEffect(() => {
-    observerRef.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        loadMore()
-      }
-    })
-
-    if (bottomRef.current) {
-      observerRef.current.observe(bottomRef.current)
-    }
-
-    return () => observerRef.current?.disconnect()
+    fetchMoreData()
   }, [])
 
   return (
-    <div className="category">
-      <div className="searchBox">
-        <input type="search" placeholder="Search Items" />
-        <button><Search color="white" /></button>
+    <section className="shopSection">
+      {/* ===== HEADER ===== */}
+      <div className="shopHeader">
+        <div>
+          <h1 className="shopTitle">Men’s Collection</h1>
+          <p className="shopSubtitle">
+            {products.length} products available
+          </p>
+        </div>
+
+        {/* Placeholder for future filters */}
+        <div className="shopActions">
+          <select>
+            <option>Sort by</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+          </select>
+        </div>
       </div>
 
-     <main className="productItems">
-        <div className="productsGrid">
-          {products.map(el => (
-            <ProductCard key={el.id} product={el} />
+      {/* ===== PRODUCT GRID ===== */}
+      <InfiniteScroll
+        dataLength={products.length}
+        next={fetchMoreData}
+        hasMore={hasMore}
+        loader={<ProductSkeleton />}
+        scrollThreshold={0.9}
+      >
+        <div className="productGrid">
+          {products.map(p => (
+            <ProductCard key={p.id} product={p} />
           ))}
         </div>
-        
-        {/* FIXED loader slot */}
-        <div className="loaderSlot">
-          {loading &&
-            Array.from({ length: PAGE_SIZE }).map((_, i) => (
-              <ProductSkeleton key={i} />
-            ))}
-        </div>
-          
-        {/* Observer OUTSIDE layout flow */}
-        <div ref={bottomRef} className="observerSentinel" />
-      </main>
+      </InfiniteScroll>
 
-    </div>
+      {/* ===== END STATE ===== */}
+      {!hasMore && (
+        <p className="endMessage">
+          You've reached the end of the list
+        </p>
+      )}
+    </section>
   )
 }
 

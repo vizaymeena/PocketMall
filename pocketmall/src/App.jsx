@@ -18,8 +18,9 @@ import AdminDashboard from "./components/admin/AdminDashboard";
 import AdminOverview from "./components/admin/AdminOverview";
 import ProductCreation from "./pages/admin/ProductCreation";
 import ProductList from "./pages/admin/ProductList";
-
-
+import UserDashboard from "./components/user/user_dashboard/UserDashboard";
+import MyCart from "./components/user/mycart/MyCart";
+import IncludedInCart from "./components/user/mycart/IncludedInCart";
 
 function App() {
   return (
@@ -28,31 +29,30 @@ function App() {
         <Routes>
 
           {/* AUDIENCE ROUTES */}
-            <Route path="/" element={
-              <div> 
-                
-                  <BaseLayout/>      
-              
-              </div>}>
-
+            <Route path="/" element={ <div> <BaseLayout/> </div> }>
 
                <Route index element={<div> <BillboardSlider/> <Overview/> </div>}/>
-               <Route path="buyNow" element={<ProductDetails/>}/>
-               <Route path="shopping" element={<ShoppingWindow/>}/>
+               <Route path="buyNow" element={ <ProductDetails/> }/>
+               <Route path="shopping" element={ <ShoppingWindow/> }/>
+               
             </Route>
+          
+          {/* USERDASHBOARD ROUTES */}
+          <Route path="userdashboard" element={<UserDashboard/>}>
 
+            <Route index element={<IncludedInCart/>}/>
+            
+            <Route path="mycart" element={<MyCart/>}/>
+          
+          </Route>
         
 
           {/* ADMIN ROUTES */}
-          <Route path="adminDashboard" element={
+          <Route path="adminDashboard" element={ <AdminDashboard/> }>
 
-             <AdminDashboard/>
-      
-            }>
-
-            <Route index element={<AdminOverview/>} />
-            <Route path="products/add/" element={<ProductCreation/>} />
-            <Route path="products/list/" element={<ProductList/>} />
+            <Route index element={ <AdminOverview/> }/>
+            <Route path="products/add/" element={ <ProductCreation/> }/>
+            <Route path="products/list/" element={ <ProductList/> } />
 
           </Route>
 
