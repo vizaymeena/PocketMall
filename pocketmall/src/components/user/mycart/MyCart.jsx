@@ -1,25 +1,12 @@
+// css
 import "./../../../assets/style/userdashboard/cart/mycart.css"
+
+// icons
 import { Trash2 } from "lucide-react"
+import { useCart } from "../../../contexts/userContext/CartContext"
 
 export default function MyCart() {
-  const cartItems = [
-    {
-      id: 1,
-      name: "Nike Air Max 90",
-      price: 8999,
-      qty: 1,
-      status: "pending",
-      image: "https://via.placeholder.com/80"
-    },
-    {
-      id: 2,
-      name: "Adidas Ultraboost",
-      price: 12999,
-      qty: 2,
-      status: "confirmed",
-      image: "https://via.placeholder.com/80"
-    }
-  ]
+  let { cartItems, removeCart } = useCart()
 
   return (
     <div className="ud_cart">
@@ -39,43 +26,47 @@ export default function MyCart() {
         <span>Action</span>
       </div>
 
-      {/* Rows */}
+      {/* Body */}
       <div className="ud_cart_table_body">
+        {cartItems.length === 0 && (
+          <p className="ud_cart_empty">Your cart is empty</p>
+        )}
+
         {cartItems.map(item => (
-          <div className="ud_cart_row" key={item.id}>
+          <div className="ud_cart_row" key={`${item.id}-${item.size}-${item.color}`}>
 
             <div className="ud_cart_product">
               <img src={item.image} alt={item.name} />
               <div>
                 <h4>{item.name}</h4>
                 <p>₹{item.price}</p>
+                <small>{item.size.toUpperCase()} • {item.color.toUpperCase()}</small>
               </div>
             </div>
 
             <div className="ud_cart_price">
-              ₹{item.price * item.qty}
+              ₹{item.price * item.quantity}
             </div>
 
             <div className="ud_cart_qty">
-              {item.qty}
+              {item.quantity}
             </div>
 
-            <div className={`ud_cart_status ${item.status}`}>
-              {item.status}
+            <div className="ud_cart_status pending">
+              pending
             </div>
 
-            <button className="ud_cart_remove">
+            <button
+              className="ud_cart_remove"
+              onClick={() =>
+                removeCart(item.id, item.size, item.color)
+              }
+            >
               <Trash2 size={16} />
             </button>
 
           </div>
         ))}
-      </div>
-
-      {/* Footer */}
-      <div className="ud_cart_footer">
-        <span>Total</span>
-        <strong>₹34,997</strong>
       </div>
 
     </div>

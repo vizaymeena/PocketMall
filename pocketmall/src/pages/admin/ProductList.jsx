@@ -1,89 +1,67 @@
 import axios from "axios"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import "../../assets/style/get_list.css"
-import { SkeletonCard }from "../../utils/Skeleton"
+import { SkeletonCard } from "../../utils/Skeleton"
+
+let API_BASE = "http://127.0.0.1:8000"
 
 function ProductList() {
-  let [productList, setProductList] = useState([])
-  let [showEdit, setShowEdit] = useState(false)
-  let [editData, setEditData] = useState({
-    id: "",
-    product_code: "",
-    name: "",
-    price: Number(0).toFixed(2),
-    discount_price: Number(0).toFixed(2),
-    discount_percent: Number(0).toFixed(2),
-    category: "",
-    variants: [],
-    images: [],
-    deleted_images:[]
-  })
-
+  let [products, setProducts] = useState([])
   let [loading, setLoading] = useState(true)
-  const dialogRef = useRef(null)
+  let [showEdit, setShowEdit] = useState(false)
+  let [editData, setEditData] = useState(null)
 
-  const skeleton = () => {
-    return Array.from({ length: productList.length }, (_, i) => (
-      <SkeletonCard key={i} />
-    ))
-  }
-
-
-
-  useEffect(() => {
-    let t
-    axios.get(`http://127.0.0.1:8000/api/products/`)
-      .then((res) => {
-        setProductList(res.data)
-      
-        t = setTimeout(() => {
-          setLoading(false)
-        }, 500)
-      })
-      .catch((err) => console.log(err.response?.data || err.message))
-    return () => clearTimeout(t)
-  }, [showEdit])
-
-
-
-
-  let handleEdit = (item, code) => {
-    if (!item.id) return
-    try {
-      setShowEdit(true)
-      setEditData((pv) => ({
-        ...pv,
-        id: item.id,
-        product_code: code,
-        name: item.name,
-        price: item.price,
-        discount_price: item.price,
-        category: item.category,
-        variants: item.variants.filter(v => ({ ...v })),
-        images: item.images
-      }))
-    } catch (error) {
-      console.log("Edit Product Functional Error :", error)
+  let getImage=(product)=>{
+    let image = product?.images?.[0]?.image
+    if(!image) return "product image"
+    else{
+      return image
     }
   }
+  console.log(products[0])
 
+  /* ---------------- FETCH PRODUCTS ---------------- */
+  useEffect(() => {
+    setLoading(true)
 
-  let RemoveProduct = (id) => {
-    if (!id) return alert("Value of id is :", id)
-    axios.delete(`http://127.0.0.1:8000/api/products/${id}/`)
-      .then((res) => {
-        console.log("DELETED PRODUCT", res.data)
-        setTimeout(() => {
-          setProductList((prev) => prev.filter((el) => el.id !== id))
-        }, 300)
+    axios.get(`${API_BASE}/api/products/`)
+      .then(res => {
+        setProducts(res.data.results || [])
       })
-      .catch((err) => console.log("Backend Error", err.response.data))
+      .catch(err => {
+        console.error(err.response?.data || err.message)
+      })
+      .finally(() => setLoading(false))
+  }, [showEdit])
+
+  /* ---------------- ACTIONS ---------------- */
+  let handleEdit = (product) => {
+    setEditData({
+      ...product,
+      variants: product.variants.map(v => ({ ...v })),
+      images: product.images || [],
+      deleted_images: []
+    })
+    setShowEdit(true)
   }
 
+  let removeProduct = (id) => {
+    axios.delete(`${API_BASE}/api/products/${id}/`)
+      .then(() => {
+        setProducts(prev => prev.filter(p => p.id !== id))
+      })
+      .catch(err => console.error(err.response?.data))
+  }
 
-  // close edit box
-  let closeEdit = () => {
-    setShowEdit(false)
+  /* ---------------- RENDER ---------------- */
+  if (loading) {
+    return (
+      <div className="listBox">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <SkeletonCard key={i} />
+        ))}
+      </div>
+    )
   }
 
   return (
@@ -93,63 +71,50 @@ function ProductList() {
       </div>
 
       <div className="listBox">
-        {loading ?
-          <>
-            {skeleton()}
-          </> :
+        {products.map(product => {
 
-          <>
-            {productList.map((item) => (
-              <div className="listItem" key={item.id}>
-                {/* LEFT - Image */}
-                <div className="left">
-                  <img src={item.images?.[0]?.thumbnail} alt="productImage" loading="lazy" />
-                </div>
+          let sizes = [...new Set(product.variants.map(v => v.size))]
+          let colors = [...new Set(product.variants.map(v => v.color))]
+          let stock = product.variants.reduce((s, v) => s + v.stock, 0)
 
-                {/* CENTER - Info */}
-                <div className="center">
-                  <h2>{item.name}</h2>
-
-                  <p className="sizes">
-                    {item.variants?.map(v => v.size).join(" | ")}
-                  </p>
-
-                  <p>
-                    {item.variants?.map(v => v.color).join(" | ")}
-                  </p>
-
-                  <p className="stock">
-                    Stock: {item.variants?.reduce((sum, v) => sum + v.stock, 0)}
-                  </p>
-
-                  <p className="cat">Category: {item.category}</p>
-                </div>
-
-
-                {/* RIGHT - Buttons */}
-                <div className="right">
-                  <p className="editBtn" onClick={() => handleEdit(item, item.product_code)}>EDIT </p>
-
-                  <p className="delBtn" onClick={() => RemoveProduct(item.id)}>DEL</p>
-                </div>
+          return (
+            <div className="listItem" key={product.id}>
+              <div className="left">
+                <img
+                  src={getImage(product)}
+                  alt={product.name}
+                />
               </div>
-            ))}</>}
+
+              <div className="center">
+                <h2>{product.name}</h2>
+                <p>Sizes: {sizes.join(" | ")}</p>
+                <p>Colors: {colors.join(" | ")}</p>
+                <p className="stock">Stock: {stock}</p>
+                <p className="cat">Category: {product.category}</p>
+              </div>
+
+              <div className="right">
+                <p className="editBtn" onClick={() => handleEdit(product)}>EDIT</p>
+                <p className="delBtn" onClick={() => removeProduct(product.id)}>DEL</p>
+              </div>
+            </div>
+          )
+        })}
       </div>
 
-      {/* Edit Form */}
-      {showEdit && <EditProduct
-        setShowEdit={setShowEdit}
-        editData={editData}
-        setEditData={setEditData}
-        close={closeEdit}
-
-      />}
+      {showEdit && (
+        <EditProduct
+          editData={editData}
+          setEditData={setEditData}
+          close={() => setShowEdit(false)}
+        />
+      )}
     </>
   )
 }
 
 export default ProductList
-
 
 
 
@@ -165,17 +130,13 @@ function EditProduct({ setShowEdit,editData, setEditData, close }) {
   let navigate = useNavigate();
   let fileRef = useRef(null)
 
-
-
-
-
   useEffect(() => {
-  console.log("delete_images changed:", editData.delete_images);
-}, [editData.delete_images]);
+    console.log("delete_images changed:", editData.delete_images);
+  }, [editData.delete_images]);
 
 
   // UPDATING PRODUCTS TOP MOST FIELDS
-  const handleEditChange = (e) => {
+  let handleEditChange = (e) => {
     let { name, value } = e.target
 
     setEditData((prev) => {
@@ -203,7 +164,7 @@ function EditProduct({ setShowEdit,editData, setEditData, close }) {
   }
 
   // HANDLING IMAGES INPUT FROM FILELIST
-  const handleFiles = (e) => {
+  let handleFiles = (e) => {
 
     let files = Array.from(e.target.files);
 
@@ -230,11 +191,11 @@ function EditProduct({ setShowEdit,editData, setEditData, close }) {
   };
 
   // REMOVE IMAGE// REMOVE IMAGE
-  const removeImage = (remove_id,rmIndex) => {
+  let removeImage = (remove_id,rmIndex) => {
 
       setEditData(prev => {
-        const images = [...prev.images];
-        const img = images[rmIndex];
+        let images = [...prev.images];
+        let img = images[rmIndex];
       
         // Revoke blob URL ONLY for newly added images
         if (img?.is_new && img.image?.startsWith("blob:")) {
@@ -242,7 +203,7 @@ function EditProduct({ setShowEdit,editData, setEditData, close }) {
         }
       
         // Prepare delete_images array safely
-        const delete_images = [...(prev.delete_images || [])];
+        let delete_images = [...(prev.delete_images || [])];
       
         // If image already exists in backend, mark it for deletion
         if (!img?.is_new && img?.id && !delete_images.includes(remove_id)) {
@@ -272,9 +233,9 @@ function EditProduct({ setShowEdit,editData, setEditData, close }) {
   }
 
   // API PATCH REQ FOR PRODUCT UPDATE
-  const productUpdate = (id) => {
+  let productUpdate = (id) => {
     console.log("Disocunt :",calcDiscount(editData.price,editData.discount_price))
-    const sendToForm = new FormData;
+    let sendToForm = new FormData;
 
     sendToForm.append("name", editData.name)
     sendToForm.append("price", editData.price)
@@ -305,7 +266,6 @@ function EditProduct({ setShowEdit,editData, setEditData, close }) {
       console.log(error.message)
     }
   }
-
 
 
   return (
@@ -388,7 +348,7 @@ function EditProduct({ setShowEdit,editData, setEditData, close }) {
               <div className="imageItem">
                 {editData?.images.length > 0 ? editData?.images?.map((el, i) => (
                   <div className="keepImage" key={i}>
-                    <img src={el?.image} alt="product_img" className="previewImg" />
+                    <img src={el.image} alt="product_img" className="previewImg" />
                     <button onClick={() => removeImage(el.id,i)} className="deleteImageBtn">
                       <X size={16} />
                     </button>

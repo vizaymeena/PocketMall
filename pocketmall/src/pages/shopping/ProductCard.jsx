@@ -2,26 +2,29 @@
 import { useNavigate } from "react-router-dom"
 import { useState,useEffect } from "react"
 import { IndianRupee,ShoppingCart } from "lucide-react"
-
+import '../../assets/style/shopping.css'
 import { useCart } from "../../contexts/userContext/CartContext"
 
 export default function ProductCard({ product }) {
-  const [showImage, setShowImage] = useState(false)
-  const navigate = useNavigate()
+  let [showImage, setShowImage] = useState(false)
+  let navigate = useNavigate()
 
-  const { saveCart } = useCart()   // 👈 get cart function from context
+  let { saveCart } = useCart()  
 
   useEffect(() => {
-    const t = setTimeout(() => setShowImage(true), 300)
+    let t = setTimeout(() => setShowImage(true), 300)
     return () => clearTimeout(t)
   }, [])
 
-  const includeInCart = () => {
+  let includeInCart = () => {
     saveCart({
       id: product.id,
       name: product.name,
       price: product.price,
-      image: product.images?.[0]?.image
+      image: product.images?.[0]?.image,
+      size:"m",
+      color:'black',
+      quantity:1,
     })
   }
 
@@ -38,7 +41,7 @@ export default function ProductCard({ product }) {
           <div
             className="buynow"
             onClick={() =>
-              navigate("/buyNow", { state: { item: product } })
+              navigate("/buyNow", { state: { buyProduct: product } })
             }
           >
             <IndianRupee />
@@ -50,8 +53,9 @@ export default function ProductCard({ product }) {
         </div>
 
         <div className="productBottom">
-          <p>₹ {product.price}</p>
+        
           <h1>{product.name}</h1>
+          <p>₹ {product.price}</p>
         </div>
       </div>
     </div>

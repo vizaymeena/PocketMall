@@ -1,68 +1,101 @@
+/* =========================
+   REVIEWS SECTION
+========================= */
 .reviewsSection {
-  width: fit-content;
-  padding: 2rem 0;
-  font-family: "Poppins", sans-serif;
+  margin-top: 64px;
+  padding: 32px 0;
+  background: transparent;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  overflow: hidden;
 }
 
 .reviewsSection h3 {
   font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: #6f2dbd;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 20px;
 }
 
-/* Horizontal auto-scroll container */
+/* =========================
+   SLIDER CONTAINER
+========================= */
 .reviewsSlider {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding-bottom: 10px;
-  scrollbar-width: none;  /* Firefox */
-}
-
-.reviewsSlider::-webkit-scrollbar {
-  display: none;          /* Chrome/Safari */
-}
-
-/* Review Card / Ticket */
-.reviewTicket {
-  min-width: 260px;
-  max-width: 260px;
-  background: white;
-  padding: 16px;
-  border-radius: 14px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.07);
-  border-left: 4px solid #dc5397;
-  user-select: none;
-}
-
-.stars {
-  color: #ffb700;
-  font-size: 18px;
-  margin-bottom: 6px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.feedback {
-  font-size: 14px;
-  line-height: 1.4;
-  margin-bottom: 8px;
-}
-
-.name {
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-}
-
-/* gsap */
-.reviewsSlider {
+  position: relative;
   overflow: hidden;
 }
 
+/* Track for auto-scroll / GSAP */
 .reviewsTrack {
   display: flex;
   gap: 20px;
+  padding-bottom: 6px;
+}
+
+/* =========================
+   REVIEW CARD
+========================= */
+.reviewTicket {
+  min-width: 280px;
+  max-width: 280px;
+  background: #ffffff;
+  padding: 18px 20px;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.reviewTicket:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.1);
+}
+
+/* =========================
+   STARS
+========================= */
+.stars {
+  display: flex;
+  gap: 4px;
+  font-size: 16px;
+  color: #f59e0b;
+  margin-bottom: 10px;
+}
+
+/* =========================
+   FEEDBACK TEXT
+========================= */
+.feedback {
+  font-size: 14px;
+  line-height: 1.55;
+  color: #374151;
+  margin-bottom: 14px;
+}
+
+/* =========================
+   USER NAME
+========================= */
+.name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* =========================
+   VERIFIED BADGE (optional)
+========================= */
+.name::after {
+  content: " • Verified Buyer";
+  font-weight: 500;
+  color: #16a34a;
+  font-size: 12px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+  .reviewTicket {
+    min-width: 240px;
+    max-width: 240px;
+  }
 }

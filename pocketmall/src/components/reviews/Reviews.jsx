@@ -41,8 +41,8 @@ export default function CustomerReviews() {
             <div className="reviewTicket" key={index}>
               <p className="feedback">"{f.feedback}"</p>
               <div className="stars">
-                {"â˜…".repeat(f.stars)}
-                {"â˜†".repeat(5 - f.stars)}
+                {"*".repeat(f.stars)}
+                {"*".repeat(5 - f.stars)}
                 <strong className="name">- {f.name}</strong>
               </div>
             </div>

@@ -10,7 +10,7 @@ import  billboard_1  from "../../assets/images/billboard1.jpg"
 import  billboard_3  from "../../assets/images/billboard3.jpg"
 
 
-const homeImages = [
+let homeImages = [
   {
     image:billboard_1,
     tag: "New Arrivals",
@@ -35,7 +35,7 @@ const homeImages = [
 ]
 
 
-const BillboardSlider = () => {
+let BillboardSlider = () => {
 
     console.log("billboard one image :",billboard_1)
 

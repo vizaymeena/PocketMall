@@ -1,49 +1,63 @@
-﻿
-import '../assets/style/primarynav.css'
-import { FaShoppingBag, FaBell } from 'react-icons/fa'
-import { useNavigate } from 'react-router-dom'
-import GoogleLoginButton from '../components/google-login-button/GoogleLoginButton'
+﻿import '../assets/style/primarynav.css'
+import { FaShoppingBag, FaBell, FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa"
+import { useNavigate } from "react-router-dom"
 
-import { useAuth } from '../contexts/userContext/LoginContext'
-
-import { FaSignOutAlt } from "react-icons/fa"
-
-import { useCart } from '../contexts/userContext/CartContext'
+import GoogleLoginButton from "../components/google-login-button/GoogleLoginButton"
+import { useAuth } from "../contexts/userContext/LoginContext"
+import { useCart } from "../contexts/userContext/CartContext"
+import { useState } from "react"
 
 export function PrimaryNavbar() {
-  const { user, isAuthenticated, loggedOut } = useAuth()
-  const { cartItems } = useCart()
+  let { user, isAuthenticated, loggedOut } = useAuth()
+  let { cartItems } = useCart()
+  let navigate = useNavigate()
 
-  const navigate = useNavigate()
-  
+  let [menuOpen, setMenuOpen] = useState(false)
+
   return (
     <header className="pm_navbar">
-      {/* Logo */}
-      <div className="pm_logo" onClick={() => navigate("/")}>
-        Pocket<span>Mall</span>
+      {/* LEFT */}
+      <div className="pm_left">
+        <h2 className="pm_logo" onClick={() => navigate("/")}>
+          Pocket<span>Mall</span>
+        </h2>
       </div>
 
-      {/* Right Section */}
-      <div className="pm_right">
+      {/* HAMBURGER */}
+      <div className="pm_hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+        {menuOpen ? <FaTimes /> : <FaBars />}
+      </div>
+
+      {/* RIGHT */}
+      <div className={`pm_right ${menuOpen ? "open" : ""}`}>
         {!isAuthenticated ? (
           <GoogleLoginButton />
         ) : (
           <div className="pm_user_panel">
-            {/* Notification */}
+
             <div className="pm_icon_wrap">
               <FaBell />
-              <span className="pm_badge">{cartItems.length}</span>
+              <span className="pm_badge">{0}</span>
             </div>
 
             {/* Cart */}
-            <div className="pm_icon_wrap">
+            <div
+              className="pm_icon_wrap"
+              onClick={() => {
+                navigate("/userdashboard")
+                setMenuOpen(false)
+              }}
+            >
               <FaShoppingBag />
+              {cartItems.length > 0 && (
+                <span className="pm_badge">{cartItems.length}</span>
+              )}
             </div>
 
-            {/* User Info */}
+            {/* Profile */}
             <div className="pm_profile">
               <div className="pm_avatar">
-                {/* {user.toUpperCase()} */}
+                {user[0].toUpperCase()}
               </div>
               <span className="pm_username">
                 {user.split("@")[0]}
@@ -51,9 +65,15 @@ export function PrimaryNavbar() {
             </div>
 
             {/* Logout */}
-            <button className="pm_logout" onClick={loggedOut} >
+            <button
+              className="pm_logout"
+              onClick={() => {
+                loggedOut()
+                setMenuOpen(false)
+              }}
+            >
               <FaSignOutAlt />
-              Logout
+              <span className="pm_logout_text">Logout</span>
             </button>
           </div>
         )}
