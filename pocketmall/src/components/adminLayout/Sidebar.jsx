@@ -13,8 +13,8 @@ export default function Sidebar() {
       gsap.set(productSubNavRef.current, { height: 0, opacity: 0, overflow: "hidden" });
     }, []);
 
-  const handleProducts = () => {
-    const items = productSubNavRef.current.querySelectorAll("a");
+  let handleProducts = () => {
+    let items = productSubNavRef.current.querySelectorAll("a");
 
     setOpenProducts((prev) => !prev);
 
@@ -94,7 +94,6 @@ export default function Sidebar() {
           <div ref={productSubNavRef} className="subNav">
             <NavLink to="/adminDashboard/products/add">Add Product</NavLink>
             <NavLink to="/adminDashboard/products/list">List Products</NavLink>
-            <NavLink /*to="/adminDashboard/products/categories"*/ >Categories</NavLink>
           </div>
         </div>
 

@@ -1,15 +1,15 @@
 import { createContext, useContext, useEffect, useState } from "react"
 
-const AuthContext = createContext(null)
+let AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [isLoading, setLoading] = useState(true)
+  let [user, setUser] = useState(null)
+  let [isAuthenticated, setIsAuthenticated] = useState(false)
+  let [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
-    const access = localStorage.getItem("access")
-    const email = localStorage.getItem("user")
+    let access = localStorage.getItem("access")
+    let email = localStorage.getItem("user")
 
     if (access && email) {
       setUser(email)
@@ -19,13 +19,13 @@ export function AuthProvider({ children }) {
     setLoading(false)
   }, [])
 
-  const loggedIn = ({ access, refresh, email }) => {
+  let loggedIn = ({ access, refresh, email }) => {
     if (!access || !refresh || !email) return
     setUser(email)
     setIsAuthenticated(true)
   }
 
-  const loggedOut = () => {
+  let loggedOut = () => {
     localStorage.clear()
     setUser(null)
     setIsAuthenticated(false)
@@ -44,4 +44,4 @@ export function AuthProvider({ children }) {
   )
 }
 
-export const useAuth = () => useContext(AuthContext)
+export let useAuth = () => useContext(AuthContext)

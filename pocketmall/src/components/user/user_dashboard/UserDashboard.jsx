@@ -40,29 +40,16 @@ export default function UserDashboard() {
             <span>My Cart</span>
           </NavLink>
 
-          <NavLink to="pending" className="ud_nav_item">
-            <Clock size={18} />
-            <span>Pending Orders</span>
-          </NavLink>
-
           <NavLink to="delivery" className="ud_nav_item">
             <Truck size={18} />
             <span>In Delivery</span>
           </NavLink>
 
-          <NavLink to="transactions" className="ud_nav_item">
-            <CreditCard size={18} />
-            <span>Transactions</span>
-          </NavLink>
         </nav>
 
         {/* Footer actions */}
         <div className="ud_sidebar_footer">
-          <NavLink to="settings" className="ud_nav_item">
-            <Settings size={18} />
-            <span>Settings</span>
-          </NavLink>
-
+    
           <button className="ud_logout_btn">
             <LogOut size={18} />
             <span>Logout</span>
@@ -74,19 +61,6 @@ export default function UserDashboard() {
       {/* ========== MAIN BODY ========== */}
       <main className="right ud_body">
 
-        {/* Top bar */}
-        <header className="ud_topbar">
-          <h1 className="ud_page_title"></h1>
-
-          <div className="ud_topbar_right">
-            <div className="ud_balance_card">
-              <span>Total Cart</span>
-              <strong>₹12,450</strong>
-            </div>
-          </div>
-        </header>
-
-        {/* Outlet Area */}
         <section className="ud_outlet">
           <Outlet />
         </section>

@@ -7,7 +7,7 @@ import "../../../assets/style/create_product.css"
 import CreateLeft from "./CreateLeft"
 import CreateRight from "./CreateRight"
 import { useNavigate } from "react-router-dom"
-import ProductList from "../../../pages/admin/ProductList"
+
 
 
 let MAX_IMAGES = 4

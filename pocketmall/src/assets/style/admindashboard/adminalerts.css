@@ -1,0 +1,84 @@
+.adminAlerts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.alertCard {
+  padding: 16px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alertCard h4 {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+}
+
+.alertCard span {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.alertCard.danger span {
+  color: #dc2626;
+}
+
+.alertCard.warning span {
+  color: #f97316;
+}
+
+.alertCard.info span {
+  color: #2563eb;
+}
+
+
+.adminAlerts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.alertCard {
+  padding: 16px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alertCard h4 {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+}
+
+.alertCard span {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.alertCard.danger span {
+  color: #dc2626;
+}
+
+.alertCard.warning span {
+  color: #f97316;
+}
+
+.alertCard.info span {
+  color: #2563eb;
+}
+
+@media (max-width: 480px) {
+  .adminAlerts {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,53 @@
+.popularProducts {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+}
+
+.popularProducts h2 {
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: #1f2937;
+}
+
+.popularProducts table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.popularProducts th,
+.popularProducts td {
+  padding: 12px;
+  font-size: 14px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.popularProducts th {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.popularProducts td {
+  color: #374151;
+}
+
+
+
+@media (max-width: 360px) {
+  .popularProducts table,
+  .popularProducts thead {
+    display: block;
+  }
+
+  .popularProducts tr {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+
+  .popularProducts th {
+    display: none;
+  }
+}

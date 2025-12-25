@@ -1,0 +1,125 @@
+.transactionSection {
+  background: #f2f2f2ec;
+  padding: 24px;
+  border-radius: 14px;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.transactionHeader {
+  margin-bottom: 16px;
+}
+
+.transactionTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.transactionSubtitle {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.transactionList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.transactionCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.transactionLeft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.transactionImage {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.transactionDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.transactionName {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.transactionDate {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.transactionRight {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.transactionPrice {
+  font-size: 14px;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+.transactionPayment {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.transactionActionBtn {
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  background: #2563eb;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/* Status styles */
+
+.transactionCard.pending {
+  border-left: 4px solid #f59e0b;
+}
+
+.transactionCard.pending .transactionPayment {
+  color: #f59e0b;
+}
+
+.transactionCard.paid {
+  border-left: 4px solid #2563eb;
+}
+
+.transactionCard.paid .transactionPayment {
+  color: #2563eb;
+}
+
+.transactionCard.delivered {
+  border-left: 4px solid #16a34a;
+}
+
+.transactionCard.delivered .transactionPayment {
+  color: #16a34a;
+}

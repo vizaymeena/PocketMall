@@ -1,0 +1,148 @@
+.adminHome {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: #f6f8fb;
+  min-height: 100%;
+}
+
+/* Header */
+.adminHomeHeader h1 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.adminHomeHeader p {
+  margin-top: 4px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Stats Section */
+.adminStats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.statCard {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.statCard h3 {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.statCard span {
+  font-size: 26px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.statCard.warning span {
+  color: #dc2626;
+}
+
+/* Activity */
+.adminActivity {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+}
+
+.adminActivity h2 {
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: #1f2937;
+}
+
+.adminActivity ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.adminActivity li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
+  color: #374151;
+}
+
+.adminActivity li:last-child {
+  border-bottom: none;
+}
+
+.adminActivity small {
+  margin-left: auto;
+  color: #9ca3af;
+}
+
+/* Dots */
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot.success {
+  background: #22c55e;
+}
+
+.dot.info {
+  background: #3b82f6;
+}
+
+.dot.warning {
+  background: #f97316;
+}
+
+
+/* MEDIA QUERY */
+@media (max-width: 480px) {
+  .adminStats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .adminHome {
+    padding: 16px;
+  }
+
+  .adminHomeHeader h1 {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 360px) {
+  .adminStats {
+    grid-template-columns: 1fr;
+  }
+
+  .statCard span {
+    font-size: 22px;
+  }
+
+  .adminActivity li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .adminActivity small {
+    margin-left: 0;
+  }
+}

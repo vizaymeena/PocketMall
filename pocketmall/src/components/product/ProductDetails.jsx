@@ -6,27 +6,30 @@ import "../../assets/style/productDetails.css"
 import CustomerReviews from "../reviews/Reviews"
 import { useAuth } from '../../contexts/userContext/LoginContext'
 import { useCart } from '../../contexts/userContext/CartContext'
-
+import axios from "axios"
 
 export default function ProductDetails() {
-  const location = useLocation()
-  const navigate = useNavigate()
-  const { user } = useAuth()
+  let location = useLocation()
+  let navigate = useNavigate()
+  let { user } = useAuth()
+  let { saveCart } = useCart()
 
   /* UI State */
-  const [activeSize, setActiveSize] = useState("s")
-  const [activeColor, setActiveColor] = useState("blue")
-  const [qty, setQty] = useState(1)
+  let [activeSize, setActiveSize] = useState("s")
+  let [activeColor, setActiveColor] = useState("blue")
+  let [qty, setQty] = useState(1)
 
   /* Product State */
-  const [product, setProduct] = useState(null)
+  let [product, setProduct] = useState(null)
+  let [added,setAdded] = useState(false)
 
   /* Purchase State */
-  const [buy, setBuying] = useState({
+  let [buy, setBuying] = useState({
+    proId:null,
     proName: "",
     proDescription: "",
-    proSize: "",
-    proColor: "",
+    proSize: "s",
+    proColor: "black",
     proQuantity: 1,
     proPrice: 0,
     proStatus: "pending",
@@ -35,36 +38,40 @@ export default function ProductDetails() {
 
   /* Get product from navigation */
   useEffect(() => {
-    const navProduct = location?.state?.buyProduct
+    let navProduct = location?.state?.buyProduct
   
     if (!navProduct) {
       navigate("/", { replace: true })
       return
     }
     setProduct(navProduct)
-   
   }, [location, navigate])
 
   /* Sync buy state when product or quantity changes */
   useEffect(() => {
     if (!product) return
-
     setBuying(prev => ({
       ...prev,
+      proId:product.id || null,
       proName: product.name || product.title,
       proDescription: product.description || "",
       proQuantity: qty,
       proPrice: qty * product.price
     }))
+    setAdded(false)
 
   }, [product, qty])
+  
+  useEffect(() => {
+    setAdded(false)
+  }, [activeSize, activeColor])
 
-  /* Handlers */
-  const handleSize = (e) => {
-    const el = e.target.closest("span")
+  // size function
+  let handleSize = (e) => {
+    let el = e.target.closest("span")
     if (!el) return
 
-    const size = el.dataset.size
+    let size = el.dataset.size
     setActiveSize(size)
 
     setBuying(prev => ({
@@ -72,12 +79,12 @@ export default function ProductDetails() {
       proSize: size
     }))
   }
-
-  const handleColor = (e) => {
-    const el = e.target.closest("span")
+  // color function 
+  let handleColor = (e) => {
+    let el = e.target.closest("span")
     if (!el) return
 
-    const color = el.dataset.color
+    let color = el.dataset.color
     setActiveColor(color)
 
     setBuying(prev => ({
@@ -88,15 +95,38 @@ export default function ProductDetails() {
 
   if (!product) return null
 
-  let buyProduct = () => {
-    try{
-      axios.post(`http://127.0.0.1:8000/api/buyitem/${id}`,{
-        "user":user
-      })
-    }
-    catch(error){
-      console.log(error?.reponse?.data)
-    }
+  /* ============================================================================ */
+              /* Purchase api call to backend */
+  /* ============================================================================ */
+
+
+  // let buyProduct = () => {
+  //   try{
+  //     axios.post(`http://127.0.0.1:8000/api/buyitem/${product?.id}`,{
+  //       "user":user
+  //     })
+  //   }
+  //   catch(error){
+  //     console.log(error?.reponse?.data)
+  //   }
+  // }
+
+  /* ============================================================================ */
+
+  // add to cart 
+  let handleCartButton = () => {
+    if(added) return
+     saveCart({
+      productId: product.id,
+      name: product.name,
+      image: product.images?.[0]?.image,
+      price: product.price,
+      size: buy.proSize,
+      color: buy.proColor,
+      quantity: qty,
+      totalPrice: product.price * qty
+    })
+    setAdded(true)
   }
 
   return (
@@ -196,7 +226,6 @@ export default function ProductDetails() {
             <button
               className="buyNow"
               disabled={!buy.proSize || !buy.proColor}
-              onClick={buyProduct}
             >
               Buy Now
             </button>
@@ -204,8 +233,9 @@ export default function ProductDetails() {
             <button
               className="addToCart"
               disabled={!buy.proSize || !buy.proColor}
+              onClick={handleCartButton}
             >
-              Add to Cart <ShoppingCart />
+              {added ? "Added ✓" : <>Add to Cart <ShoppingCart /></>}
             </button>
           </div>
         </div>

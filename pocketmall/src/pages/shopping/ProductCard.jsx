@@ -6,22 +6,25 @@ import '../../assets/style/shopping.css'
 import { useCart } from "../../contexts/userContext/CartContext"
 
 export default function ProductCard({ product }) {
-  const [showImage, setShowImage] = useState(false)
-  const navigate = useNavigate()
+  let [showImage, setShowImage] = useState(false)
+  let navigate = useNavigate()
 
-  const { saveCart } = useCart()  
+  let { saveCart } = useCart()  
 
   useEffect(() => {
-    const t = setTimeout(() => setShowImage(true), 300)
+    let t = setTimeout(() => setShowImage(true), 300)
     return () => clearTimeout(t)
   }, [])
 
-  const includeInCart = () => {
+  let includeInCart = () => {
     saveCart({
       id: product.id,
       name: product.name,
       price: product.price,
-      image: product.images?.[0]?.image
+      image: product.images?.[0]?.image,
+      size:"m",
+      color:'black',
+      quantity:1,
     })
   }
 

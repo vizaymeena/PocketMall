@@ -6,12 +6,13 @@ import { ProductSkeleton } from "../../utils/Skeleton"
 import "../../assets/style/shopping.css"
 
 function ShoppingWindow() {
-  const [products, setProducts] = useState([])
-  const [nextUrl, setNextUrl] = useState("http://127.0.0.1:8000/api/products/")
-  const [hasMore, setHasMore] = useState(true)
-  const [loading, setLoading] = useState(false)
+  let [products, setProducts] = useState([])
+  let [nextUrl, setNextUrl] = useState("http://127.0.0.1:8000/api/products/")
+  let [hasMore, setHasMore] = useState(true)
+  let [loading, setLoading] = useState(false)
 
-  const fetchMoreData = async () => {
+
+  let fetchMoreData = async () => {
     if (!nextUrl || loading) {
       setHasMore(false)
       return
@@ -41,7 +42,7 @@ function ShoppingWindow() {
       {/* ===== HEADER ===== */}
       <div className="shopHeader">
         <div>
-          <h1 className="shopTitle">Men’s Collection</h1>
+          <h1 className="shopTitle">Men's Collection</h1>
           <p className="shopSubtitle">
             {products.length} products available
           </p>
@@ -67,7 +68,7 @@ function ShoppingWindow() {
       >
         <div className="productGrid">
           {products.map(p => (
-            <ProductCard key={p.id} product={p} />
+            <ProductCard key={p.id || p.product_code} product={p} />
           ))}
         </div>
       </InfiniteScroll>

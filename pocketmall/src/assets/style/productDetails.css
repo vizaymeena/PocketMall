@@ -290,26 +290,128 @@
 /* =========================
    RESPONSIVE
 ========================= */
-@media (max-width: 1024px) {
-  .productKeyInsights {
-    grid-template-columns: 1fr;
+@media (max-width: 360px) {
+
+  /* page padding */
+  .documentationMain {
+    padding: 14px;
   }
 
+  /* breadcrumb */
+  .routes {
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+
+  /* card layout */
+  .productKeyInsights {
+    padding: 18px;
+    gap: 22px;
+    border-radius: 14px;
+  }
+
+  /* image */
   .mainImage {
-    height: 420px;
+    height: 240px;
+    border-radius: 12px;
+  }
+
+  /* product info text */
+  .productbriefing h2 {
+    font-size: 20px;
+  }
+  .description {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+  .price {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  /* option buttons */
+  .sizeChoice,
+  .colorChoice {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .sizeChoice span,
+  .colorChoice span {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  /* quantity controls */
+  .qtyBtn {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+  .qtyValue {
+    min-width: 36px;
+    font-size: 14px;
+  }
+
+  /* call-to-action buttons */
+  .buttons {
+    gap: 10px;
+  }
+  .buyNow,
+  .addToCart {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  /* reviews spacing */
+  .reviewsSection {
+    margin-top: 40px;
   }
 }
 
-@media (max-width: 600px) {
+@media (min-width: 361px) and (max-width: 480px) {
+
   .documentationMain {
-    padding: 20px;
+    padding: 18px;
+  }
+
+  .productKeyInsights {
+    padding: 22px;
+    gap: 28px;
   }
 
   .mainImage {
-    height: 320px;
+    height: 280px;
   }
 
-  .buttons {
-    flex-direction: column;
+  .productbriefing h2 {
+    font-size: 22px;
+  }
+  .description {
+    font-size: 14px;
+  }
+  .price {
+    font-size: 22px;
+  }
+
+  .sizeChoice,
+  .colorChoice {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .sizeChoice span,
+  .colorChoice span {
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+
+  .qtyBtn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .buyNow,
+  .addToCart {
+    font-size: 14px;
+    padding: 13px;
   }
 }

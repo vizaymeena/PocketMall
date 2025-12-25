@@ -2,8 +2,8 @@
    ROOT VARIABLES
 ========================= */
 :root {
-  --glass-bg: rgba(255, 255, 255, 0.12);
-  --glass-border: rgba(255, 255, 255, 0.25);
+  --glass-bg: rgba(31, 31, 31, 0.911);
+  --glass-border: rgba(237, 237, 237, 0.25);
   --glass-shadow: rgba(0, 0, 0, 0.25);
 
   --primary: #6c63ff;
@@ -14,30 +14,12 @@
   --text-muted: rgba(255, 255, 255, 0.65);
 }
 
-/* =========================
-   GLOBAL RESET
-========================= */
-* {
-  box-sizing: border-box;
-}
-
-body {
-  background: radial-gradient(circle at top, #1e1e2f, #0f0f18);
-  font-family: "Inter", system-ui, sans-serif;
-}
-
-/* =========================
-   LAYOUT
-========================= */
 .ud_layoutWrapper {
   display: flex;
   min-height: 100vh;
   color: var(--text-main);
 }
 
-/* =========================
-   SIDEBAR
-========================= */
 .ud_sidebar {
   width: 260px;
   padding: 20px;
@@ -192,7 +174,7 @@ body {
   flex: 1;
   padding: 10px;
   width: 100%;
-  background: var(--glass-bg);
+  background: white;
   backdrop-filter: blur(18px);
   border-radius: 22px;
   border: 1px solid var(--glass-border);
@@ -212,18 +194,208 @@ body {
   border-radius: 10px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 900px) {
+
+/* MEDIA QUERY */
+@media (max-width: 768px) {
   .ud_sidebar {
-    width: 80px;
+    width: 200px;
+    padding: 16px;
   }
 
-  .ud_nav_item span,
-  .ud_logout_btn span,
-  .ud_user,
+  .ud_nav_item {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+
   .ud_brand {
+    font-size: 20px;
+  }
+
+  .ud_balance_card {
+    padding: 10px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ud_layoutWrapper {
+    flex-direction: column;
+  }
+  .ud_body{
+    padding: 0;
+  }
+
+  .ud_sidebar {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 14px;
+    border-right: none;
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 6px 20px var(--glass-shadow);
+  }
+
+  .ud_sidebar_header {
+    margin-bottom: 0;
+  }
+
+  .ud_nav {
+    flex-direction: row;
+    gap: 6px;
+    overflow-x: auto;
+  }
+
+  .ud_nav_item {
+    padding: 10px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .ud_nav_item span {
     display: none;
+  }
+
+  .ud_sidebar_footer {
+    display: none;
+  }
+
+  .ud_body {
+    padding: 14px;
+  }
+
+  .ud_topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .ud_page_title {
+    font-size: 18px;
+  }
+
+  .ud_balance_card {
+    align-self: flex-end;
+  }
+
+  .ud_outlet {
+    border-radius: 18px;
+  }
+ 
+}
+
+@media (max-width: 360px) {
+  .ud_sidebar {
+    padding: 10px;
+  }
+  .ud_body{
+    padding: 0;
+  }
+  .ud_brand {
+    font-size: 18px;
+  }
+
+  .ud_nav_item {
+    padding: 8px;
+  }
+
+  .ud_balance_card {
+    padding: 8px 12px;
+  }
+
+  .ud_balance_card strong {
+    font-size: 14px;
+  }
+
+  .ud_page_title {
+    font-size: 16px;
+  }
+
+  .ud_outlet {
+    margin: 0 auto;
+    border-radius: 16px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .ud_layoutWrapper {
+    flex-direction: column;
+  }
+
+  .ud_sidebar {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 14px;
+
+    border-right: none;
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 6px 20px var(--glass-shadow);
+  }
+
+  .ud_sidebar_header {
+    margin-bottom: 0;
+  }
+
+  .ud_brand {
+    font-size: 18px;
+  }
+
+  .ud_user {
+    display: none;
+  }
+
+  .ud_nav {
+    flex-direction: row;
+    gap: 6px;
+    margin-left: auto;
+  }
+
+  .ud_nav_item {
+    padding: 10px;
+  }
+
+  .ud_nav_item span {
+    display: none;
+  }
+
+  .ud_sidebar_footer {
+    display: none;
+  }
+
+  .ud_body {
+    padding: 14px;
+  }
+
+  .ud_outlet {
+    padding: 12px;
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 360px) {
+  .ud_sidebar {
+    padding: 10px;
+  }
+
+  .ud_brand {
+    font-size: 16px;
+  }
+
+  .ud_nav_item {
+    padding: 8px;
+  }
+
+  .ud_nav_item svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .ud_body {
+    padding: 12px;
+  }
+
+  .ud_outlet {
+    padding: 10px;
+    border-radius: 16px;
   }
 }

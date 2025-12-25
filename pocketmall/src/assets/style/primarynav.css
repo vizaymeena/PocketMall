@@ -1,43 +1,48 @@
+/* ===== NAVBAR WRAPPER ===== */
 .pm_navbar {
-  height: 64px;
-  background: #0f172a; /* slate-900 */
-  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0 32px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  align-items: center;
+
+  padding: 14px 32px;
+  background: #ffffff;
+
+  border-bottom: 1px solid #eaeaea;
 }
 
-/* Logo */
+/* ===== LEFT ===== */
 .pm_logo {
-  font-size: 22px;
+  font-size: 1.6rem;
   font-weight: 700;
   cursor: pointer;
+  color: #111;
 }
 
 .pm_logo span {
-  color: #38bdf8;
+  color: #ff5a5f;
 }
 
-/* Right section */
+/* ===== RIGHT ===== */
 .pm_right {
   display: flex;
   align-items: center;
-  gap: 18px;
 }
 
-/* User Panel */
 .pm_user_panel {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 20px;
 }
 
-/* Icons */
+/* ===== ICON WRAPS ===== */
 .pm_icon_wrap {
   position: relative;
-  font-size: 18px;
+  font-size: 1.2rem;
+  color: #333;
   cursor: pointer;
   padding: 8px;
   border-radius: 50%;
@@ -45,22 +50,26 @@
 }
 
 .pm_icon_wrap:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: #f3f3f3;
 }
 
-/* Badge */
+/* ===== BADGE ===== */
 .pm_badge {
   position: absolute;
   top: 4px;
   right: 4px;
-  background: #ef4444;
-  color: white;
-  font-size: 10px;
+
+  background: #ff5a5f;
+  color: #fff;
+
+  font-size: 0.7rem;
+  font-weight: 600;
+
   padding: 2px 6px;
-  border-radius: 999px;
+  border-radius: 10px;
 }
 
-/* Profile */
+/* ===== PROFILE ===== */
 .pm_profile {
   display: flex;
   align-items: center;
@@ -68,42 +77,107 @@
   cursor: pointer;
 }
 
-/* Avatar */
 .pm_avatar {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+
+  background: linear-gradient(135deg, #ff5a5f, #ff8a5c);
+  color: #fff;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-weight: 700;
-  font-size: 14px;
 }
 
-/* Username */
 .pm_username {
-  font-size: 14px;
+  font-size: 0.9rem;
   font-weight: 500;
-  opacity: 0.9;
+  color: #333;
 }
 
-/* Logout */
+/* ===== LOGOUT ===== */
 .pm_logout {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
-  padding: 6px 12px;
-  border-radius: 6px;
+  background: none;
+  border: none;
+
+  font-size: 1.1rem;
+  color: #666;
+
   cursor: pointer;
-  font-size: 13px;
-  transition: all 0.2s ease;
+  padding: 8px 10px;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .pm_logout:hover {
-  background: #ef4444;
-  border-color: #ef4444;
+  background: #ffecec;
+  color: #ff5a5f;
+}
+
+
+/* ===== HAMBURGER ===== */
+.pm_hamburger {
+  display: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #333;
+}
+
+/* ===== MOBILE & TABLET ===== */
+@media (max-width: 768px) {
+  .pm_hamburger {
+    display: block;
+  }
+
+  .pm_right {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 100%;
+
+    background: #fff;
+    border-top: 1px solid #eaeaea;
+
+    display: none;
+    flex-direction: column;
+    padding: 16px 24px;
+  }
+
+  .pm_right.open {
+    display: flex;
+  }
+
+  .pm_user_panel {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .pm_icon_wrap {
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  .pm_profile {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background: #f8f8f8;
+  }
+
+  .pm_logout {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 8px;
+    background: #ffecec;
+    color: #ff5a5f;
+  }
+
+  .pm_logout_text {
+    font-size: 0.9rem;
+  }
 }
