@@ -100,7 +100,7 @@ function ProductCreation() {
         navigate('/adminDashboard')
       })
       .catch((err) => {
-        console.group("%c🔥 BACKEND ERROR", "color:red");
+        console.group("%c BACKEND ERROR", "color:red");
         console.log("Status:", err.response?.status);
         console.log("Data:", err.response?.data);
         console.log("Headers:", err.response?.headers);
@@ -115,9 +115,6 @@ function ProductCreation() {
 
   return (
     <div className="creationContainer">
-
-      {/* Stepper */}
-
 
       {/* Step Content */}
       <div className="stepContent">

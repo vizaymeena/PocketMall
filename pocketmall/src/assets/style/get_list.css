@@ -23,15 +23,20 @@ LIST VIEW (PRODUCT LIST)
   box-shadow: 0 3px 8px rgba(0,0,0,0.05);
 }
 
-
-
+.left{
+  height: 95vh;
+  width: 100px;
+  position: relative;
+  z-index: 1;
+}
 /* Left Image */
 .left img {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   z-index: -1;
-  width: 110px;
-  height: 110px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 0 20px 20px 0;
   filter: blur(0.3px);
@@ -42,6 +47,11 @@ LIST VIEW (PRODUCT LIST)
   font-size: 20px;
   font-weight: 600;
   color: #c88bff;
+}
+.center:nth-child(2){
+  color: gray;
+  font-size: 12px;
+  margin-top: 0.2rem;
 }
 
 .center .sizes,
@@ -92,10 +102,6 @@ LIST VIEW (PRODUCT LIST)
   z-index: 999;
 }
 
-/* =========================
-   MAIN CONTAINER
-   ========================= */
-
 .editContainer {
   width: 100%;
   max-width: 1100px;
@@ -107,10 +113,6 @@ LIST VIEW (PRODUCT LIST)
   flex-direction: column;
   overflow: hidden;
 }
-
-/* =========================
-   HEADER
-   ========================= */
 
 .editHeader {
   padding: 18px 24px;
@@ -140,18 +142,12 @@ LIST VIEW (PRODUCT LIST)
   background: #e5e7eb;
 }
 
-/* =========================
-   CONTENT AREA
-   ========================= */
 
 .editContent {
   padding: 24px;
   overflow-y: auto;
 }
 
-/* =========================
-   GRID & SECTIONS
-   ========================= */
 
 .editGrid {
   display: grid;
@@ -186,10 +182,6 @@ LIST VIEW (PRODUCT LIST)
   color: #1f2937;
   margin-bottom: 16px;
 }
-
-/* =========================
-   FORM STYLES
-   ========================= */
 
 .formGroup {
   display: flex;
@@ -228,10 +220,6 @@ LIST VIEW (PRODUCT LIST)
   gap: 16px;
 }
 
-/* =========================
-   IMAGES SECTION
-   ========================= */
-
 .imagesSection {
   margin-top: 32px;
 }
@@ -249,9 +237,6 @@ LIST VIEW (PRODUCT LIST)
   display: flex;
   gap: 20px;
 }
-/* =========================
-   IMAGE UPLOAD BOX
-   ========================= */
 
 .uploadBox {
   border: 2px dashed #d1d5db;
@@ -277,10 +262,6 @@ LIST VIEW (PRODUCT LIST)
   color: #4f46e5;
 }
 
-/* =========================
-   IMAGE PREVIEW
-   ========================= */
-
 .keepImage {
   position: relative;
   border-radius: 10px;
@@ -295,10 +276,6 @@ LIST VIEW (PRODUCT LIST)
   object-fit: cover;
   display: block;
 }
-
-/* =========================
-   DELETE IMAGE BUTTON
-   ========================= */
 
 .deleteImageBtn {
   position: absolute;
@@ -316,10 +293,6 @@ LIST VIEW (PRODUCT LIST)
   background: rgba(220, 38, 38, 0.85);
 }
 
-/* =========================
-   FOOTER
-   ========================= */
-
 .editFooter {
   padding: 16px 24px;
   border-top: 1px solid #e5e7eb;
@@ -328,10 +301,6 @@ LIST VIEW (PRODUCT LIST)
   justify-content: flex-end;
   gap: 12px;
 }
-
-/* =========================
-   BUTTONS
-   ========================= */
 
 .cancelBtn {
   padding: 10px 16px;
@@ -363,17 +332,68 @@ LIST VIEW (PRODUCT LIST)
   background: #4338ca;
 }
 
-/* =========================
-   RESPONSIVE
-   ========================= */
-
-@media (max-width: 768px) {
-  .editContainer {
-    max-width: 95%;
-    max-height: 95vh;
+@media (max-width: 360px) {
+  .listItem{
+    grid-template-columns: 1fr 2fr 1fr;
+    padding: 0 5px;
+    gap: 10px;
   }
+  .listItem .left{
+    width: 110px;
+    height: 100px;
+  }
+  .listItem .left img{
+    width: 100%;
+    height:100%
+  } 
+  .listItem .center h2{
+    font-size: 14px;
+    color: black;
+    margin-bottom: 0.2rem;
+  }
+  .listItem .cat{
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
 
-  .formTwoCols {
-    grid-template-columns: 1fr;
+  }
+  .listItem .stock{
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+}
+
+
+/* Edit Overlay */
+@media (max-width:360px){
+  .productCode{
+    display: none;
+  }
+  .editContainer{
+    width: 100%;
+  }
+  .editContent{
+    padding: 5px;
+    width: 100%;
+  }
+  .inputField{
+    width: 200px;
+  }
+  .formTwoCols{
+    grid-template-columns: repeat(1,1fr);
+  }
+  .imagesGrid{
+    grid-template-columns: repeat(1,1fr);
+    grid-template-rows: 120px;
+    gap: 0px;
+  }
+  .uploadBox{
+    padding: 0;
+    height: 100px !important;
+    width: 100px !important;
+  }
+  .imageItem{
+    height: 100px !important;
+    width: 100px !important;
   }
 }

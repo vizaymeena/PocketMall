@@ -106,15 +106,6 @@ export default function Sidebar() {
             <NavLink to="/adminDashboard/users/admins">Admins</NavLink>
           </div>
         </div>
-
-        <NavLink to="/adminDashboard/reports" className="navItem">
-          <BarChart3 /> <span>Reports</span>
-        </NavLink>
-
-        <NavLink to="/adminDashboard/settings" className="navItem">
-          <Settings /> <span>Settings</span>
-        </NavLink>
-
       </nav>
 
     </aside>
