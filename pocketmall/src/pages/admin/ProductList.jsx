@@ -15,7 +15,7 @@ function ProductList() {
     let image = product?.images?.[0]?.image
     if(!image) return "product image"
     else{
-      return image
+      return image || "image unavialble"
     }
   }
   console.log(products[0])
@@ -124,6 +124,7 @@ export default ProductList
 
 import { Save, Upload, X } from 'lucide-react'
 import { useNavigate } from 'react-router-dom' 
+import { useRef } from "react"
 
 function EditProduct({ setShowEdit,editData, setEditData, close }) {
 

@@ -181,9 +181,9 @@
   gap: 16px;
 }
 
-@media (min-width: 1024px) {
-  .preview-grid {
-    grid-template-columns: repeat(4, 1fr);
+@media (max-width: 360px) {
+  .create-container {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
@@ -657,15 +657,7 @@
 }
 
 /* RESPONSIVE DESIGN */
-@media (max-width: 1200px) {
-  .create-container {
-    grid-template-columns: 1fr;
-  }
-  
-  .variant-inputs {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+
 
 @media (max-width: 768px) {
   .admin-product-create {
@@ -739,8 +731,12 @@
 }
 
 @media (max-width: 360px) {
+  .mainArea{
+    padding: 0;
+  }
   .admin-product-create {
-    padding: 12px;
+    width: 100%;
+    padding: 0;
   }
 
   .card {
@@ -765,5 +761,20 @@
   .variant-add-btn {
     padding: 10px;
     font-size: 13px;
+  }
+}
+
+
+
+
+/* EDIT FORM */
+
+@media (max-widht:360px){
+  .editContainer{
+    width: 100%;
+  }
+  
+  .productDetails .productCode{
+   display: none;
   }
 }
