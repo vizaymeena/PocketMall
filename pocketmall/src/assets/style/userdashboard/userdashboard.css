@@ -374,6 +374,7 @@
 
 @media (max-width: 360px) {
   .ud_sidebar {
+    height: 100%;
     padding: 10px;
   }
 

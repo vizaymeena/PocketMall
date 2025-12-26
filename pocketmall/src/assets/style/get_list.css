@@ -24,7 +24,7 @@ LIST VIEW (PRODUCT LIST)
 }
 
 .left{
-  height: 100px;
+  height: 95vh;
   width: 100px;
   position: relative;
   z-index: 1;
@@ -340,7 +340,7 @@ LIST VIEW (PRODUCT LIST)
   }
   .listItem .left{
     width: 110px;
-    height: 100px;;
+    height: 100px;
   }
   .listItem .left img{
     width: 100%;
